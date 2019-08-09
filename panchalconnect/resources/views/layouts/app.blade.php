@@ -91,7 +91,7 @@
 			   </ul>
              </nav>
            </div>
-           <a class="brand" href="/index"><img src="images/logo.png" alt="logo"></a>
+		   <a class="brand" href="/"><img src="images/pclogo.png"  alt="logo"></a>
            <div class="pull-right">
           	<nav class="navbar nav_bottom" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
