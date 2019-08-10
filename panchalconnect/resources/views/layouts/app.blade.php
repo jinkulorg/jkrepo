@@ -70,7 +70,7 @@
 												@guest
 												<b>Guest</b>
 												@else
-												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} Panchal
+												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} 
 													@endguest
 											</label>
 										</a>
