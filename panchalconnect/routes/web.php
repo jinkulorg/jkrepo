@@ -49,3 +49,4 @@ Route::get('/feedback',function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/profile','CreateProfilesController');

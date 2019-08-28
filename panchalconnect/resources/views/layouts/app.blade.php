@@ -49,6 +49,7 @@
 
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="css/multiformstyle.css" />
 </head>
 
 <body>
@@ -70,7 +71,7 @@
 												@guest
 												<b>Guest</b>
 												@else
-												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} 
+												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} </b>
 													@endguest
 											</label>
 										</a>

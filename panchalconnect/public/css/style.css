@@ -1175,7 +1175,7 @@ table.table_working_hours {
     border: 0;
 }
 td.day_label {
-    color: #777;
+    color: rgb(77, 75, 75);
     padding:5px 0;
 }
 .table_working_hours tr{
@@ -1211,7 +1211,7 @@ td.day_label {
 .nav-tabs1>li{
 	margin-bottom:0;
 }
-a#profile-tab, a#home-tab, a#profile-tab1{
+a#list_aboutmyself_details, a#list_education_career_details, a#list_communication_details,a#list_family_details,a#list_review_submit_details{
     color: #fff;
 } 
 .grid_3{
@@ -1348,16 +1348,30 @@ ul.login_details li a{
 }
 .select-block1 select, .input-group1 input[type="text"]{
     box-shadow: none;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(179, 176, 176);
     border-radius: 0;
     outline: 0;
     background: #ffffff;
-    height: 35px;
+    height: 25px;
     line-height: 25px;
     padding: 5px 15px;
-    width: 100%;
-    color:#999;
+    width: 60%;
+    color:rgb(46, 44, 44);
 }
+.inputText_block1 input[type="text"]
+{
+    box-shadow: none;
+    border: 1px solid rgb(179, 176, 176);
+    border-radius: 0;
+    outline: 0;
+    background: #ffffff;
+    height: 25px;
+    line-height: 25px;
+    padding: 5px 15px;
+    width: 60%;
+    color:rgb(46, 44, 44);
+}
+
 .input-group1 input[type="text"]{
     border: 1px solid #e2e2e3;
     font-size: 0.85em;
@@ -3535,3 +3549,42 @@ ul.feature_list.feature_list1 {
     margin-bottom: 1em;
 }
 }
+
+/* #profileForm {
+    background-color:whitesmoke;
+ } */
+ .active_tab1
+  {
+   background-color:#c32143;
+   font-weight: 600;
+  }
+  .inactive_tab1
+  {
+  background-color:#ffa417;
+  cursor: not-allowed;
+  }
+  .has-error
+  {
+   border-color:gray;
+   background-color:#ffff99;
+  }
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #4CAF50;
+  }
+  
