@@ -10,7 +10,7 @@
         <li class="current-page">View Profile</li>
      </ul>
    </div>
-   
+   <h2>{{ $profile->User->name }} {{ $profile->User->lastname }} ({{$profile->id }})</h2>
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			   <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">
@@ -19,7 +19,18 @@
 				  <li role="presentation"><a href="#profile1" role="tab" id="profile-tab1" data-toggle="tab" aria-controls="profile1">Partner Preference</a></li>
 				  
 			   </ul>
-			   
+			   <div class="basic_1">
+                    <div class="col-md-12 basic_1_left">
+                        <!--------------------About Myself & Life Cycle------------------------------->
+                        <div class="tab">
+							<h3>About Myself</h3>
+							<p>Profile id:  {{$profile->id }}</p>
+							<p>Gender: {{ $profile->gender == 'F' ? 'Female' : 'Male' }}</p>
+							<p>Highest Education : {{$profile->highest_education }} </p>
+							<p>Education Details :  {{$profile->education_details}}</p>
+						</div>
+					</div>
+				</div>
 		  </div>
 	   </div>
    	 </div>
@@ -27,5 +38,5 @@
   </div>
 </div>
 
-   
+<script src="/js/multiform.js"></script>
 @endsection

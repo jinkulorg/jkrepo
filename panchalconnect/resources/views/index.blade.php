@@ -31,7 +31,7 @@
 				<?php
 				} else {
 					?>
-				<a href="/view_profile" class="hvr-shutter-out-horizontal">View your profile</a>
+				<a href="{{action('ProfilesController@show',Auth::User()->Profile->id)}}" class="hvr-shutter-out-horizontal">View your profile</a>
 				<?php
 				}
 				?>

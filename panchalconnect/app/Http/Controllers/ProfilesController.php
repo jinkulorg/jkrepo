@@ -111,7 +111,13 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile = Profile::find($id);
+        if ($profile == false) {
+            return "No profile for id: " . $id;
+
+        } else {
+            return view('view_profile', compact('profile'));
+        }
     }
 
     /**

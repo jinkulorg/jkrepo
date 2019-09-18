@@ -229,8 +229,10 @@
 </div>
 <div class="col-md-3 match_right">
 	<div class="profile_search1">
-	   <form>
-		  Search By Id: <input type="text" class="m_1" name="ne" size="30" required="" placeholder="Enter Profile ID :">
+	   <form method="post" id="profile_search_form" onsubmit="setAction()">
+     @CSRF
+     <input type="hidden" name="_method" value="GET"/>
+		  Search By Id: <input type="text" class="m_1" name="profileid" size="30" placeholder="Enter Profile ID">
 		  <input type="submit" value="Go">
 	   </form>
    </div>
@@ -245,4 +247,11 @@
      <div class="clearfix"> </div>
   </div>
 </div>
+
+<script>
+function setAction(){
+    var your_form = document.getElementById('profile_search_form');
+    your_form.action = "/profile/" + document.getElementsByName("profileid")[0].value ;
+}
+</script>
 @endsection
