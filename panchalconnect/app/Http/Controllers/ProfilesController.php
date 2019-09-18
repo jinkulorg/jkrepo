@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\User;
 
-class CreateProfilesController extends Controller
+class ProfilesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class CreateProfilesController extends Controller
     public function index()
     { 
         
-       return view('create_profile');  
+    
     }
 
     /**
@@ -26,7 +26,7 @@ class CreateProfilesController extends Controller
      */
     public function create()
     {
-      
+        return view('create_profile');
     }
 
     /**

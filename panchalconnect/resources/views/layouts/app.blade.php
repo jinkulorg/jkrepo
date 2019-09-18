@@ -19,8 +19,8 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$(".dropdown").hover(
@@ -40,16 +40,16 @@
 	<link href='//fonts.googleapis.com/css?family=Oswald:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 	<!----font-Awesome----->
-	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="/css/font-awesome.css" rel="stylesheet">
 	<!----font-Awesome----->
 
 	<!-- Styles -->
-	<link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
+	<link href="/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 	<!-- Custom Theme files -->
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="css/multiformstyle.css" />
+	<link href="/css/style.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="/css/multiformstyle.css" />
 </head>
 
 <body>
@@ -97,7 +97,7 @@
 						</nav>
 					</div>
 				</div>
-				<a class="brand" href="/"><img src="images/pclogo.png" alt="logo"></a>
+				<a class="brand" href="/"><img src="/images/pclogo.png" alt="logo"></a>
 				<div class="pull-right">
 					<nav class="navbar nav_bottom" role="navigation">
 						<!-- Brand and toggle get grouped for better mobile display -->

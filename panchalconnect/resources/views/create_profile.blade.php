@@ -717,5 +717,5 @@
         </div>
     </div>
 </form>
-<script src="js/multiform.js"></script>
+<script src="/js/multiform.js"></script>
 @endsection

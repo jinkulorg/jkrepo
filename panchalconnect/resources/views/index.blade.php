@@ -27,7 +27,7 @@
 				<?php $profile = App\User::find(Auth::user()->id)->profile;
 				if ($profile == null) {
 					?>
-				<a href="/create_profile" class="hvr-shutter-out-horizontal">Create your profile</a>
+				<a href="{{route('profile.create')}}" class="hvr-shutter-out-horizontal">Create your profile</a>
 				<?php
 				} else {
 					?>

@@ -27,9 +27,6 @@ Route::get('/messages',function(){
 Route::get('/contact',function(){
     return view('contact');
 });
-Route::get('/create_profile',function(){
-    return view('create_profile');
-});
 Route::get('/view_profile',function(){
     return view('view_profile');
 });
@@ -49,4 +46,4 @@ Route::get('/feedback',function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/profile','CreateProfilesController');
+Route::resource('/profile','ProfilesController');
