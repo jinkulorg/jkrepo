@@ -27,9 +27,6 @@ Route::get('/messages',function(){
 Route::get('/contact',function(){
     return view('contact');
 });
-Route::get('/view_profile',function(){
-    return view('view_profile');
-});
 Route::get('/faq',function(){
     return view('faq');
 });
@@ -47,3 +44,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/profile','ProfilesController');
+Route::resource('/requestsent','RequestSentController');
+Route::resource('/requestreceived','RequestReceivedController');
+Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertRequestReceived');
+Route::get('/requestreceivedstore/{requestsentid}','RequestReceivedController@store');

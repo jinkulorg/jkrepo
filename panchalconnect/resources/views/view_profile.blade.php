@@ -10,7 +10,22 @@
         <li class="current-page">View Profile</li>
      </ul>
    </div>
-   <h2>{{ $profile->User->name }} {{ $profile->User->lastname }} ({{$profile->id }})</h2>
+	<?php
+	if ($isSent) {
+		echo "Request sent";
+	} else {?>
+		<form method="post" action="{{url('requestsent')}}">
+		@csrf
+		<input type="hidden" name="profileid" value="{{$profile->id }}"/>
+		<input type="submit" value="Send Request"/>
+	   </form>
+	   <?php
+	}
+	?>
+  
+   
+   <h2>{{ $profile->User->name }} {{ $profile->User->lastname }} (Profile Number: {{$profile->id }})   </h2>
+   
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			   <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">

@@ -116,7 +116,16 @@ class ProfilesController extends Controller
             return "No profile for id: " . $id;
 
         } else {
-            return view('view_profile', compact('profile'));
+            $requestsents = Profile::find(Auth()->User()->id)->Request_sent;
+            $isSent = false;
+            foreach($requestsents as $requestsent) {
+                $profileidreceived = $requestsent->Request_received->profileid;
+                if ($profileidreceived = $id) {
+                    $isSent = true;
+                    return view('view_profile', compact('profile','isSent'));
+                }
+            }
+            return view('view_profile', compact('profile','isSent'));
         }
     }
 

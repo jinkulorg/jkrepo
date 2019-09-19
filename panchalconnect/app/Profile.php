@@ -78,4 +78,12 @@ class Profile extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function Request_received() {
+        return $this->hasMany('App\Request_received');
+    }
+
+    public function Request_sent() {
+        return $this->hasMany('App\Request_sent');
+    }
 }
