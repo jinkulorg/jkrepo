@@ -116,17 +116,38 @@ class ProfilesController extends Controller
             return "No profile for id: " . $id;
 
         } else {
-            $profileid = User::find(Auth()->User()->id)->Profile->id;
-            $requestsents = Profile::find($profileid)->Request_sent;
             $isSent = false;
-            foreach($requestsents as $requestsent) {
-                $profileidreceived = $requestsent->Request_received->profile_id;
-                if ($profileidreceived == $id) {
-                    $isSent = true;
-                    return view('view_profile', compact('profile','isSent'));
+            $isGuest = false;
+            $isSelf = false;
+            $noProfile = false;
+            if ((Auth()->User()) == null) {
+                $isGuest = true;
+            } else {
+                $loginuserid = Auth()->User()->id;
+                $loginprofile = User::find($loginuserid)->Profile;
+                if ($loginprofile == null) {
+                    $noProfile = true;
+
+                } else {
+                    $loginprofileid = $loginprofile->id;
+                    if ($loginprofileid == $id) {
+                        $isSelf = true;
+                    } else {
+                        
+                        $requestsents = Profile::find($loginprofileid)->Request_sent;
+                        
+                        foreach($requestsents as $requestsent) {
+                            $profileidreceived = $requestsent->Request_received->profile_id;
+                            if ($profileidreceived == $id) {
+                                $isSent = true;
+                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));
+                            }
+                        }
+                    }
                 }
+                
             }
-            return view('view_profile', compact('profile','isSent'));
+            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));
         }
     }
 

@@ -10,10 +10,17 @@
         <li class="current-page">View Profile</li>
      </ul>
    </div>
-	<?php
-	if ($isSent) {
-		echo "Request sent";
-	} else {?>
+   <?php
+	if ($isGuest) {
+		?> <a href="/login">Login/Register</a> <?php
+	} else if ($noProfile) {
+		?> <a href="{{route('profile.create')}}"> Create your profile to send request</a> <?php
+	} else if ($isSelf) {
+		echo "Your Profile";
+	} else if ($isSent) {
+		echo "Request already sent";
+	} else {
+		?>
 		<form method="post" action="{{url('requestsent')}}">
 		@csrf
 		<input type="hidden" name="profileid" value="{{$profile->id }}"/>
