@@ -116,11 +116,12 @@ class ProfilesController extends Controller
             return "No profile for id: " . $id;
 
         } else {
-            $requestsents = Profile::find(Auth()->User()->id)->Request_sent;
+            $profileid = User::find(Auth()->User()->id)->Profile->id;
+            $requestsents = Profile::find($profileid)->Request_sent;
             $isSent = false;
             foreach($requestsents as $requestsent) {
-                $profileidreceived = $requestsent->Request_received->profileid;
-                if ($profileidreceived = $id) {
+                $profileidreceived = $requestsent->Request_received->profile_id;
+                if ($profileidreceived == $id) {
                     $isSent = true;
                     return view('view_profile', compact('profile','isSent'));
                 }
