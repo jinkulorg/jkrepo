@@ -45,7 +45,10 @@ class RequestReceivedController extends Controller
         $request_received->save();
         $profile = Profile::find($request->get('profileid'));
         $isSent = true;
-        return view('view_profile', compact('profile','isSent'));;
+        $isGuest = false;
+        $isSelf = false;
+        $noProfile = false;
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));;
     }
 
     /**
