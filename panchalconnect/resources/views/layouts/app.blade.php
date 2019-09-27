@@ -116,7 +116,7 @@
 								<li><a href="/">Home</a></li>
 								<li><a href="/about">About</a></li>
 								<li><a href="/advanced_search">Search</a> </li>
-								<li><a href="/messages">Messages</a></li>
+								<li><a href="/requests">Requests</a></li>
 								<li class="last"><a href="/contact">Contacts</a></li>
 
 							</ul>
