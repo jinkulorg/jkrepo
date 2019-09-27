@@ -46,7 +46,7 @@
                                             <td class="day_label">First Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="name">
+                                                    <input type="text" name="name" value = "{{Auth::user()->name}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
@@ -54,7 +54,7 @@
                                             <td class="day_label">Last Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="lastname">
+                                                    <input type="text" name="lastname" value = "{{Auth::user()->lastname}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
@@ -63,9 +63,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="gender" name="gender">
-                                                        <option value=""> --Select Gender--</option>
-                                                        <option value="M"> Male </option>
-                                                        <option value="F"> Female </option>
+                                                        <option selected disabled hidden value="">--Select Gender--</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -115,13 +115,10 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="complexion">
-                                                        <option value=""> --Select Complexion-- </option>
-                                                        <option> Fair </option>
-                                                        <option> Wheatish </option>
-                                                        <option> Medium Brown </option>
-                                                        <option> Brown </option>
-                                                        <option> Dark Brown </option>
-                                                        <option> Intense Dark</option>
+                                                        <option selected disabled hidden value="">--Select Complexion--</option>
+                                                        <option>Very Fair</option>
+                                                        <option>Fair</option>
+                                                        <option>Dark</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -131,9 +128,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="specs">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -143,9 +140,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="vegetarion">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -155,9 +152,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="non_vegetarion">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -167,9 +164,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="eggetarion">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -179,9 +176,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="drink">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -191,28 +188,32 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="smoke">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Self Descripation:</td>
+                                            <td class="day_label">Describe Yourself:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="self_description">
-                                            </div>
+                                                <textarea name="self_description"></textarea>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Profile Created By:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="profile_created_by">
+                                            <div class="select-block1">
+                                                <select name="profile_created_by">
+                                                    <option selected disabled hidden>--Select Relevant--</option>
+                                                    <option>Self</option>
+                                                    <option>Sibling</option>
+                                                    <option>Parent/Guadian</option>
+                                                    <option>Others</option>
+                                                </select>
                                             </div>
-                                            </td>
+                                           </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -277,13 +278,12 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="marital_status">
-                                                        <option value=""> --Select Marital Status-- </option>
-                                                        <option> Single </option>
-                                                        <option> Divorce</option>
-                                                        <option> </option>
-
+                                                        <option selected disabled hidden value="">--Select Marital Status--</option>
+                                                        <option>Never Married</option>
+                                                        <option>Divorced</option>
+                                                        <option>Widowed</option>
+                                                        <option>Annulled</option>
                                                     </select>
-
                                                 </div>
                                             </td>
                                         </tr>
@@ -292,14 +292,14 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="rashi" placeholder="Select Rashi...">
-                                                        <option value=""> --Select Rashi-- </option>
+                                                        <option selected disabled hidden value="">--Select Rashi--</option>
                                                         <option>Aries or Maish</option>
                                                         <option>Taurus or Vrish </option>
                                                         <option>Gemini or Mithun</option>
                                                         <option>Cancer or Kark</option>
                                                         <option>Leo or Singh</option>
                                                         <option>Leo or Singh</option>
-                                                        <option> Libra or Tula</option>
+                                                        <option>Libra or Tula</option>
                                                         <option>Scorpio or Vrishchik</option>
                                                         <option>Scorpio or Vrishchik</option>
                                                         <option>Capricorn or Makar</option>
@@ -314,9 +314,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="mangal" placeholder="Select YES/NO">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -326,9 +326,9 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select name="shani">
-                                                        <option> --Select YES/NO--</option>
-                                                        <option> YES </option>
-                                                        <option> NO </option>
+                                                        <option selected disabled hidden>--Select YES/NO--</option>
+                                                        <option>YES</option>
+                                                        <option>NO</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -349,8 +349,16 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Highest Education :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="highest_education">
+                                            <div class="select-block1">
+                                                <select name = "highest_education">
+                                                    <option selected disabled hidden>--Select Highest Education--</option>
+                                                    <option>Below SSC</option>
+                                                    <option>SSC</option>
+                                                    <option>HSC</option>
+                                                    <option>Bachelor</option>
+                                                    <option>Master</option>
+                                                    <option>Ph.D</option>
+                                                </select>
                                             </div>
                                         </td>
                                         </tr>
@@ -363,18 +371,22 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Ocuupation :</td>
+                                            <td class="day_label">Occupation :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="occupation">
+                                            <div class="select-block1">
+                                                <select name = "occupation">
+                                                    <option selected disabled hidden>--Select Occupation--</option>
+                                                    <option>Job</option>
+                                                    <option>Business</option>
+                                                </select>
                                             </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Area of Bussiness :</td>
                                             <td class="day_value">
-                                            <div class = "inputTextarea">
-                                                <textarea name="occupation"> </textarea>
+                                            <div class = "inputText_block1">
+                                                <input type="text" name="area_of_business">
                                             </div>
                                             </td>
                                         </tr>
@@ -416,7 +428,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Email Address :</td>
                                             <td class="day_value">
-                                                <input type="text" name="email">
+                                                <input type="text" name="email" value = "{{Auth::user()->email}}" disabled>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -649,17 +661,17 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_brothers" name="no_of_brothers">
-                                                        <option value="">--Select Number of Brothers--</option>
-                                                        <option> 0 </option>
-                                                        <option> 1 </option>
-                                                        <option> 2 </option>
-                                                        <option> 3 </option>
-                                                        <option> 4 </option>
-                                                        <option> 5 </option>
-                                                        <option> 6 </option>
-                                                        <option> 7 </option>
-                                                        <option> 8 </option>
-                                                        <option> 9 </option>
+                                                        <option selected disabled hidden value="">--Select Number of Brothers--</option>
+                                                        <option>0</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                        <option>6</option>
+                                                        <option>7</option>
+                                                        <option>8</option>
+                                                        <option>9</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -669,17 +681,17 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_sisters" name="no_of_sisters">
-                                                        <option value="">--Select Number of Sisters--</option>
-                                                        <option> 0 </option>
-                                                        <option> 1 </option>
-                                                        <option> 2 </option>
-                                                        <option> 3 </option>
-                                                        <option> 4 </option>
-                                                        <option> 5 </option>
-                                                        <option> 6 </option>
-                                                        <option> 7 </option>
-                                                        <option> 8 </option>
-                                                        <option> 9 </option>
+                                                        <option selected disabled hidden value="">--Select Number of Sisters--</option>
+                                                        <option>0</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                        <option>6</option>
+                                                        <option>7</option>
+                                                        <option>8</option>
+                                                        <option>9</option>
                                                     </select>
                                                 </div>
                                             </td>
