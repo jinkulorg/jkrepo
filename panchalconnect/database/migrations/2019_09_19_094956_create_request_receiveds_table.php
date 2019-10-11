@@ -15,7 +15,7 @@ class CreateRequestReceivedsTable extends Migration
     {
         Schema::create('request_receiveds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('Request_sent_id')->unique();
+            $table->unsignedBigInteger('request_sent_id')->unique();
             $table->unsignedBigInteger('profile_id');
             $table->string('status')->nullable();
             $table->timestamps();

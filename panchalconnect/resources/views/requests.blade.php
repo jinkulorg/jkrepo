@@ -28,26 +28,110 @@
                         <!--------------------All------------------------------->
                         <div class="tab-pane fade in active" id="all" role="tabpanel" aria-labelledby="all-tab">
 						<div class="basic_1">
-							All requests
-
+							<?php 
+							if ($isLoggedIn == false) {
+								?> Please <a href="/login">Login/Register</a> <?php
+							} else if ($isProfileCreated == false) {
+								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
+							} else if (empty($allRequests)) {
+								echo "No request sent or received.";
+							} else {
+								foreach($allRequests as $request) {
+									if ($request->profile_id_from == Auth::user()->Profile->id) {
+										echo "<b>Request Sent:</B>";
+										?><br><?php
+										echo "Profile Number: " . $request->profile_id;
+										?><br><?php
+										$user = App\Profile::find($request->profile_id)->User;
+										echo "Name: " . $user->name . " " . $user->lastname;
+										?><br><?php
+										echo "Sent at: " . $request->created_at;
+									} else {
+										echo "<b>Request Received:</b>";
+										?><br><?php
+										$from_id = $request->profile_id_from;
+										echo "Profile Number:" . $from_id;
+										?><br><?php
+										$user = App\Profile::find($from_id)->User;
+										echo "Name: " . $user->name . " " . $user->lastname;
+										?><br><?php
+										echo "Received at: " . $request->created_at;
+									}
+									?><br><?php
+									echo "Status: " . $request->status;
+									?><br><br><?php
+								}
+							}
+							?>
 						</div>
 						</div>
 						<!--------------------Request Sent------------------------------->
                         <div class="tab-pane fade" id="request-sent" role="tabpanel" aria-labelledby="request-sent-tab">
 						<div class="basic_1">
-							Request Sent
+							<?php
+							if ($isLoggedIn == false) {
+								?> Please <a href="/login">Login/Register</a> <?php
+							} else if ($isProfileCreated == false) {
+								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
+							} else if (empty($requestSents)) {
+								echo "No request sent.";
+							} else {
+								foreach($requestSents as $requestsent) {
+									echo "Profile Number: " . $requestsent->Request_received->profile_id;
+									?><br><?php
+									$user = $requestsent->Request_received->Profile->User;
+									echo "Name: " . $user->name . " " . $user->lastname;
+									?><br><?php
+									echo "Sent at: " . $requestsent->created_at;
+									?><br><?php
+									echo "Status: " . $requestsent->Request_received->status;
+									?><br><br><?php
+								}
+							}
+							?>
 						</div>
 						</div>
 						<!--------------------Request Reeived------------------------------->
                         <div class="tab-pane fade" id="request-received" role="tabpanel" aria-labelledby="request-received-tab">
 						<div class="basic_1">
-							Request Received
+							<?php
+							if ($isLoggedIn == false) {
+								?> Please <a href="/login">Login/Register</a> <?php
+							} else if ($isProfileCreated == false) {
+								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
+							} else if (empty($requestReceiveds)) {
+								echo "No request received.";
+							} else {
+								foreach($requestReceiveds as $requestReceived) {
+									$senderProfile = $requestReceived->Request_sent->Profile;
+									echo "Profile Number:" . $senderProfile->id;
+									?><br><?php
+									$user = $senderProfile->User;
+									echo "Name: " . $user->name . " " . $user->lastname;
+									?><br><?php
+									echo "Received at: " . $requestReceived->created_at;
+									?><br><?php
+									echo "Status: " . $requestReceived->status;
+									?><br><br><?php
+								}
+							}
+							?>
 						</div>
 						</div>
 						<!--------------------Married------------------------------->
                         <div class="tab-pane fade" id="married" role="tabpanel" aria-labelledby="married">
 						<div class="basic_1">
-							Married
+						<?php
+						if ($isLoggedIn == false) {
+								?> Please <a href="/login">Login/Register</a> <?php
+							} else if ($isProfileCreated == false) {
+								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
+							} else if (empty($allRequests)) {
+								echo "No request received.";
+							} else {
+								echo "You are still not married.";
+							}
+						?>
 						</div>
 						</div>
 					<!-- </div> -->

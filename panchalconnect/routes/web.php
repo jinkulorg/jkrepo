@@ -21,9 +21,8 @@ Route::get('/advanced_search',function(){
     return view('advanced_search');
 });
 
-Route::get('/requests',function(){
-    return view('requests');
-});
+Route::get('/requests','RequestController@index');
+
 Route::get('/contact',function(){
     return view('contact');
 });
