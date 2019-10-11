@@ -1358,6 +1358,19 @@ ul.login_details li a{
     width: 60%;
     color:rgb(46, 44, 44);
 }
+
+.select-block1timepicker select, .input-group1 input[type="text"]{
+    box-shadow: none;
+    border: 1px solid rgb(179, 176, 176);
+    border-radius: 0;
+    outline: 0;
+    background: #ffffff;
+    height: 25px;
+    line-height: 25px;
+    padding: 5px 15px;
+    width: 13.7%;
+    color:rgb(46, 44, 44);
+}
 .inputText_block1 input[type="text"]
 {
     box-shadow: none;

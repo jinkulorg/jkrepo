@@ -57,7 +57,21 @@ class ProfilesController extends Controller
         $profile->profile_created_by   =     $request->input('profile_created_by');
         $profile->subcast              =     $request->input('subcast');
         $profile->birth_date           =     $request->input('birth_date');
-        $profile->birth_time           =     $request->input('birth_time');
+
+        $hour = $request->input('hour');
+        $minute = $request->input('minute');
+        $second = $request->input('second');
+        $format = $request->input('format');
+        if($format == "PM" && $hour!= 12)
+        {
+            $hour = $hour+12;
+        }
+        else if($format == "AM" && $hour == 12)
+        {
+            $hour = $hour-12;
+        }
+        $profile->birth_time           =     "$hour:$minute:$second";
+
         $profile->birth_place          =     $request->input('birth_place');
         $profile->native               =     $request->input('native');
         $profile->marital_status       =     $request->input('marital_status');
@@ -101,6 +115,8 @@ class ProfilesController extends Controller
         $profile->save();
         
         return view("index");
+
+        
     }
 
     /**

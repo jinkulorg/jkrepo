@@ -33,7 +33,7 @@
 								?> Please <a href="/login">Login/Register</a> <?php
 							} else if ($isProfileCreated == false) {
 								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
-							} else if (empty($allRequests)) {
+							} else if (sizeof($allRequests) == 0) {
 								echo "No request sent or received.";
 							} else {
 								foreach($allRequests as $request) {
@@ -73,7 +73,7 @@
 								?> Please <a href="/login">Login/Register</a> <?php
 							} else if ($isProfileCreated == false) {
 								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
-							} else if (empty($requestSents)) {
+							} else if (sizeof($requestSents)==0) {
 								echo "No request sent.";
 							} else {
 								foreach($requestSents as $requestsent) {
@@ -91,7 +91,7 @@
 							?>
 						</div>
 						</div>
-						<!--------------------Request Reeived------------------------------->
+						<!--------------------Request Received------------------------------->
                         <div class="tab-pane fade" id="request-received" role="tabpanel" aria-labelledby="request-received-tab">
 						<div class="basic_1">
 							<?php
@@ -99,7 +99,7 @@
 								?> Please <a href="/login">Login/Register</a> <?php
 							} else if ($isProfileCreated == false) {
 								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
-							} else if (empty($requestReceiveds)) {
+							} else if (sizeof($requestReceiveds)==0) {
 								echo "No request received.";
 							} else {
 								foreach($requestReceiveds as $requestReceived) {

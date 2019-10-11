@@ -50,6 +50,24 @@
 	<!-- Custom Theme files -->
 	<link href="/css/style.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="/css/multiformstyle.css" />
+
+	<!-- Date Picker -->
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+      <!-- Javascript -->
+      <script>
+         $(function() {
+            $( "#datepicker-3" ).datepicker({
+               appendText:"(YYYY-MM-DD)",
+               dateFormat:"yy-mm-dd",
+               altField: "#datepicker-4",
+               altFormat: "DD, d MM, yy"
+            });
+         });
+      </script>
 </head>
 
 <body>
