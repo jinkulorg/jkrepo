@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<form id="profileForm" action="/profile" method="post">
+<form id="profileForm" action="{{action('ProfilesController@update',$id)}}" method="post">
     @csrf
+    <input type="hidden" name="_method" value="PATCH"/>
     <div class="grid_3">
         <div class="container">
             <div class="breadcrumb1">
@@ -477,14 +478,13 @@
                                             <td class="day_label">Highest Education :</td>
                                             <td class="day_value">
                                             <div class="select-block1">
-                                                <select name = "highest_education">
-                                                    <option selected disabled hidden>--Select Highest Education--</option>
-                                                    <option>Below SSC</option>
-                                                    <option>SSC</option>
-                                                    <option>HSC</option>
-                                                    <option>Bachelor</option>
-                                                    <option>Master</option>
-                                                    <option>Ph.D</option>
+                                                <select id="highest_education" name="highest_education">
+                                                    <option value="Below SSC">Below SSC</option>
+                                                    <option value="SSC">SSC</option>
+                                                    <option value="HSC">HSC</option>
+                                                    <option value="Bachelor">Bachelor</option>
+                                                    <option value="Masters">Masters</option>
+                                                    <option value="Ph.D">Ph.D</option>
                                                 </select>
                                             </div>
                                         </td>
@@ -493,7 +493,7 @@
                                             <td class="day_label">Education Details :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="education_details">
+                                                <input type="text" name="education_details" value="{{$profile->education_details}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -501,10 +501,9 @@
                                             <td class="day_label">Occupation :</td>
                                             <td class="day_value">
                                             <div class="select-block1">
-                                                <select name = "occupation">
-                                                    <option selected disabled hidden>--Select Occupation--</option>
-                                                    <option>Job</option>
-                                                    <option>Business</option>
+                                                <select id="occupation" name = "occupation">
+                                                    <option value="Job">Job</option>
+                                                    <option value="Business">Business</option>
                                                 </select>
                                             </div>
                                             </td>
@@ -513,7 +512,7 @@
                                             <td class="day_label">Area of Bussiness :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="area_of_business">
+                                                <input type="text" name="area_of_business" value="{{$profile->area_of_business}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -522,7 +521,7 @@
                                             <td class="day_label">Designation :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="designation">
+                                                <input type="text" name="designation" value="{{$profile->designation}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -530,7 +529,7 @@
                                             <td class="day_label">Company Name :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="company_name">
+                                                <input type="text" name="company_name" value="{{$profile->company_name}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -538,7 +537,7 @@
                                             <td class="day_label">Annual Income :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="annual_income">
+                                                <input type="text" name="annual_income" value="{{$profile->annual_income}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -561,7 +560,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Contact Number :</td>
                                             <td class="day_value">
-                                                <input type="text" name="contact_no">
+                                                <input type="text" name="contact_no" value="{{$profile->contact_no}}">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -575,13 +574,13 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Address :</td>
-                                            <td class="day_value"><textarea name="present_address"></textarea></td>
+                                            <td class="day_value"><textarea name="present_address">{{$profile->present_address}}</textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_city">
+                                                <input type="text" name="present_city" value="{{$profile->present_city}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -589,7 +588,7 @@
                                             <td class="day_label">Present Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_taluka">
+                                                <input type="text" name="present_taluka" value="{{$profile->present_taluka}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -597,7 +596,7 @@
                                             <td class="day_label">Present District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_district">
+                                                <input type="text" name="present_district" value="{{$profile->present_district}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -605,7 +604,7 @@
                                             <td class="day_label">Present State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_state">
+                                                <input type="text" name="present_state" value="{{$profile->present_state}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -613,7 +612,7 @@
                                             <td class="day_label">Present Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_country">
+                                                <input type="text" name="present_country" value="{{$profile->present_country}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -621,7 +620,7 @@
                                             <td class="day_label">Present Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_pincode">
+                                                <input type="text" name="present_pincode" value="{{$profile->present_pincode}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -636,13 +635,13 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Address :</td>
-                                            <td class="day_value"><textarea name="permanent_address"></textarea></td>
+                                            <td class="day_value"><textarea name="permanent_address">{{$profile->permanent_address}}</textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_city">
+                                                <input type="text" name="permanent_city" value="{{$profile->permanent_city}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -650,7 +649,7 @@
                                             <td class="day_label">Permanent Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_taluka">
+                                                <input type="text" name="permanent_taluka" value="{{$profile->permanent_taluka}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -658,7 +657,7 @@
                                             <td class="day_label">Permanent District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_district">
+                                                <input type="text" name="permanent_district" value="{{$profile->permanent_district}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -666,7 +665,7 @@
                                             <td class="day_label">Permanent State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">    
-                                                <input type="text" name="permanent_state">
+                                                <input type="text" name="permanent_state" value="{{$profile->permanent_state}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -674,7 +673,7 @@
                                             <td class="day_label">Permanent Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanentcountry">
+                                                <input type="text" name="permanent_country" value="{{$profile->permanent_country}}">
                                             </div>
                                             </td>
 
@@ -683,7 +682,7 @@
                                             <td class="day_label">Permanent Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_pincode">
+                                                <input type="text" name="permanent_pincode" value="{{$profile->permanent_pincode}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -706,7 +705,7 @@
                                                 <td class="day_label">Father's Name :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_name">
+                                                    <input type="text" name="father_name" value="{{$profile->father_name}}">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -714,7 +713,7 @@
                                                 <td class="day_label">Father's Ocuupation :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_occupation">
+                                                    <input type="text" name="father_occupation" value="{{$profile->father_occupation}}">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -722,7 +721,7 @@
                                                 <td class="day_label">Father's Annual Income :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_annual_income">
+                                                    <input type="text" name="father_annual_income" value="{{$profile->father_annual_income}}">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -730,7 +729,7 @@
                                                 <td class="day_label">Father's Contact Number :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_contact_no">
+                                                    <input type="text" name="father_contact_no" value="{{$profile->father_contact_no}}">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -747,7 +746,7 @@
                                             <td class="day_label">Mother's Name :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_name">
+                                                <input type="text" name="mother_name" value="{{$profile->mother_name}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -755,7 +754,7 @@
                                             <td class="day_label">Mother's Ocuupation :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_occupation">
+                                                <input type="text" name="mother_occupation" value="{{$profile->mother_occupation}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -763,7 +762,7 @@
                                             <td class="day_label">Mother's Annual Income :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_annual_income">
+                                                <input type="text" name="mother_annual_income" value="{{$profile->mother_annual_income}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -771,7 +770,7 @@
                                             <td class="day_label">Mother's Contact Number :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_contact_no">
+                                                <input type="text" name="mother_contact_no" value="{{$profile->mother_contact_no}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -788,17 +787,16 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_brothers" name="no_of_brothers">
-                                                        <option selected disabled hidden value="">--Select Number of Brothers--</option>
-                                                        <option>0</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -808,17 +806,16 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_sisters" name="no_of_sisters">
-                                                        <option selected disabled hidden value="">--Select Number of Sisters--</option>
-                                                        <option>0</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -880,6 +877,12 @@ setSelectedIndex(document.getElementById('marital_status'),"<?php echo $profile-
 setSelectedIndex(document.getElementById('rashi'),"<?php echo $profile->rashi ?>");
 setSelectedIndex(document.getElementById('mangal'),"<?php echo $profile->mangal ?>");
 setSelectedIndex(document.getElementById('shani'),"<?php echo $profile->shani ?>");
+setSelectedIndex(document.getElementById('highest_education'),"<?php echo $profile->highest_education ?>");
+setSelectedIndex(document.getElementById('occupation'),"<?php echo $profile->occupation ?>");
+setSelectedIndex(document.getElementById('no_of_brothers'),"<?php echo $profile->no_of_brothers ?>");
+setSelectedIndex(document.getElementById('no_of_sisters'),"<?php echo $profile->no_of_sisters ?>");
+
+
 
 <?php
 $time = $profile->birth_time;

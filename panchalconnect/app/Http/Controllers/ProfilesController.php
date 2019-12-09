@@ -39,80 +39,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $profile->profile_pic_path     =     $request->input('profile_pic_path');
-        $profile->user_id              =     Auth()->user()->id;
-        $profile->gender               =     $request->input('gender');
-        $profile->physical_status      =     $request->input('physical_status');
-        $profile->height               =     $request->input('height');
-        $profile->weight               =     $request->input('weight');
-        $profile->hobby                =     $request->input('hobby');
-        $profile->complexion           =     $request->input('complexion');
-        $profile->specs                =     ($request->input('specs') == "YES") ? true : false;
-        $profile->vegetarion           =     ($request->input('vegetarion') == "YES") ? true : false;
-        $profile->non_vegetarion       =     ($request->input('non_vegetarion') == "YES") ? true : false;
-        $profile->eggetarion           =     ($request->input('eggetarion') == "YES") ?  true: false;
-        $profile->drink                =     ($request->input('drink') == "YES") ? true : false;
-        $profile->smoke                =     ($request->input('smoke') == "YES") ? true :false;
-        $profile->self_description     =     $request->input('self_description');
-        $profile->profile_created_by   =     $request->input('profile_created_by');
-        $profile->subcast              =     $request->input('subcast');
-        $profile->birth_date           =     $request->input('birth_date');
-
-        $hour = $request->input('hour');
-        $minute = $request->input('minute');
-        $second = $request->input('second');
-        $format = $request->input('format');
-        if($format == "PM" && $hour!= 12)
-        {
-            $hour = $hour+12;
-        }
-        else if($format == "AM" && $hour == 12)
-        {
-            $hour = $hour-12;
-        }
-        $profile->birth_time           =     "$hour:$minute:$second";
-
-        $profile->birth_place          =     $request->input('birth_place');
-        $profile->native               =     $request->input('native');
-        $profile->marital_status       =     $request->input('marital_status');
-        $profile->rashi                =     $request->input('rashi');
-        $profile->mangal               =     ($request->input('mangal') == "YES") ? true :false;
-        $profile->shani                =     ($request->input('shani') == "YES") ? true : false;
-        $profile->highest_education    =     $request->input('highest_education');
-        $profile->education_details    =     $request->input('education_details');
-        $profile->occupation           =     $request->input('occupation');
-        $profile->area_of_business     =     $request->input('area_of_business');
-        $profile->designation          =     $request->input('designation');
-        $profile->company_name         =     $request->input('company_name');
-        $profile->annual_income        =     $request->input('annual_income');
-        $profile->contact_no           =     $request->input('contact_no');
-        $profile->present_address      =     $request->input('present_address');
-        $profile->present_city         =     $request->input('present_city');
-        $profile->present_taluka       =     $request->input('present_taluka');
-        $profile->present_district     =     $request->input('present_district');
-        $profile->present_state        =     $request->input('present_state');
-        $profile->present_country      =     $request->input('present_country');
-        $profile->present_pincode      =     $request->input('present_pincode');
-        $profile->permanent_address    =     $request->input('permanent_address');
-        $profile->permanent_city       =     $request->input('permanent_city');
-        $profile->permanent_taluka     =     $request->input('permanent_taluka');
-        $profile->permanent_district   =     $request->input('permanent_district');
-        $profile->permanent_state      =     $request->input('permanent_state');
-        $profile->permanent_country    =     $request->input('permanent_country');
-        $profile->permanent_pincode    =     $request->input('permanent_pincode');
-        $profile->father_name          =     $request->input('father_name');
-        $profile->father_occupation    =     $request->input('father_occupation');
-        $profile->father_annual_income =     $request->input('father_annual_income');
-        $profile->father_contact_no    =     $request->input('father_contact_no');
-        $profile->mother_name          =     $request->input('mother_name');
-        $profile->mother_occupation    =     $request->input('mother_occupation');
-        $profile->mother_annual_income =     $request->input('mother_annual_income');
-        $profile->mother_contact_no    =     $request->input('mother_contact_no');
-        $profile->no_of_brothers       =     $request->input('no_of_brothers');
-        $profile->no_of_sisters        =     $request->input('no_of_sisters');
-        $profile->status               =     "INACTIVE";
-       
-        $profile->save();
+        $this->saveProfileData($profile, $request, "INACTIVE");
         
         return view("index");
 
@@ -188,7 +115,9 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $profile = Profile::find($id);
+        $this->saveProfileData($profile, $request, $profile->status);
+        return view("index");
     }
 
     /**
@@ -200,5 +129,83 @@ class ProfilesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function saveProfileData(Profile $profile, Request $request, String $status) {
+        
+        $profile->profile_pic_path     =     $request->input('profile_pic_path');
+        $profile->user_id              =     Auth()->user()->id;
+        $profile->gender               =     $request->input('gender');
+        $profile->physical_status      =     $request->input('physical_status');
+        $profile->height               =     $request->input('height');
+        $profile->weight               =     $request->input('weight');
+        $profile->hobby                =     $request->input('hobby');
+        $profile->complexion           =     $request->input('complexion');
+        $profile->specs                =     ($request->input('specs') == "YES") ? true : false;
+        $profile->vegetarion           =     ($request->input('vegetarion') == "YES") ? true : false;
+        $profile->non_vegetarion       =     ($request->input('non_vegetarion') == "YES") ? true : false;
+        $profile->eggetarion           =     ($request->input('eggetarion') == "YES") ?  true: false;
+        $profile->drink                =     ($request->input('drink') == "YES") ? true : false;
+        $profile->smoke                =     ($request->input('smoke') == "YES") ? true :false;
+        $profile->self_description     =     $request->input('self_description');
+        $profile->profile_created_by   =     $request->input('profile_created_by');
+        $profile->subcast              =     $request->input('subcast');
+        $profile->birth_date           =     $request->input('birth_date');
+
+        $hour = $request->input('hour');
+        $minute = $request->input('minute');
+        $second = $request->input('second');
+        $format = $request->input('format');
+        if($format == "PM" && $hour!= 12)
+        {
+            $hour = $hour+12;
+        }
+        else if($format == "AM" && $hour == 12)
+        {
+            $hour = $hour-12;
+        }
+        $profile->birth_time           =     "$hour:$minute:$second";
+
+        $profile->birth_place          =     $request->input('birth_place');
+        $profile->native               =     $request->input('native');
+        $profile->marital_status       =     $request->input('marital_status');
+        $profile->rashi                =     $request->input('rashi');
+        $profile->mangal               =     ($request->input('mangal') == "YES") ? true :false;
+        $profile->shani                =     ($request->input('shani') == "YES") ? true : false;
+        $profile->highest_education    =     $request->input('highest_education');
+        $profile->education_details    =     $request->input('education_details');
+        $profile->occupation           =     $request->input('occupation');
+        $profile->area_of_business     =     $request->input('area_of_business');
+        $profile->designation          =     $request->input('designation');
+        $profile->company_name         =     $request->input('company_name');
+        $profile->annual_income        =     $request->input('annual_income');
+        $profile->contact_no           =     $request->input('contact_no');
+        $profile->present_address      =     $request->input('present_address');
+        $profile->present_city         =     $request->input('present_city');
+        $profile->present_taluka       =     $request->input('present_taluka');
+        $profile->present_district     =     $request->input('present_district');
+        $profile->present_state        =     $request->input('present_state');
+        $profile->present_country      =     $request->input('present_country');
+        $profile->present_pincode      =     $request->input('present_pincode');
+        $profile->permanent_address    =     $request->input('permanent_address');
+        $profile->permanent_city       =     $request->input('permanent_city');
+        $profile->permanent_taluka     =     $request->input('permanent_taluka');
+        $profile->permanent_district   =     $request->input('permanent_district');
+        $profile->permanent_state      =     $request->input('permanent_state');
+        $profile->permanent_country    =     $request->input('permanent_country');
+        $profile->permanent_pincode    =     $request->input('permanent_pincode');
+        $profile->father_name          =     $request->input('father_name');
+        $profile->father_occupation    =     $request->input('father_occupation');
+        $profile->father_annual_income =     $request->input('father_annual_income');
+        $profile->father_contact_no    =     $request->input('father_contact_no');
+        $profile->mother_name          =     $request->input('mother_name');
+        $profile->mother_occupation    =     $request->input('mother_occupation');
+        $profile->mother_annual_income =     $request->input('mother_annual_income');
+        $profile->mother_contact_no    =     $request->input('mother_contact_no');
+        $profile->no_of_brothers       =     $request->input('no_of_brothers');
+        $profile->no_of_sisters        =     $request->input('no_of_sisters');
+        $profile->status               =     $status;
+       
+        $profile->save();
     }
 }
