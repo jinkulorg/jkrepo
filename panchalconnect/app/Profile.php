@@ -86,4 +86,8 @@ class Profile extends Model
     public function Request_sent() {
         return $this->hasMany('App\Request_sent');
     }
+
+    public function Reference() {
+        return $this->hasMany('App\Reference');
+    }
 }

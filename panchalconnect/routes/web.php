@@ -47,3 +47,4 @@ Route::resource('/requestsent','RequestSentController');
 Route::resource('/requestreceived','RequestReceivedController');
 Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertRequestReceived');
 Route::get('/requestreceivedstore/{requestsentid}','RequestReceivedController@store');
+Route::resource('/reference','ReferenceController');

@@ -67,7 +67,8 @@
                altFormat: "DD, d MM, yy"
             });
          });
-      </script>
+	  </script>
+	  
 </head>
 
 <body>
@@ -99,7 +100,8 @@
 										<li><a href="/login">Login</a></li>
 										<li><a href="/register">Register</a></li>
 										@else
-
+										<li><a href="{{action('ProfilesController@show',Auth::User()->Profile->id)}}">My Profile</a></li>
+										<li><a href="/reference">My References</a></li>
 										<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}
