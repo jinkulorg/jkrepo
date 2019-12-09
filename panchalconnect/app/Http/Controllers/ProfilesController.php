@@ -175,7 +175,8 @@ class ProfilesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $profile = Profile::find($id);
+        return view('edit_profile',compact('profile','id'));
     }
 
     /**

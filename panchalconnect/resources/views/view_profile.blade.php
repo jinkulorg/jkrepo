@@ -30,9 +30,14 @@
 	}
 	?>
   
-   
-   <h2>{{ $profile->User->name }} {{ $profile->User->lastname }} (Profile Number: {{$profile->id }})   </h2>
-   
+   <table width=100%>
+	<td>
+		<h2>{{ $profile->User->name }} {{ $profile->User->lastname }} (Profile Number: {{$profile->id }})   </h2>
+	</td>
+	<td align="right">
+		<h4><a href="{{action('ProfilesController@edit',$profile->id)}}">Edit Profile</a></h4>
+	</td>
+</table>
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			   <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">
