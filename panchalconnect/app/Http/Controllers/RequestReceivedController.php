@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Request_received;
 use App\Profile;
+use Illuminate\Support\Facades\Input;
 
 class RequestReceivedController extends Controller
 {
@@ -82,7 +83,26 @@ class RequestReceivedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request = Request_received::find($id);
+        $user = $request->Request_sent->profile->user;
+
+        $input = Input::get('Interested');
+        if (isset($input)) {
+            $request->status = "Interested";
+            $msg = "You have successfully shown interest in " . $user->name . " " . $user->lastname . " profile" ;
+        }
+
+        $input = Input::get('Not_Interested');
+        if (isset($input)) {
+            $request->status = "Not Interested";
+            $msg = "You have successfully shown not interested in " . $user->name . " " . $user->lastname . " profile" ;
+        }
+
+        $request->save();
+
+        
+
+        return redirect()->route('requests.index')->with('success',$msg);
     }
 
     /**

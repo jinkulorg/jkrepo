@@ -7,10 +7,16 @@
      <ul>
         <a href="/"><i class="fa fa-home home_1"></i></a>
         <span class="divider">&nbsp;|&nbsp;</span>
-        <li class="current-page">Messages</li>
+        <li class="current-page">Requests</li>
      </ul>
    </div>
   
+   @if(\Session::has('success'))
+            <div class="alert alert-success">
+                <p>{{Session::get('success')}}</p>
+            </div>
+	@endif
+
    <div class="col-md-9 members_box2">
    	   
        <div class="col_4">
@@ -48,6 +54,17 @@
 										echo "Sent at: " . $request->created_at;
 									} else {
 										echo "<b>Request Received:</b>";
+										if (strtoupper($request->status) == 'PENDING') {
+											?>
+											<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
+												@csrf
+												<input type="hidden" name="_method" value="PATCH"/>
+												<input type="submit" name="Interested" value="Interested"/>
+												<input type="submit" name="Not_Interested" value="Not Interested"/>
+											</form>
+		
+											<?php
+										}
 										?><br><?php
 										$from_id = $request->profile_id_from;
 										echo "Profile Number:" . $from_id;
@@ -103,6 +120,17 @@
 								echo "No request received.";
 							} else {
 								foreach($requestReceiveds as $requestReceived) {
+									if (strtoupper($requestReceived->status) == 'PENDING') {
+										?>
+										<form action="{{action('RequestReceivedController@update',$requestReceived->id)}}" method="post">
+											@csrf
+											<input type="hidden" name="_method" value="PATCH"/>
+											<input type="submit" name="Interested" value="Interested"/>
+											<input type="submit" name="Not_Interested" value="Not Interested"/>
+										</form>
+	
+										<?php
+									}
 									$senderProfile = $requestReceived->Request_sent->Profile;
 									echo "Profile Number:" . $senderProfile->id;
 									?><br><?php
