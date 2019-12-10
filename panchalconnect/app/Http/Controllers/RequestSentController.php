@@ -86,6 +86,9 @@ class RequestSentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $request_sent = Request_sent::find($id);
+        $request_received = $request_sent->Request_received;
+        $request_sent->delete();
+        return redirect()->action('RequestReceivedController@destroy',[$request_received->id]);
     }
 }

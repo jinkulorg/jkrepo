@@ -45,7 +45,14 @@
 								foreach($allRequests as $request) {
 									if ($request->profile_id_from == Auth::user()->Profile->id) {
 										echo "<b>Request Sent:</B>";
-										?><br><?php
+										?>
+										<form action="{{action('RequestSentController@destroy',$request->id)}}" method="post">
+											@csrf
+											<input type="hidden" name="_method" value="DELETE"/>
+											<input type="submit" name="unsend" value="Unsend Request"/>
+										</form>
+	
+										<?php
 										echo "Profile Number: " . $request->profile_id;
 										?><br><?php
 										$user = App\Profile::find($request->profile_id)->User;
@@ -65,7 +72,6 @@
 		
 											<?php
 										}
-										?><br><?php
 										$from_id = $request->profile_id_from;
 										echo "Profile Number:" . $from_id;
 										?><br><?php
@@ -94,6 +100,14 @@
 								echo "No request sent.";
 							} else {
 								foreach($requestSents as $requestsent) {
+									?>
+									<form action="{{action('RequestSentController@destroy',$requestsent->id)}}" method="post">
+										@csrf
+										<input type="hidden" name="_method" value="DELETE"/>
+										<input type="submit" name="unsend" value="Unsend Request"/>
+									</form>
+
+									<?php
 									echo "Profile Number: " . $requestsent->Request_received->profile_id;
 									?><br><?php
 									$user = $requestsent->Request_received->Profile->User;
