@@ -11,23 +11,27 @@
      </ul>
    </div>
    <div class="grid_5">
-    <p> To Do .................................</p>
+    <p>We are here for you to support for any queries or doubts regarding this panchalconnect application. 
+      If you face any kind of difficulty in using the application, you may contact us. 
+      You may either contact us directly using telephone details given below or complete the contact us form, we will contact you within 24 hours.</p>
       <address class="addr row">
         <dl class="grid_4">
-            <dt>Address :</dt>
+            <dt>Address :<br><br><br></dt>
             <dd>
-               
+               Aali, Power house road, <br> India, Gujarat, Anand, <br> Khambhat - 388620.
             </dd>
         </dl>
         <dl class="grid_4">
             <dt>Telephones :</dt>
             <dd>
-               
+               +91 7202083110 (M)
             </dd>
         </dl>
         <dl class="grid_4">
             <dt>E-mail :</dt>
-            <dd></dd>
+            <dd>
+              kul.d.panchal@gmail.com
+            </dd>
         </dl>
       </address>
     </div>
