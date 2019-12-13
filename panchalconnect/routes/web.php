@@ -51,3 +51,12 @@ Route::get('/requestreceiveddestroy/{requestreceivedid}','RequestReceivedControl
 Route::resource('/reference','ReferenceController');
 
 Route::post('/sendemail', 'HomeController@mail');
+
+
+/**
+ * Routes for Admin access
+ */
+
+Route::get('/admin', 'AdminController@admin')    
+->middleware('is_admin')    
+->name('admin');
