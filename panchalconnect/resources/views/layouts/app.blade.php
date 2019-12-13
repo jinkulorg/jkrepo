@@ -52,23 +52,22 @@
 	<link rel="stylesheet" href="/css/multiformstyle.css" />
 
 	<!-- Date Picker -->
-	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-         rel = "stylesheet">
-      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-      
-      <!-- Javascript -->
-      <script>
-         $(function() {
-            $( "#datepicker-3" ).datepicker({
-               appendText:"(YYYY-MM-DD)",
-               dateFormat:"yy-mm-dd",
-               altField: "#datepicker-4",
-               altFormat: "DD, d MM, yy"
-            });
-         });
-	  </script>
-	  
+	<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+	<!-- Javascript -->
+	<script>
+		$(function() {
+			$("#datepicker-3").datepicker({
+				appendText: "(YYYY-MM-DD)",
+				dateFormat: "yy-mm-dd",
+				altField: "#datepicker-4",
+				altFormat: "DD, d MM, yy"
+			});
+		});
+	</script>
+
 </head>
 
 <body>
@@ -91,7 +90,7 @@
 												<b>Guest</b>
 												@else
 												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} </b>
-													@endguest
+												@endguest
 											</label>
 										</a>
 									</div>
@@ -100,8 +99,13 @@
 										<li><a href="/login">Login</a></li>
 										<li><a href="/register">Register</a></li>
 										@else
-										<li><a href="{{action('ProfilesController@show',Auth::User()->Profile->id)}}">My Profile</a></li>
-										<li><a href="/reference">My References</a></li>
+										<?php
+										if (Auth::User()->profile != null) { ?>
+											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
+											<li><a href="/reference">My References</a></li>
+										<?php
+										}
+										?>
 										<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}
