@@ -10,6 +10,11 @@
         <li class="current-page">Contact</li>
      </ul>
    </div>
+   @if(\Session::has('success'))
+   <div class="alert alert-success">
+       <p>{{\Session::get('success')}}</p>
+   </div>
+   @endif
    <div class="grid_5">
     <p>We are here for you to support for any queries or doubts regarding this panchalconnect application. 
       If you face any kind of difficulty in using the application, you may contact us. 
@@ -40,12 +45,13 @@
 <div class="about_middle">
   <div class="container">
 	 <h2>Contact Form</h2>
-	  <form id="contact-form" class="contact-form">
+    <form id="contact-form" class="contact-form" method="post" action="/sendemail">
+    @csrf
         <fieldset>
-          <input type="text" class="text" placeholder="" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-          <input type="text" class="text" placeholder="" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
-          <input type="text" class="text" placeholder="" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-          <textarea value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+          <input type="text" class="text" placeholder="" name="name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+          <input type="text" class="text" placeholder="" name="phone" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
+          <input type="text" class="text" placeholder="" name="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+          <textarea name="message" value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
           <input name="submit" type="submit" id="submit" value="Submit">
         </fieldset>
       </form>

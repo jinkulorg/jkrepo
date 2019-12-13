@@ -25,7 +25,7 @@ Route::get('/requests','RequestController@index')->name('requests.index');
 
 Route::get('/contact',function(){
     return view('contact');
-});
+})->name('contact');
 Route::get('/faq',function(){
     return view('faq');
 });
@@ -49,3 +49,5 @@ Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertReq
 Route::get('/requestreceivedstore/{requestsentid}','RequestReceivedController@store');
 Route::get('/requestreceiveddestroy/{requestreceivedid}','RequestReceivedController@destroy');
 Route::resource('/reference','ReferenceController');
+
+Route::post('/sendemail', 'HomeController@mail');
