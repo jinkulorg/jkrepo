@@ -49,7 +49,8 @@ class RequestReceivedController extends Controller
         $isGuest = false;
         $isSelf = false;
         $noProfile = false;
-        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));;
+        $isReceived = false;
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));;
     }
 
     /**

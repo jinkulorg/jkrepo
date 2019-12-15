@@ -19,6 +19,8 @@
 																								echo "Your Profile";
 																							} else if ($isSent) {
 																								echo "Request already sent";
+																							} else if ($isReceived) {
+																								echo "Request already received";
 																							} else {
 																								?>
 			<form method="post" action="{{url('requestsent')}}">

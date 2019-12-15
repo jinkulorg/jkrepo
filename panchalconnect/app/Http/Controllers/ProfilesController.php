@@ -59,6 +59,7 @@ class ProfilesController extends Controller
             return "No profile for id: " . $id;
 
         } else {
+            $isReceived = false;
             $isSent = false;
             $isGuest = false;
             $isSelf = false;
@@ -83,14 +84,25 @@ class ProfilesController extends Controller
                             $profileidreceived = $requestsent->Request_received->profile_id;
                             if ($profileidreceived == $id) {
                                 $isSent = true;
-                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));
+                                break;
                             }
                         }
+
+                        $requestreceiveds = Profile::find($loginprofileid)->Request_received;
+                        
+                        foreach($requestreceiveds as $requestreceived) {
+                            $profileidsent = $requestreceived->Request_sent->profile_id;
+                            if ($profileidsent == $id) {
+                                $isReceived = true;
+                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
+                            }
+                        }
+                        
                     }
                 }
                 
             }
-            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile'));
+            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
         }
     }
 

@@ -45,14 +45,16 @@
 								foreach($allRequests as $request) {
 									if ($request->profile_id_from == Auth::user()->Profile->id) {
 										echo "<b>Request Sent:</B>";
+										if (strtoupper($request->status) == 'PENDING') {
 										?>
-										<form action="{{action('RequestSentController@destroy',$request->id)}}" method="post">
+										<form action="{{action('RequestSentController@destroy',$request->id_from)}}" method="post">
 											@csrf
 											<input type="hidden" name="_method" value="DELETE"/>
 											<input type="submit" name="unsend" value="Unsend Request"/>
 										</form>
 	
 										<?php
+										}
 										echo "Profile Number: " . $request->profile_id;
 										?><br><?php
 										$user = App\Profile::find($request->profile_id)->User;
@@ -100,6 +102,7 @@
 								echo "No request sent.";
 							} else {
 								foreach($requestSents as $requestsent) {
+									if (strtoupper($requestsent->Request_received->status) == 'PENDING') {
 									?>
 									<form action="{{action('RequestSentController@destroy',$requestsent->id)}}" method="post">
 										@csrf
@@ -108,6 +111,7 @@
 									</form>
 
 									<?php
+									}
 									echo "Profile Number: " . $requestsent->Request_received->profile_id;
 									?><br><?php
 									$user = $requestsent->Request_received->Profile->User;

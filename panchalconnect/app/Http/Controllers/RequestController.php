@@ -34,7 +34,7 @@ class RequestController extends Controller
         $requestReceiveds = $profile->Request_received->sortByDesc('created_at');
         $allRequests = DB::table('request_sents')
                             ->join('request_receiveds', 'request_sents.id', '=', 'request_receiveds.request_sent_id')
-                            ->select('request_sents.profile_id as profile_id_from', 'request_receiveds.*')
+                            ->select('request_sents.profile_id as profile_id_from', 'request_sents.id as id_from', 'request_receiveds.*')
                             ->where('request_sents.profile_id','=',$profile->id)
                             ->orWhere('request_receiveds.profile_id','=',$profile->id)
                             ->orderBy('created_at','desc')
