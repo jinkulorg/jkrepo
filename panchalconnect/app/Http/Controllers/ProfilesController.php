@@ -39,7 +39,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $this->saveProfileData($profile, $request, "INACTIVE");
+        $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id);
         
         return view("index");
 
@@ -116,7 +116,7 @@ class ProfilesController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::find($id);
-        $this->saveProfileData($profile, $request, $profile->status);
+        $this->saveProfileData($profile, $request, $profile->status, $profile->user_id);
         return view("index");
     }
 
@@ -131,10 +131,10 @@ class ProfilesController extends Controller
         //
     }
 
-    public function saveProfileData(Profile $profile, Request $request, String $status) {
+    public function saveProfileData(Profile $profile, Request $request, String $status, String $userid) {
         
         $profile->profile_pic_path     =     $request->input('profile_pic_path');
-        $profile->user_id              =     Auth()->user()->id;
+        $profile->user_id              =     $userid;
         $profile->gender               =     $request->input('gender');
         $profile->physical_status      =     $request->input('physical_status');
         $profile->height               =     $request->input('height');

@@ -99,13 +99,6 @@
 										<li><a href="/login">Login</a></li>
 										<li><a href="/register">Register</a></li>
 										@else
-										<?php
-										if (Auth::User()->profile != null) { ?>
-											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
-											<li><a href="/reference">My References</a></li>
-										<?php
-										}
-										?>
 										<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}
@@ -139,11 +132,11 @@
 							<ul class="nav navbar-nav nav_1">
 								<li><a href="/">Home</a></li>
 								<?php
-									if (Auth::user() != null && Auth::user()->isAdmin()) {
-								?>
+								if (Auth::user() != null && Auth::user()->isAdmin()) {
+									?>
 									<li><a href="/admin">Admin Home</a></li>
 								<?php
-									}
+								}
 								?>
 								<li><a href="/about">About</a></li>
 								<li><a href="/advanced_search">Search</a> </li>
@@ -154,12 +147,21 @@
 						</div><!-- /.navbar-collapse -->
 					</nav>
 				</div> <!-- end pull-right -->
+
 				<div class="clearfix"> </div>
 			</div> <!-- end container -->
 		</div> <!-- end navbar-inner -->
 	</div> <!-- end navbar-inverse-blue -->
 	<!-- ============================  Navigation End ============================ -->
-
+	<br>
+	<div class="container" style="background-color: brown">
+		<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+			<ul class="nav navbar-nav nav_1">
+				<li><a href="/manageuser">Manage User</a></li>
+				<li class="last"><a href="/manageprofile">Manage Profile</a> </li>
+			</ul>
+		</div>
+	</div>
 	<main class="py-4">
 		@yield('content')
 	</main>
@@ -168,36 +170,6 @@
 
 	<div class="footer">
 		<div class="container">
-			<div class="col-md-4 col_2">
-				<h4>About Us</h4>
-				<p>To Do................</p>
-			</div>
-			<div class="col-md-2 col_2">
-				<h4>Help & Support</h4>
-				<ul class="footer_links">
-
-					<li><a href="/contact">Contact us</a></li>
-					<li><a href="/feedback">Feedback</a></li>
-					<li><a href="/faq">FAQs</a></li>
-				</ul>
-			</div>
-			<div class="col-md-2 col_2">
-				<h4>Quick Links</h4>
-				<ul class="footer_links">
-					<li><a href="/privacy">Privacy Policy</a></li>
-					<li><a href="/terms">Terms and Conditions</a></li>
-
-				</ul>
-			</div>
-			<div class="col-md-2 col_2">
-				<h4>Social</h4>
-				<ul class="footer_social">
-					<li><a href="#"><i class="fa fa-facebook fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-twitter fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-google-plus fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-youtube fa1"> </i></a></li>
-				</ul>
-			</div>
 			<div class="clearfix"> </div>
 			<div class="copy">
 				<p>Copyright © 2019 Panchal Connect . All Rights Reserved | Design by <a href="http://Jinkul.com/" target="_blank">Jinkul</a> </p>

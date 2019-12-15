@@ -49,7 +49,6 @@ Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertReq
 Route::get('/requestreceivedstore/{requestsentid}','RequestReceivedController@store');
 Route::get('/requestreceiveddestroy/{requestreceivedid}','RequestReceivedController@destroy');
 Route::resource('/reference','ReferenceController');
-
 Route::post('/sendemail', 'HomeController@mail');
 
 
@@ -60,3 +59,35 @@ Route::post('/sendemail', 'HomeController@mail');
 Route::get('/admin', 'AdminController@admin')    
 ->middleware('is_admin')    
 ->name('admin');
+
+Route::get('/manageuser','AdminController@manageUser')
+->middleware('is_admin')
+->name('manageuser');
+
+Route::get('/manageprofile','AdminController@manageProfile')
+->middleware('is_admin')
+->name('manageprofile');
+
+Route::get('/admin/{id}/editUser','AdminController@editUser')
+->middleware('is_admin')
+->name('admin.editUser');
+
+Route::Patch('/admin/user/{id}','AdminController@updateUser')
+->middleware('is_admin')
+->name('admin.user.updateUser');
+
+Route::delete('/admin/user/{id}','AdminController@destroyUser')
+->middleware('is_admin')
+->name('admin.user.destroyUser');
+
+Route::delete('/admin/profile/{id}','AdminController@destroyProfile')
+->middleware('is_admin')
+->name('admin.profile.destroyProfile');
+
+Route::Patch('/admin/profileactive/{id}','AdminController@activate')
+->middleware('is_admin')
+->name('admin.profileactive.activate');
+
+Route::Patch('/admin/profileinactive/{id}','AdminController@inactivate')
+->middleware('is_admin')
+->name('admin.profileinactive.inactivate');

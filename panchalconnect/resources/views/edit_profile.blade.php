@@ -47,7 +47,7 @@
                                             <td class="day_label">First Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="name" value = "{{Auth::user()->name}}" disabled>
+                                                    <input type="text" name="name" value = "{{$profile->user->name}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
@@ -55,7 +55,7 @@
                                             <td class="day_label">Last Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="lastname" value = "{{Auth::user()->lastname}}" disabled>
+                                                    <input type="text" name="lastname" value = "{{$profile->user->lastname}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
@@ -238,30 +238,30 @@
                                             <td class="day_value">
                                             <div class = "select-block1timepicker">
                                                 <select id="hour" name = "hour" > 
-                                                        <option value="01">01</option>
-                                                        <option value="02">02</option>
-                                                        <option value="03">03</option>
-                                                        <option value="04">04</option>
-                                                        <option value="05">05</option>
-                                                        <option value="06">06</option>
-                                                        <option value="07">07</option>
-                                                        <option value="08">08</option>
-                                                        <option value="09">09</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                        <option value="5">05</option>
+                                                        <option value="6">06</option>
+                                                        <option value="7">07</option>
+                                                        <option value="8">08</option>
+                                                        <option value="9">09</option>
                                                         <option value="10">10</option>
                                                         <option value="11">11</option>
                                                         <option value="12">12</option>
                                                     </select> :
                                                     <select id="minute" name = "minute" > 
-                                                        <option value="00">00</option>
-                                                        <option value="01">01</option>
-                                                        <option value="02">02</option>
-                                                        <option value="03">03</option>
-                                                        <option value="04">04</option>
-                                                        <option value="05">05</option>
-                                                        <option value="06">06</option>
-                                                        <option value="07">07</option>
-                                                        <option value="08">08</option>
-                                                        <option value="09">09</option>
+                                                        <option value="0">00</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                        <option value="5">05</option>
+                                                        <option value="6">06</option>
+                                                        <option value="7">07</option>
+                                                        <option value="8">08</option>
+                                                        <option value="9">09</option>
                                                         <option value="10">10</option>
                                                         <option value="11">11</option>
                                                         <option value="12">12</option>
@@ -314,16 +314,16 @@
                                                         <option value="59">59</option>
                                                     </select> :
                                                     <select id="second" name = "second" > 
-                                                        <option value="00">00</option>
-                                                        <option value="01">01</option>
-                                                        <option value="02">02</option>
-                                                        <option value="03">03</option>
-                                                        <option value="04">04</option>
-                                                        <option value="05">05</option>
-                                                        <option value="06">06</option>
-                                                        <option value="07">07</option>
-                                                        <option value="08">08</option>
-                                                        <option value="09">09</option>
+                                                        <option value="0">00</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                        <option value="5">05</option>
+                                                        <option value="6">06</option>
+                                                        <option value="7">07</option>
+                                                        <option value="8">08</option>
+                                                        <option value="9">09</option>
                                                         <option value="10">10</option>
                                                         <option value="11">11</option>
                                                         <option value="12">12</option>
@@ -554,7 +554,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Email Address :</td>
                                             <td class="day_value">
-                                                <input type="text" name="email" value = "{{Auth::user()->email}}" disabled>
+                                                <input type="text" name="email" value = "{{$profile->user->email}}" disabled>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -887,19 +887,26 @@ setSelectedIndex(document.getElementById('no_of_sisters'),"<?php echo $profile->
 <?php
 $time = $profile->birth_time;
 $timeArray = explode(':',$time);
-$hr = $timeArray[0];
-$min = $timeArray[1];
-$sec = $timeArray[2];
-if ($hr < 12) {
-    if ($hr == 0) {
-        $hr = 12;
+if (sizeof($timeArray) == 3) {
+    $hr = $timeArray[0];
+    $min = $timeArray[1];
+    $sec = $timeArray[2];
+    if ($hr < 12) {
+        if ($hr == 0) {
+            $hr = 12;
+        }
+        $ampm = "AM";
+    } else {
+        if ($hr != 12) {
+            $hr = $hr - 12;
+        }
+        $ampm = "PM";
     }
-    $ampm = "AM";
 } else {
-    if ($hr != 12) {
-        $hr = $hr - 12;
-    }
-    $ampm = "PM";
+    $hr = "12";
+    $min = "00";
+    $sec = "00";
+    $ampm = "AM";
 }
 ?>
 setSelectedIndex(document.getElementById('hour'),"<?php echo $hr ?>");
