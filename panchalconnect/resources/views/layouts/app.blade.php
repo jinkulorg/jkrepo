@@ -103,6 +103,8 @@
 										if (Auth::User()->profile != null) { ?>
 											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
+											<li><a href="#">Promote Profile</a></li>
+											<li><a href="#">Got Married</a></li>
 										<?php
 										}
 										?>
@@ -145,10 +147,16 @@
 								<?php
 									}
 								?>
-								<li><a href="/about">About</a></li>
-								<li><a href="/advanced_search">Search</a> </li>
+								<li class="dropdown">
+		              				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<span class="caret"></span></a>
+		              				<ul class="dropdown-menu" role="menu">
+										<li><a href="/advanced_search">Regular Search</a> </li>
+										<li><a href="/#">Reference Based Search</a> </li>
+		            				</ul>
+		            			</li>	
 								<li><a href="/requests">Requests</a></li>
-								<li class="last"><a href="/contact">Contacts</a></li>
+								<li><a href="/about">About</a></li>
+								<li class="last"><a href="/contact">Contact</a></li>
 
 							</ul>
 						</div><!-- /.navbar-collapse -->
