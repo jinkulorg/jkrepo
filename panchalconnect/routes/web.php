@@ -50,7 +50,7 @@ Route::get('/requestreceivedstore/{requestsentid}','RequestReceivedController@st
 Route::get('/requestreceiveddestroy/{requestreceivedid}','RequestReceivedController@destroy');
 Route::resource('/reference','ReferenceController');
 Route::post('/sendemail', 'HomeController@mail');
-
+Route::resource('/married','MarriedController');
 
 /**
  * Routes for Admin access

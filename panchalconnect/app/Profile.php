@@ -90,4 +90,10 @@ class Profile extends Model
     public function Reference() {
         return $this->hasMany('App\Reference');
     }
+
+    public function Married()
+    {
+        return $this->hasOne('App\Married');
+        
+    }
 }

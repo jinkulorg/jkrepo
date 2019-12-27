@@ -22,13 +22,20 @@
 																							} else if ($isReceived) {
 																								echo "Request already received";
 																							} else {
+																								$marriedController = new App\Http\Controllers\MarriedController();
+																								// Checking if logged in user is not married and searched user is also not married. 
+																								// If any one of them is married, Send request button will not be displayed.
+																								if (!($marriedController->isMarried(Auth::user()->Profile->id)) AND !($marriedController->isMarried($profile->id)))
+																								{
 																								?>
 			<form method="post" action="{{url('requestsent')}}">
 				@csrf
 				<input type="hidden" name="profileid" value="{{$profile->id }}" />
 				<input type="submit" value="Send Request" />
 			</form>
+
 		<?php
+																								}
 		}
 		?>
 

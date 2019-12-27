@@ -42,10 +42,13 @@
 							} else if (sizeof($allRequests) == 0) {
 								echo "No request sent or received.";
 							} else {
+								$profileStatus = Auth::user()->Profile->status;
 								foreach($allRequests as $request) {
 									if ($request->profile_id_from == Auth::user()->Profile->id) {
+
+										$user = App\Profile::find($request->profile_id)->User;
 										echo "<b>Request Sent:</B>";
-										if (strtoupper($request->status) == 'PENDING') {
+										if (strtoupper($request->status) == 'PENDING' && strtoupper($profileStatus) != "MARRIED") {
 										?>
 										<form action="{{action('RequestSentController@destroy',$request->id_from)}}" method="post">
 											@csrf
@@ -55,15 +58,30 @@
 	
 										<?php
 										}
+
+										if (strtoupper($request->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED") {
+											?>
+											Are you married with {{$user->name}} {{$user->lastname}}?
+											<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
+												@csrf
+												<input type="hidden" name="_method" value="PATCH"/>
+												<input type="submit" name="SenderMarried" value="Yes"/>
+												<input type="submit" name="Not_Interested" value="Never"/>
+											</form>
+		
+											<?php
+										}
+
 										echo "Profile Number: " . $request->profile_id;
 										?><br><?php
-										$user = App\Profile::find($request->profile_id)->User;
 										echo "Name: " . $user->name . " " . $user->lastname;
 										?><br><?php
 										echo "Sent at: " . $request->created_at;
 									} else {
-										echo "<b>Request Received:</b>";
-										if (strtoupper($request->status) == 'PENDING') {
+										echo "<b>Request Received:</b><br>";
+										$from_id = $request->profile_id_from;
+										$user = App\Profile::find($from_id)->User;
+										if (strtoupper($request->status) == 'PENDING' && strtoupper($profileStatus) != "MARRIED") {
 											?>
 											<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
 												@csrf
@@ -74,10 +92,21 @@
 		
 											<?php
 										}
-										$from_id = $request->profile_id_from;
+
+										if (strtoupper($request->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED") {
+											?>
+											Are you married with {{$user->name}} {{$user->lastname}}?
+											<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
+												@csrf
+												<input type="hidden" name="_method" value="PATCH"/>
+												<input type="submit" name="ReceiverMarried" value="Yes"/>
+												<input type="submit" name="Not_Interested" value="Never"/>
+											</form>
+		
+											<?php
+										}
 										echo "Profile Number:" . $from_id;
 										?><br><?php
-										$user = App\Profile::find($from_id)->User;
 										echo "Name: " . $user->name . " " . $user->lastname;
 										?><br><?php
 										echo "Received at: " . $request->created_at;
@@ -101,8 +130,10 @@
 							} else if (sizeof($requestSents)==0) {
 								echo "No request sent.";
 							} else {
+								$profileStatus = Auth::user()->Profile->status;
 								foreach($requestSents as $requestsent) {
-									if (strtoupper($requestsent->Request_received->status) == 'PENDING') {
+									$user = $requestsent->Request_received->Profile->User;
+									if (strtoupper($requestsent->Request_received->status) == 'PENDING' && strtoupper($profileStatus) != "MARRIED") {
 									?>
 									<form action="{{action('RequestSentController@destroy',$requestsent->id)}}" method="post">
 										@csrf
@@ -112,9 +143,20 @@
 
 									<?php
 									}
+									if (strtoupper($requestsent->Request_received->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED") {
+										?>
+										Are you married with {{$user->name}} {{$user->lastname}}?
+										<form action="{{action('RequestReceivedController@update',$requestsent->Request_received->id)}}" method="post">
+											@csrf
+											<input type="hidden" name="_method" value="PATCH"/>
+											<input type="submit" name="SenderMarried" value="Yes"/>
+											<input type="submit" name="Not_Interested" value="Never"/>
+										</form>
+	
+										<?php
+									}
 									echo "Profile Number: " . $requestsent->Request_received->profile_id;
 									?><br><?php
-									$user = $requestsent->Request_received->Profile->User;
 									echo "Name: " . $user->name . " " . $user->lastname;
 									?><br><?php
 									echo "Sent at: " . $requestsent->created_at;
@@ -137,8 +179,11 @@
 							} else if (sizeof($requestReceiveds)==0) {
 								echo "No request received.";
 							} else {
+								$profileStatus = Auth::user()->Profile->status;
 								foreach($requestReceiveds as $requestReceived) {
-									if (strtoupper($requestReceived->status) == 'PENDING') {
+									$senderProfile = $requestReceived->Request_sent->Profile;
+									$user = $senderProfile->User;
+									if (strtoupper($requestReceived->status) == 'PENDING' && strtoupper($profileStatus) != "MARRIED") {
 										?>
 										<form action="{{action('RequestReceivedController@update',$requestReceived->id)}}" method="post">
 											@csrf
@@ -149,10 +194,21 @@
 	
 										<?php
 									}
-									$senderProfile = $requestReceived->Request_sent->Profile;
+
+									if (strtoupper($requestReceived->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED") {
+										?>
+										Are you married with {{$user->name}} {{$user->lastname}}?
+										<form action="{{action('RequestReceivedController@update',$requestReceived->id)}}" method="post">
+											@csrf
+											<input type="hidden" name="_method" value="PATCH"/>
+											<input type="submit" name="ReceiverMarried" value="Yes"/>
+											<input type="submit" name="Not_Interested" value="Never"/>
+										</form>
+	
+										<?php
+									}
 									echo "Profile Number:" . $senderProfile->id;
 									?><br><?php
-									$user = $senderProfile->User;
 									echo "Name: " . $user->name . " " . $user->lastname;
 									?><br><?php
 									echo "Received at: " . $requestReceived->created_at;
@@ -172,10 +228,11 @@
 								?> Please <a href="/login">Login/Register</a> <?php
 							} else if ($isProfileCreated == false) {
 								?> Please <a href="{{route('profile.create')}}"> create</a> your profile <?php
-							} else if (empty($allRequests)) {
-								echo "No request received.";
 							} else {
-								echo "You are still not married.";
+								?><div class="alert alert-success"><?php
+									$marriedController = new App\Http\Controllers\MarriedController();
+									echo $marriedController->getMarriageStatus();
+								?></div><?php
 							}
 						?>
 						</div>

@@ -104,7 +104,7 @@
 											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
 											<li><a href="#">Promote Profile</a></li>
-											<li><a href="#">Got Married</a></li>
+											<li><a href="/married">Got Married</a></li>
 										<?php
 										}
 										?>

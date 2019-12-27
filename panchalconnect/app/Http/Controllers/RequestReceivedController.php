@@ -87,15 +87,31 @@ class RequestReceivedController extends Controller
         $request = Request_received::find($id);
         $user = $request->Request_sent->profile->user;
 
+        $input = Input::get('SenderMarried');
+        if (isset($input)) {
+            $with_profile_id = $request->profile_id;
+            $user = $request->Profile->User;
+            $with_person_name = $user->name . " " . $user->lastname;
+            return view('married',compact('with_profile_id','with_person_name'));
+        }
+
+        $input = Input::get('ReceiverMarried');
+        if (isset($input)) {
+            $with_profile_id = $request->Request_sent->profile_id;
+            $user = $request->Request_sent->Profile->User;
+            $with_person_name = $user->name . " " . $user->lastname;
+            return view('married',compact('with_profile_id','with_person_name'));
+        }
+
         $input = Input::get('Interested');
         if (isset($input)) {
-            $request->status = "Interested";
+            $request->status = "INTERESTED";
             $msg = "You have successfully shown interest in " . $user->name . " " . $user->lastname . " profile" ;
         }
 
         $input = Input::get('Not_Interested');
         if (isset($input)) {
-            $request->status = "Not Interested";
+            $request->status = "NOT INTERESTED";
             $msg = "You have successfully shown not interested in " . $user->name . " " . $user->lastname . " profile" ;
         }
 

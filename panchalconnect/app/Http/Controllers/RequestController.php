@@ -42,4 +42,33 @@ class RequestController extends Controller
 
         return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated'));
     }
+
+    public function gotMarried($with_profile_id) {
+
+        $profile = Auth()->User()->Profile;
+        $requestSents = $profile->Request_sent;
+        $requestReceiveds = $profile->Request_received;
+
+        /**
+         * Setting status to MARRIED in the case where request is sent.
+         */
+        foreach($requestSents as $requestSent) {
+            if ($requestSent->Request_received->profile_id == $with_profile_id) {
+                $requestSent->Request_received->status = "MARRIED";
+                $requestSent->Request_received->save();
+            } 
+        }
+
+        /**
+         * Setting status to MARRIED in the case where request is received.
+         */
+        foreach($requestReceiveds as $requestReceived) {
+            if ($requestReceived->Request_sent->profile_id == $with_profile_id) {
+                $requestReceived->status = "MARRIED";
+                $requestReceived->save();
+            }
+        }
+
+        return true;
+    }
 }
