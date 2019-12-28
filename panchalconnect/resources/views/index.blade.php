@@ -114,7 +114,32 @@
 			<i class="fa fa-heart grey-heart"></i>
 			<span class="grey-line"></span>
 		</div>
-
+		<ul id="flexiselDemo3">
+		<?php
+		foreach($featuredProfiles as $featuredProfile) { ?>
+			<li><div class="col_1"><a href="{{action('ProfilesController@show',$featuredProfile->profile_id)}}">
+			<img src="images/1.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+			 <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
+				<div class="center-middle">
+				<?php 
+					if ($featuredProfile->Profile->gender == 'M') 
+					{ 
+				?>	
+				About Him
+				<?php 
+					} else { 
+				?>
+				About Her
+				<?php
+					}
+				?>
+				</div>
+			 </div>
+			 <h3><span class="m_3">Profile ID : {{$featuredProfile->profile_id}}</span><br>{{$featuredProfile->Profile->user->name}} {{$featuredProfile->Profile->user->lastname}} - {{$featuredProfile->Profile->present_country}}<br>{{$featuredProfile->Profile->designation}}</h3></a></div>
+		  </li>
+		<?php }
+		?>
+		</ul>
 		<script type="text/javascript">
 			$(window).load(function() {
 				$("#flexiselDemo3").flexisel({

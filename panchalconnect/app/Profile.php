@@ -96,4 +96,10 @@ class Profile extends Model
         return $this->hasOne('App\Married');
         
     }
+
+    public function FeaturedProfile()
+    {
+        return $this->hasMany('App\FeaturedProfile');
+        
+    }
 }

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'HomeController@index');
 Route::get('/about', function () {
     return view('about');
 });
@@ -51,6 +49,7 @@ Route::get('/requestreceiveddestroy/{requestreceivedid}','RequestReceivedControl
 Route::resource('/reference','ReferenceController');
 Route::post('/sendemail', 'HomeController@mail');
 Route::resource('/married','MarriedController');
+Route::resource('/featuredprofile','FeaturedProfileController');
 
 /**
  * Routes for Admin access
@@ -67,6 +66,10 @@ Route::get('/manageuser','AdminController@manageUser')
 Route::get('/manageprofile','AdminController@manageProfile')
 ->middleware('is_admin')
 ->name('manageprofile');
+
+Route::get('/managefeaturedprofile','AdminController@manageFeaturedProfile')
+->middleware('is_admin')
+->name('managefeaturedprofile');
 
 Route::get('/admin/{id}/editUser','AdminController@editUser')
 ->middleware('is_admin')
@@ -91,3 +94,16 @@ Route::Patch('/admin/profileactive/{id}','AdminController@activate')
 Route::Patch('/admin/profileinactive/{id}','AdminController@inactivate')
 ->middleware('is_admin')
 ->name('admin.profileinactive.inactivate');
+
+
+Route::delete('/admin/featuredprofile/{id}','AdminController@destroyFeaturedProfile')
+->middleware('is_admin')
+->name('admin.profile.destroyFeaturedProfile');
+
+Route::Patch('/admin/featuredprofileapprove/{id}','AdminController@approveFeaturedProfile')
+->middleware('is_admin')
+->name('admin.profileapprove.approve');
+
+Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeaturedProfile')
+->middleware('is_admin')
+->name('admin.profilereject.reject');
