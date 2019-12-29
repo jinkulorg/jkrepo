@@ -16,7 +16,11 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        /**
+         * Commenting this line because when this is present then on opening home page needs user to be login first. 
+         * So, this prevents guest from viewing the home page.
+         */
+        // $this->middleware('auth');
     }
 
     /**
