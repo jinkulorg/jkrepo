@@ -39,9 +39,9 @@ class HomeController extends Controller
         $featuredProfiles = FeaturedProfile::where('status','=','APPROVED')->orderBy('created_at','desc')->get();
 
         $allStates = DB::table('profiles')
-            ->select('present_state')
+            ->select('present_country','present_state')
             ->where('present_state','!=',null)
-            ->groupBy('present_state')
+            ->groupBy('present_country','present_state')
             ->get();
 
         $allHobbies = DB::table('profiles')

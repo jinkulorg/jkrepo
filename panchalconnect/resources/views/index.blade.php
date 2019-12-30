@@ -63,7 +63,7 @@
 								<?php 
 								foreach($allStates as $allstate) {
 									?>
-									<option value="{{$allstate->present_state}}">{{$allstate->present_state}}</option>	
+									<option value="{{$allstate->present_state}}">{{$allstate->present_country}} - {{$allstate->present_state}}</option>	
 									<?php
 								}
 								?>
