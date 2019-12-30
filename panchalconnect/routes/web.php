@@ -107,3 +107,8 @@ Route::Patch('/admin/featuredprofileapprove/{id}','AdminController@approveFeatur
 Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeaturedProfile')
 ->middleware('is_admin')
 ->name('admin.profilereject.reject');
+
+/**
+ * Routes for Search
+ */
+Route::post('/basicsearch','SearchController@basicSearch')->name('basicsearch');

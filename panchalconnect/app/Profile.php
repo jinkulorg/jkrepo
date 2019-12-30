@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -71,6 +72,12 @@ class Profile extends Model
 
     protected $table = 'profiles';
     
+    public function age() {
+        $from = new DateTime($this->birth_date);
+        $to   = new DateTime('today');
+        return $from->diff($to)->y;
+    }
+
     /**
      * One to One relationship between User and Profile.
      */

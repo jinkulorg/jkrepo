@@ -6,6 +6,7 @@ use App\FeaturedProfile;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -36,7 +37,20 @@ class HomeController extends Controller
             $expiredProfile->save();
         }
         $featuredProfiles = FeaturedProfile::where('status','=','APPROVED')->orderBy('created_at','desc')->get();
-        return view('index',compact('featuredProfiles'));
+
+        $allStates = DB::table('profiles')
+            ->select('present_state')
+            ->where('present_state','!=',null)
+            ->groupBy('present_state')
+            ->get();
+
+        $allHobbies = DB::table('profiles')
+            ->select('hobby')
+            ->where('hobby','!=',null)
+            ->groupBy('hobby')
+            ->get();
+
+        return view('index',compact('featuredProfiles','allStates','allHobbies'));
     }
 
     public function mail(Request $request) {
