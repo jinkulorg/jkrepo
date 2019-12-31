@@ -19,22 +19,23 @@
                 </ul>
             </div>
             @endif
-            <hr><br>
+            <div class="alert alert-success">
             <?php
-            foreach ($filteredProfiles as $profile) {
-                if ($ageGreaterThan != null and $ageLessThan != null) {
-                    $age = $profile->age();
-                    if (!($age >= $ageGreaterThan and $age <= $ageLessThan)) {
-                        continue;
-                    }
-                }
-                ?>
+            echo sizeof($filteredProfiles) . " records found <br>";
+            ?>
+            </div>
+            <hr><br>
+            @foreach ($filteredProfiles as $profile) 
                 Profile id: {{$profile->id}} <br>
                 Name: {{$profile->user->name}} {{$profile->user->lastname}} <br>
                 Designation: {{$profile->designation}} <br>
                 Age: {{$profile->age()}} <br>
+                status: {{$profile->marital_status}} <br>
+                Shani: {{$profile->shani}}<br>
+                Mangal: {{$profile->mangal}}<br>
+                Annual Income: {{$profile->annual_income}}
                 <hr>
-            <?php } ?>
+            @endforeach
         </div>
     </div>
 </div>

@@ -12,11 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index');
+
 Route::get('/about', function () {
     return view('about');
-});
-Route::get('/advanced_search',function(){
-    return view('advanced_search');
 });
 
 Route::get('/requests','RequestController@index')->name('requests.index');
@@ -112,3 +110,7 @@ Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeatured
  * Routes for Search
  */
 Route::post('/basicsearch','SearchController@basicSearch')->name('basicsearch');
+
+Route::get('/advanced_search','SearchController@openAdvancedSearch');
+
+Route::post('/advanced_search','SearchController@advancedSearch');

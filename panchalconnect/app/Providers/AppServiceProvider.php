@@ -24,12 +24,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Builder::macro('search', function($attribute_values_map) {
-            foreach($attribute_values_map as $attribute => $value) {
+        Builder::macro('search', function ($attribute_values_map, $wherein_attr_val_map) {
+            // echo "query:<br>";
+            foreach ($attribute_values_map as $attribute => $value) {
                 if ($value == null) {
                     continue;
                 }
-                $this->where($attribute, 'Like' , $value);
+                // echo $attribute . " => " . $value . "<br>";
+                $this->where($attribute, 'Like', $value);
+            }
+            foreach ($wherein_attr_val_map as $attribute => $value) {
+                if ($value == null) {
+                    continue;
+                }
+                // echo $attribute . " => ";
+                // print_r($value);
+                // echo "<br>";
+                $this->whereIn($attribute, $value);
             }
             return $this;
         });
