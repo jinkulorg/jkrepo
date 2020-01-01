@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Reference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,6 +43,31 @@ class SearchController extends Controller
             ->get();
 
         return view('advanced_search', compact('allStates', 'allHobbies', 'educations', 'occupations', 'designations'));
+    }
+
+    public function openReferenceSearch() {
+        $references = Reference::where('profile_id',Auth()->User()->Profile->id)->get()->toArray();
+        return view('reference_search',compact('references'));
+    }
+
+    public function referenceSearch() {
+        $loggedInProfileId = Auth()->User()->Profile->id;
+        $references = Reference::where('profile_id',$loggedInProfileId)->get();
+        $filteredProfiles = [];
+
+        foreach($references as $reference) {
+            $code = $reference->code;
+            $mutualReferences = Reference::where('code',$code)->where('profile_id','!=',$loggedInProfileId)->get();
+            
+            foreach($mutualReferences as $mutualReference) {
+                $profile = Profile::find($mutualReference->profile_id);
+               
+                if ($profile != null) {
+                    $filteredProfiles[$reference->id] = $profile;
+                }
+            }
+        }
+        return view('reference_search_result',compact('filteredProfiles'));
     }
 
     public function basicSearch(Request $request)
@@ -144,7 +170,11 @@ class SearchController extends Controller
 
     public function getIncomeFilteredProfiles($preFilteredProfiles, $sign, $amountfrom, $amountto)
     {
-        if (!(ctype_digit($amountfrom) AND ctype_digit($amountto))) {
+        if (!(ctype_digit($amountfrom))) {
+            return $preFilteredProfiles;
+        }
+
+        if ($sign == "Range" AND !ctype_digit($amountto)) {
             return $preFilteredProfiles;
         }
 

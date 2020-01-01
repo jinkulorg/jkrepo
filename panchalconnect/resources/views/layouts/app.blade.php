@@ -151,7 +151,7 @@
 		              				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<span class="caret"></span></a>
 		              				<ul class="dropdown-menu" role="menu">
 										<li><a href="/advanced_search">Regular Search</a> </li>
-										<li><a href="/#">Reference Based Search</a> </li>
+										<li><a href="/reference_search">Reference Based Search</a> </li>
 		            				</ul>
 		            			</li>	
 								<li><a href="/requests">Requests</a></li>

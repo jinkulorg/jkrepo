@@ -114,3 +114,7 @@ Route::post('/basicsearch','SearchController@basicSearch')->name('basicsearch');
 Route::get('/advanced_search','SearchController@openAdvancedSearch');
 
 Route::post('/advanced_search','SearchController@advancedSearch');
+
+Route::get('/reference_search','SearchController@openReferenceSearch');
+
+Route::post('/reference_search','SearchController@referenceSearch');
