@@ -70,6 +70,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'type'=> USER::DEFAULT_TYPE,
+            'last_login_date'=> date("Y/m/d")
         ]);
     }
 }

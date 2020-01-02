@@ -25,9 +25,9 @@ class SearchController extends Controller
             ->get();
 
         $educations = DB::table('profiles')
-            ->select('highest_education')
-            ->where('highest_education', '!=', null)
-            ->groupBy('highest_education')
+            ->select('education')
+            ->where('education', '!=', null)
+            ->groupBy('education')
             ->get();
 
         $occupations = DB::table('profiles')
@@ -129,7 +129,7 @@ class SearchController extends Controller
             'hobby' => $request->get('hobby'),
             'shani' => $shani,
             'mangal' => $mangal,
-            'highest_education' => $request->get('highest_education'),
+            'education' => $request->get('education'),
             'occupation' => $request->get('occupation'),
             'designation' => $request->get('designation')
         ], ['marital_status' => $marital_status])->get();

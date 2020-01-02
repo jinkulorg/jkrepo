@@ -113,12 +113,12 @@
           <label class="col-sm-5 control-lable1">Education : </label>
           <div class="col-sm-7">
             <div class="select-block1">
-              <select name="highest_education">
+              <select name="education">
                 <option value="">--Select Education--</option>
                 <?php
                 foreach ($educations as $education) {
                   ?>
-                  <option value="{{$education->highest_education}}">{{$education->highest_education}}</option>
+                  <option value="{{$education->education}}">{{$education->education}}</option>
                 <?php
                 }
                 ?>
@@ -226,7 +226,38 @@
       </section>
       <div class="view_profile view_profile2">
         <h3>Recently Viewed Profiles</h3>
-
+        <?php
+        $user = Auth::user();
+        if ($user != null) {
+          $loginprofile = $user->profile;
+          if ($loginprofile != null) {
+            $viewedProfiles = $loginprofile->recently_viewed_profiles;
+            if ($viewedProfiles != null) {
+              $profileIdList = explode(",", $viewedProfiles);
+              foreach ($profileIdList as $viewedProfileId) {
+                $viewedProfile = App\Profile::find($viewedProfileId);
+                $heights = explode(".", $viewedProfile->height);
+                ?>
+                <ul class="profile_item">
+                  <a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
+                    <li class="profile_item-img">
+                      <img src="images/p5.jpg" class="img-responsive" alt="" />
+                    </li>
+                    <li class="profile_item-desc">
+                      <h4>{{$viewedProfile->id}}</h4>
+                      <p>{{$viewedProfile->user->name}} {{$viewedProfile->user->lastname}}</p>
+                      <p>{{$viewedProfile->age()}} Yrs, {{$heights[0]}}Ft {{$heights[1]}}in</p>
+                      <h5>View Full Profile</h5>
+                    </li>
+                    <div class="clearfix"> </div>
+                  </a>
+                </ul>
+        <?php
+              }
+            }
+          }
+        }
+        ?>
       </div>
     </div>
     <div class="clearfix"> </div>

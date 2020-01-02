@@ -64,6 +64,7 @@ class ProfilesController extends Controller
             $isGuest = false;
             $isSelf = false;
             $noProfile = false;
+            $loginprofile = null;
             if ((Auth()->User()) == null) {
                 $isGuest = true;
             } else {
@@ -94,6 +95,7 @@ class ProfilesController extends Controller
                             $profileidsent = $requestreceived->Request_sent->profile_id;
                             if ($profileidsent == $id) {
                                 $isReceived = true;
+                                $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
                                 return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
                             }
                         }
@@ -102,6 +104,7 @@ class ProfilesController extends Controller
                 }
                 
             }
+            $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
             return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
         }
     }
@@ -219,5 +222,39 @@ class ProfilesController extends Controller
         $profile->status               =     $status;
        
         $profile->save();
+    }
+
+    public function storeRecentlyViewedProfiles($viewdProfile, $viewerProfile, $isSelf) {
+        if ($isSelf || $viewdProfile == null || $viewerProfile == null) {
+            return;
+        }
+
+        $pastViewedProfiles = $viewerProfile->recently_viewed_profiles;     //This would be comma separated list of profile ID;
+
+        if ($pastViewedProfiles == null) {
+            // if this is the first profile viewed
+            $pastViewedProfiles = $viewdProfile->id;
+        } else {
+            
+            // If profiles viewed in the past
+            $profileIdList = explode(",",$pastViewedProfiles);
+
+            //checking if viewed profile exist in the list of past viewed profiles
+            if (in_array($viewdProfile->id,$profileIdList)) {
+                return;
+            }
+
+            if (sizeof($profileIdList) >= 5) {
+                //removing the last profile id
+                $pastViewedProfiles = substr($pastViewedProfiles,0,strripos($pastViewedProfiles,","));
+            } 
+
+            // prepending the recently viewed profile id
+            $pastViewedProfiles = $viewdProfile->id . "," . $pastViewedProfiles;
+           
+        }
+
+        $viewerProfile->recently_viewed_profiles = $pastViewedProfiles;
+        $viewerProfile->save();
     }
 }

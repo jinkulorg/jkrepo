@@ -40,8 +40,7 @@ class CreateProfilesTable extends Migration
             $table->string('rashi')->nullable();
             $table->boolean('mangal')->nullable();
             $table->boolean('shani')->nullable();
-            $table->string('highest_education')->nullable();
-			$table->string('education_details')->nullable();
+            $table->string('education')->nullable();
             $table->string('occupation')->nullable();
             $table->string('area_of_business')->nullable();
             $table->string('designation')->nullable();
@@ -73,6 +72,7 @@ class CreateProfilesTable extends Migration
             $table->integer('no_of_brothers')->nullable();
             $table->integer('no_of_sisters')->nullable();
             $table->string('status')->nullable();
+            $table->string('recently_viewed_profiles')->nullable();
             $table->timestamps();
         });
     }

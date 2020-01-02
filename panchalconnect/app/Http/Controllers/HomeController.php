@@ -31,6 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $loginuser = Auth()->User();
+        if ($loginuser != null) {
+            $loginuser->last_login_date = date("Y/m/d");
+            $loginuser->save();
+        }
+
         $expiredProfiles = FeaturedProfile::where('end_date','<=',date("Y/m/d"))->get();
         foreach($expiredProfiles as $expiredProfile) {
             $expiredProfile->status = "EXPIRED";
