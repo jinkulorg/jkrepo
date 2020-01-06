@@ -178,15 +178,28 @@
 		<div class="container">
 			<div class="col-md-4 col_2">
 				<h4>About Us</h4>
-				<p>To Do................</p>
+				<p>"<b>Panchal Connect</b> is the platform made for the people especially for Panchal community, who are looking for their life partner.
+			It provides the unique facility of searching profiles having mutual references."</p>
 			</div>
 			<div class="col-md-2 col_2">
-				<h4>Help & Support</h4>
+				<h4>Explore</h4>
 				<ul class="footer_links">
-
-					<li><a href="/contact">Contact us</a></li>
-					<li><a href="/feedback">Feedback</a></li>
-					<li><a href="/faq">FAQs</a></li>
+				<?php
+				if (Auth::User() != null AND Auth::User()->profile != null) { ?>
+					<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
+					<li><a href="/reference">My References</a></li>
+					<li><a href="/featuredprofile">Promote Profile</a></li>
+					<li><a href="/married">Got Married</a></li>
+				<?php
+				} else {
+				?>
+					<li><a href="#">My Profile</a></li>
+					<li><a href="#">My References</a></li>
+					<li><a href="#">Promote Profile</a></li>
+					<li><a href="#">Got Married</a></li>
+					<?php
+				}
+				?>
 				</ul>
 			</div>
 			<div class="col-md-2 col_2">
@@ -198,14 +211,15 @@
 				</ul>
 			</div>
 			<div class="col-md-2 col_2">
-				<h4>Social</h4>
-				<ul class="footer_social">
-					<li><a href="#"><i class="fa fa-facebook fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-twitter fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-google-plus fa1"> </i></a></li>
-					<li><a href="#"><i class="fa fa-youtube fa1"> </i></a></li>
+				<h4>Help & Support</h4>
+				<ul class="footer_links">
+
+					<li><a href="/contact">Contact us</a></li>
+					<li><a href="/faq">FAQs</a></li>
 				</ul>
 			</div>
+		
+			
 			<div class="clearfix"> </div>
 			<div class="copy">
 				<p>Copyright © 2019 Panchal Connect . All Rights Reserved | Design by <a href="http://Jinkul.com/" target="_blank">Jinkul</a> </p>
