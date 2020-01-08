@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Profile;
 use App\User;
+use Image; //Intervention Image
+use Illuminate\Support\Facades\Storage; //Laravel Filesystem
 
 class ProfilesController extends Controller
 {
@@ -39,11 +41,16 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id);
-        
-        return view("index");
+        $profile_pic_path = $this->storeAndGetProfilePicPath($request);
 
+        $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, $profile_pic_path);
         
+        $homeController = new HomeController();
+        $featuredProfiles = $homeController->getFeaturedProfiles();
+        $allStates = $homeController->getAllStates();
+        $allHobbies = $homeController->getAllHobbies();
+
+        return view('index',compact('featuredProfiles','allStates','allHobbies'));
     }
 
     /**
@@ -131,8 +138,22 @@ class ProfilesController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::find($id);
-        $this->saveProfileData($profile, $request, $profile->status, $profile->user_id);
-        return view("index");
+
+        $profile_pic_path = $profile->profile_pic_path;
+
+        if ($request->hasFile('profile_pic_path')) {
+            $this->removeOldProfilePics($profile_pic_path);
+            $profile_pic_path = $this->storeAndGetProfilePicPath($request);
+        }
+
+        $this->saveProfileData($profile, $request, $profile->status, $profile->user_id, $profile_pic_path);
+
+        $homeController = new HomeController();
+        $featuredProfiles = $homeController->getFeaturedProfiles();
+        $allStates = $homeController->getAllStates();
+        $allHobbies = $homeController->getAllHobbies();
+
+        return view('index',compact('featuredProfiles','allStates','allHobbies'));
     }
 
     /**
@@ -146,9 +167,9 @@ class ProfilesController extends Controller
         //
     }
 
-    public function saveProfileData(Profile $profile, Request $request, String $status, String $userid) {
+    public function saveProfileData(Profile $profile, Request $request, String $status, String $userid, String $profile_pic_path) {
         
-        $profile->profile_pic_path     =     $request->input('profile_pic_path');
+        $profile->profile_pic_path     =     $profile_pic_path;
         $profile->user_id              =     $userid;
         $profile->gender               =     $request->input('gender');
         $profile->physical_status      =     $request->input('physical_status');
@@ -187,8 +208,7 @@ class ProfilesController extends Controller
         $profile->rashi                =     $request->input('rashi');
         $profile->mangal               =     ($request->input('mangal') == "YES") ? true :false;
         $profile->shani                =     ($request->input('shani') == "YES") ? true : false;
-        $profile->highest_education    =     $request->input('highest_education');
-        $profile->education_details    =     $request->input('education_details');
+        $profile->education            =     $request->input('education');
         $profile->occupation           =     $request->input('occupation');
         $profile->area_of_business     =     $request->input('area_of_business');
         $profile->designation          =     $request->input('designation');
@@ -256,5 +276,56 @@ class ProfilesController extends Controller
 
         $viewerProfile->recently_viewed_profiles = $pastViewedProfiles;
         $viewerProfile->save();
+    }
+
+    public function storeAndGetProfilePicPath($request) {
+
+        $profile_pic_path = null;
+
+        if ($request->hasFile('profile_pic_path') == false) {
+            return $profile_pic_path;
+        }
+
+        $index = 0;
+        foreach($request->file('profile_pic_path') as $file){
+ 
+            //get filename with extension
+            $filenamewithextension = $file->getClientOriginalName();
+ 
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+ 
+            //get file extension
+            $extension = $file->getClientOriginalExtension();
+ 
+            //filename to store
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+ 
+            Storage::put('public/profile_images/'. $filenametostore, fopen($file, 'r+'));
+            Storage::put('public/profile_images/thumbnail/'. $filenametostore, fopen($file, 'r+'));
+ 
+            //Resize image here
+            $thumbnailpath = public_path('storage/profile_images/thumbnail/'.$filenametostore);
+            $img = Image::make($thumbnailpath)->resize(400, 150, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save($thumbnailpath);
+
+            if ($index == 0) {
+                $profile_pic_path = $filenametostore;
+            } else {
+                $profile_pic_path = $profile_pic_path . "," . $filenametostore;
+            }
+            $index = $index + 1;
+        }
+        return $profile_pic_path;
+    }
+
+    public function removeOldProfilePics($profile_pic_path) {
+        $files = explode(",",$profile_pic_path);
+        foreach($files as $file) {
+            Storage::delete('public/profile_images/'. $file);
+            Storage::delete('public/profile_images/thumbnail/'. $file);
+        }
     }
 }

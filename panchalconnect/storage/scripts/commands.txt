@@ -1,0 +1,5 @@
+Before using the web application below are the mandatory commands need to be run:
+
+command: php artisan storage:link
+Description: This command will create the symbolic link. It would create a storage folder under the public directory. 
+This is where we store our profile image files.

@@ -37,24 +37,11 @@ class HomeController extends Controller
             $loginuser->save();
         }
 
-        $expiredProfiles = FeaturedProfile::where('end_date','<=',date("Y/m/d"))->get();
-        foreach($expiredProfiles as $expiredProfile) {
-            $expiredProfile->status = "EXPIRED";
-            $expiredProfile->save();
-        }
-        $featuredProfiles = FeaturedProfile::where('status','=','APPROVED')->orderBy('created_at','desc')->get();
+        $featuredProfiles = $this->getFeaturedProfiles();
 
-        $allStates = DB::table('profiles')
-            ->select('present_country','present_state')
-            ->where('present_state','!=',null)
-            ->groupBy('present_country','present_state')
-            ->get();
+        $allStates = $this->getAllStates();
 
-        $allHobbies = DB::table('profiles')
-            ->select('hobby')
-            ->where('hobby','!=',null)
-            ->groupBy('hobby')
-            ->get();
+        $allHobbies = $this->getAllHobbies();
 
         return view('index',compact('featuredProfiles','allStates','allHobbies'));
     }
@@ -68,5 +55,34 @@ class HomeController extends Controller
 
         Mail::to('kuldeepjinkal@panchalconnect.com')->send(new SendMailable($name, $phone, $email, $msg));
         return redirect()->route('contact')->with('success','Email sent successfully');
+    }
+
+    public function getFeaturedProfiles() {
+        $expiredProfiles = FeaturedProfile::where('end_date','<=',date("Y/m/d"))->get();
+        foreach($expiredProfiles as $expiredProfile) {
+            $expiredProfile->status = "EXPIRED";
+            $expiredProfile->save();
+        }
+        return FeaturedProfile::where('status','=','APPROVED')->orderBy('created_at','desc')->get();
+    }
+
+    public function getAllStates() {
+        $allStates = DB::table('profiles')
+            ->select('present_country','present_state')
+            ->where('present_state','!=',null)
+            ->groupBy('present_country','present_state')
+            ->get();
+            
+        return $allStates;
+    }
+
+    public function getAllHobbies() {
+        $allHobbies = DB::table('profiles')
+            ->select('hobby')
+            ->where('hobby','!=',null)
+            ->groupBy('hobby')
+            ->get();
+
+        return $allHobbies;
     }
 }

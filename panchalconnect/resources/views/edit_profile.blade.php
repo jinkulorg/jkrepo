@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form id="profileForm" action="{{action('ProfilesController@update',$id)}}" method="post">
+<form id="profileForm" action="{{action('ProfilesController@update',$id)}}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="_method" value="PATCH"/>
     <div class="grid_3">
@@ -39,10 +39,34 @@
                                             <td class="day_label">Select Profile Photo :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="file" name="profile_pic_path">
+                                                    <input type="file" name="profile_pic_path[]" id="profile_pic" onchange="showImages()" multiple>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr class="opened_1">
+                                            <td class="day_label"><label>Images: </label></td>
+                                            <td class="day_value">
+                                                <div class="img" id="profileImageDiv">
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                            <div id="divOldProfiles" style="display: block">
+                                            <?php
+                                            if ($profile->profile_pic_path != null) {
+								                $profile_pic_paths = explode(",",$profile->profile_pic_path);
+								                foreach($profile_pic_paths as $profile_pic_path) {
+								                	?>
+								                	<img src="/storage/profile_images/thumbnail/{{$profile_pic_path}}"/>
+								                	<?php
+                                                }
+                                            }
+                                            ?>
+                                            </div>
+                                            </td>
+                                        </tr>  
                                         <tr class="opened_1">
                                             <td class="day_label">First Name :</td>
                                             <td class="day_value">
@@ -913,5 +937,30 @@ setSelectedIndex(document.getElementById('hour'),"<?php echo $hr ?>");
 setSelectedIndex(document.getElementById('minute'),"<?php echo $min ?>");
 setSelectedIndex(document.getElementById('second'),"<?php echo $sec?>");
 setSelectedIndex(document.getElementById('format'),"<?php echo $ampm?>");
+
+
+function showImages() {
+    var fileInput = document.getElementById('profile_pic');
+    var files = fileInput.files;
+
+    if (files.length != 0) {
+        var divOldProfiles = document.getElementById("divOldProfiles");
+        divOldProfiles.style.display = "none";
+    }
+
+    for(i=0 ; i < files.length ; i++) {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(files[i]);
+
+        oFReader.onload = function (oFREvent) {
+            var imgElement = document.createElement("img");
+            document.getElementById("profileImageDiv").appendChild(imgElement);
+            imgElement.src = oFREvent.target.result;
+            imgElement.width = 100;
+            imgElement.height = 100;
+            imgElement.id = "img" + i;
+        }
+    }
+}
 </script>
 @endsection

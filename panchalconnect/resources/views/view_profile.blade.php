@@ -72,6 +72,16 @@
 							<div class="tab">
 								<h3>About Myself</h3>
 								<p>Profile id: {{$profile->id }}</p>
+								<?php
+								if ($profile->profile_pic_path != null) {
+									$profile_pic_paths = explode(",",$profile->profile_pic_path);
+									foreach($profile_pic_paths as $profile_pic_path) {
+										?>
+										<img src="/storage/profile_images/thumbnail/{{$profile_pic_path}}"/>
+										<?php
+									}
+								}
+								?>
 								<p>Gender: {{ $profile->gender == 'F' ? 'Female' : 'Male' }}</p>
 								<p>Highest Education : {{$profile->highest_education }} </p>
 								<p>Education Details : {{$profile->education_details}}</p>
@@ -105,12 +115,15 @@
 							$profileIdList = explode(",", $viewedProfiles);
 							foreach ($profileIdList as $viewedProfileId) {
 								$viewedProfile = App\Profile::find($viewedProfileId);
+								if ($viewedProfile->profile_pic_path != null) {
+									$profile_pics = explode(",", $viewedProfile->profile_pic_path);
+								  }
 								$heights = explode(".", $viewedProfile->height);
 								?>
 								<ul class="profile_item">
 									<a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
 										<li class="profile_item-img">
-											<img src="images/p5.jpg" class="img-responsive" alt="" />
+										<img src="<?php if ($viewedProfile->profile_pic_path != null) {?>/storage/profile_images/thumbnail/{{$profile_pics[0]}} <?php } ?>" class="img-responsive" alt="" />
 										</li>
 										<li class="profile_item-desc">
 											<h4>{{$viewedProfile->id}}</h4>
