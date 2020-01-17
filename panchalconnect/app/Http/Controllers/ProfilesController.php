@@ -167,24 +167,28 @@ class ProfilesController extends Controller
         //
     }
 
-    public function saveProfileData(Profile $profile, Request $request, String $status, String $userid, String $profile_pic_path) {
+    public function saveProfileData(Profile $profile, Request $request, String $status, String $userid, $profile_pic_path) {
         
         $profile->profile_pic_path     =     $profile_pic_path;
         $profile->user_id              =     $userid;
         $profile->gender               =     $request->input('gender');
         $profile->physical_status      =     $request->input('physical_status');
-        $profile->height               =     $request->input('height');
+        $height = $request->input('heightfeet');
+        if ($height != null AND $request->input('heightinches') != null) {
+            $height = $height . "." . $request->input('heightinches');
+        }
+        $profile->height               =     $height;
         $profile->weight               =     $request->input('weight');
         $profile->hobby                =     $request->input('hobby');
         $profile->complexion           =     $request->input('complexion');
-        $profile->specs                =     ($request->input('specs') == "YES") ? true : false;
-        $profile->vegetarion           =     ($request->input('vegetarion') == "YES") ? true : false;
-        $profile->non_vegetarion       =     ($request->input('non_vegetarion') == "YES") ? true : false;
-        $profile->eggetarion           =     ($request->input('eggetarion') == "YES") ?  true: false;
-        $profile->drink                =     ($request->input('drink') == "YES") ? true : false;
-        $profile->smoke                =     ($request->input('smoke') == "YES") ? true :false;
+        $profile->specs                =     $request->input('specs');
+        $profile->vegetarian           =     $request->input('vegetarian');
+        $profile->non_vegetarian       =     $request->input('non_vegetarian');
+        $profile->eggetarian           =     $request->input('eggetarian');
+        $profile->drink                =     $request->input('drink');
+        $profile->smoke                =     $request->input('smoke');
         $profile->self_description     =     $request->input('self_description');
-        $profile->profile_created_by   =     $request->input('profile_created_by');
+        $profile->profile_created_by   =     ($request->input('profile_created_by') == "Others") ? $request->input('profile_created_by_others') : $request->input('profile_created_by');
         $profile->subcast              =     $request->input('subcast');
         $profile->birth_date           =     $request->input('birth_date');
 
@@ -206,9 +210,9 @@ class ProfilesController extends Controller
         $profile->native               =     $request->input('native');
         $profile->marital_status       =     $request->input('marital_status');
         $profile->rashi                =     $request->input('rashi');
-        $profile->mangal               =     ($request->input('mangal') == "YES") ? true :false;
-        $profile->shani                =     ($request->input('shani') == "YES") ? true : false;
-        $profile->education            =     $request->input('education');
+        $profile->mangal               =     $request->input('mangal');
+        $profile->shani                =     $request->input('shani');
+        $profile->education            =     ($request->input('education') == "Others") ? $request->input('education_others') : $request->input('education');
         $profile->occupation           =     $request->input('occupation');
         $profile->area_of_business     =     $request->input('area_of_business');
         $profile->designation          =     $request->input('designation');

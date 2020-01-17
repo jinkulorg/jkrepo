@@ -83,8 +83,7 @@
 								}
 								?>
 								<p>Gender: {{ $profile->gender == 'F' ? 'Female' : 'Male' }}</p>
-								<p>Highest Education : {{$profile->highest_education }} </p>
-								<p>Education Details : {{$profile->education_details}}</p>
+								<p>Education : {{$profile->education }} </p>
 							</div>
 						</div>
 					</div>

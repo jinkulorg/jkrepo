@@ -50,12 +50,12 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        
+
                                         <tr class="opened_1">
                                             <td class="day_label">First Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="name" value = "{{Auth::user()->name}}" disabled>
+                                                    <input type="text" name="name" value="{{Auth::user()->name}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
@@ -63,23 +63,19 @@
                                             <td class="day_label">Last Name :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="lastname" value = "{{Auth::user()->lastname}}" disabled>
+                                                    <input type="text" name="lastname" value="{{Auth::user()->lastname}}" disabled>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Gender :</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="gender" name="gender">
-                                                        <option selected disabled hidden value="">--Select Gender--</option>
-                                                        <option value="M">Male</option>
-                                                        <option value="F">Female</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="gender" value="M"> Male &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="gender" value="F" checked="checked"> Female
                                                 </div>
                                             </td>
                                         </tr>
-
                                         <tr class="opened_1">
                                             <td class="day_label">Physical Status:</td>
                                             <td class="day_value">
@@ -88,22 +84,25 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Height:</td>
-                                            <td class="day_value">
-                                            <div class = "inputText_block1">    
-                                                <input type="text" name="height">
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Weight:</td>
-                                            <td class="day_value">
-                                            <div class = "inputText_block1">    
-                                                <input type="text" name="weight">
-                                            </div>
-                                            </td>
-                                        </tr>
+                                            <tr class="opened_1">
+                                                    <td class="day_label">Height:</td>
+                                                    <td class="day_value">
+                                                        <div class="inputText_block1">
+                                                            <input type="text" name="heightfeet"> feet
+                                                        </div>
+                                                        <div class="inputText_block1">
+                                                            <input type="text" name="heightinches"> inches
+                                                        </div>
+                                                    </td>
+                                            </tr>
+                                            <tr class="opened_1">
+                                                <td class="day_label">Weight:</td>
+                                                <td class="day_value">
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="weight">
+                                                    </div>
+                                                </td>
+                                            </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -114,9 +113,9 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Hobby:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="hobby">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="hobby">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -135,72 +134,54 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Specs:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="specs">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="specs" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="specs" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Vegetarion:</td>
+                                            <td class="day_label">Vegetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="vegetarion">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="vegetarian" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="vegetarian" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Non-Vegetarion:</td>
+                                            <td class="day_label">Non-Vegetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="non_vegetarion">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="non_vegetarian" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="non_vegetarian" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Eggetarion:</td>
+                                            <td class="day_label">Eggetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="eggetarion">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="eggetarian" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="eggetarian" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Drink:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="drink">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="drink" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="drink" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Smoke:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="smoke">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="smoke" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="smoke" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
@@ -213,16 +194,19 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Profile Created By:</td>
                                             <td class="day_value">
-                                            <div class="select-block1">
-                                                <select name="profile_created_by">
-                                                    <option selected disabled hidden>--Select Relevant--</option>
-                                                    <option>Self</option>
-                                                    <option>Sibling</option>
-                                                    <option>Parent/Guadian</option>
-                                                    <option>Others</option>
-                                                </select>
-                                            </div>
-                                           </td>
+                                                <div class="select-block1">
+                                                    <select id="profile_created_by" name="profile_created_by" onchange="ShowHideDivProfileCreatedBy()">
+                                                        <option selected disabled hidden>--Select Relevant--</option>
+                                                        <option>Self</option>
+                                                        <option>Sibling</option>
+                                                        <option>Parent/Guardian</option>
+                                                        <option>Others</option>
+                                                    </select>
+                                                </div>
+                                                <div id="divProfileCreatedBy" class="inputText_block1" style="display: none">
+                                                    <input type="text" name="profile_created_by_others">
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -236,26 +220,26 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Subcast:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="subcast">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="subcast">
+                                                </div>
                                             </td>
 
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Birth Date:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="birth_date" id = "datepicker-3" placeholder="Select Date...">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date...">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Birth Time:</td>
                                             <td class="day_value">
-                                            <div class = "select-block1timepicker">
-                                                <select name = "hour" > 
-                                                        <option selected hidden value = "12">HH</option>
+                                                <div class="select-block1timepicker">
+                                                    <select name="hour">
+                                                        <option selected hidden value="12">HH</option>
                                                         <option>01</option>
                                                         <option>02</option>
                                                         <option>03</option>
@@ -269,8 +253,8 @@
                                                         <option>11</option>
                                                         <option>12</option>
                                                     </select> :
-                                                    <select name = "minute" > 
-                                                        <option selected hidden value = "00">MM</option>
+                                                    <select name="minute">
+                                                        <option selected hidden value="00">MM</option>
                                                         <option>00</option>
                                                         <option>01</option>
                                                         <option>02</option>
@@ -332,8 +316,8 @@
                                                         <option>58</option>
                                                         <option>59</option>
                                                     </select> :
-                                                    <select name = "second" > 
-                                                        <option selected hidden value = "00">SS</option>
+                                                    <select name="second">
+                                                        <option selected hidden value="00">SS</option>
                                                         <option>00</option>
                                                         <option>01</option>
                                                         <option>02</option>
@@ -395,29 +379,29 @@
                                                         <option>58</option>
                                                         <option>59</option>
                                                     </select>
-                                                    <select name ="format">
+                                                    <select name="format">
                                                         <option>AM</option>
                                                         <option>PM</option>
                                                     </select>
-                                                    
-                                            </div>
+
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Birth Place:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="birth_place">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="birth_place">
+                                                </div>
                                             </td>
                                         </tr>
 
                                         <tr class="opened_1">
                                             <td class="day_label">Native:</td>
-                                            <td class="day_value"> 
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="native">
-                                            </div>
+                                            <td class="day_value">
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="native">
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -466,24 +450,18 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Mangal:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="mangal" placeholder="Select YES/NO">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="mangal" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="mangal" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Shani:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select name="shani">
-                                                        <option selected disabled hidden>--Select YES/NO--</option>
-                                                        <option>YES</option>
-                                                        <option>NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio" class="radio_1" name="shani" value="1"> Yes &nbsp;&nbsp;
+                                                    <input type="radio" class="radio_1" name="shani" value="0" checked="checked"> No
                                                 </div>
                                             </td>
                                         </tr>
@@ -501,72 +479,82 @@
 
 
                                         <tr class="opened_1">
-                                            <td class="day_label">Highest Education :</td>
+                                            <td class="day_label">Education :</td>
                                             <td class="day_value">
-                                            <div class="select-block1">
-                                                <select name = "highest_education">
-                                                    <option selected disabled hidden>--Select Highest Education--</option>
-                                                    <option>Below SSC</option>
-                                                    <option>SSC</option>
-                                                    <option>HSC</option>
-                                                    <option>Bachelor</option>
-                                                    <option>Master</option>
-                                                    <option>Ph.D</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Education Details :</td>
-                                            <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="education_details">
-                                            </div>
+                                                <div class="select-block1">
+                                                    <select name="education" id="education" onchange="ShowHideDivEducation()">
+                                                        <option selected disabled hidden>--Select Education--</option>
+                                                        <option>Below SSC</option>
+                                                        <option>SSC</option>
+                                                        <option>HSC</option>
+                                                        <option>BCA</option>
+                                                        <option>BBA</option>
+                                                        <option>MCA</option>
+                                                        <option>MBA</option>
+                                                        <option>BSC</option>
+                                                        <option>Diploma Computer Engineering</option>
+                                                        <option>Diploma Electrical Engineering</option>
+                                                        <option>BE-Electrical Engineering</option>
+                                                        <option>BE-Computer Engineering</option>
+                                                        <option>Ph.D</option>
+                                                        <option>Others</option>
+                                                    </select>
+                                                </div>
+                                                <div id="divEducation" class="inputText_block1" style="display: none">
+                                                    <input type="text" name="education_others">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Occupation :</td>
                                             <td class="day_value">
-                                            <div class="select-block1">
-                                                <select name = "occupation">
-                                                    <option selected disabled hidden>--Select Occupation--</option>
-                                                    <option>Job</option>
-                                                    <option>Business</option>
-                                                </select>
-                                            </div>
+                                                <div class="select-block1">
+                                                    <select name="occupation" id="occupation" onchange="showHideDevOccupation()">
+                                                        <option selected disabled hidden>--Select Occupation--</option>
+                                                        <option>Job</option>
+                                                        <option>Business</option>
+                                                    </select>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Area of Bussiness :</td>
+                                            <td class="day_label">
+                                            <div id="divAreaOfBusinessLabel" style="display: none">
+                                                Area of Bussiness :
+                                            </div> 
+                                            </td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="area_of_business">
-                                            </div>
+                                                <div class="inputText_block1" id="divAreaOfBusiness" style="display: none">
+                                                    <input type="text" name="area_of_business" id="area_of_business">
+                                                </div>
                                             </td>
                                         </tr>
-
                                         <tr class="opened_1">
-                                            <td class="day_label">Designation :</td>
-                                            <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="designation">
+                                            <td class="day_label">
+                                            <div id="divDesignationLabel" style="display: none">
+                                                Designation :
                                             </div>
+                                            </td>
+                                            <td class="day_value">
+                                                <div class="inputText_block1" id="divDesignation" style="display: none">
+                                                    <input type="text" name="designation" id="designation">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Company Name :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="company_name">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="company_name">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Annual Income :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="annual_income">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="annual_income">
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -582,7 +570,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Email Address :</td>
                                             <td class="day_value">
-                                                <input type="text" name="email" value = "{{Auth::user()->email}}" disabled>
+                                                <input type="text" name="email" value="{{Auth::user()->email}}" disabled>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -602,54 +590,54 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Address :</td>
-                                            <td class="day_value"><textarea name="present_address"></textarea></td>
+                                            <td class="day_value"><textarea name="present_address" id="present_address"></textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present City :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_city">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_city" id="present_city">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Taluka :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_taluka">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_taluka" id="present_taluka">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present District :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_district">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_district" id="present_district">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present State :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_state">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_state" id="present_state">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Country :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_country">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_country" id="present_country">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Pincode :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="present_pincode">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="present_pincode" id="present_pincode">
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -661,57 +649,60 @@
                                 <h3>Permanent Details</h3>
                                 <table class="table_working_hours">
                                     <tbody>
+                                    <tr class="opened_1">
+                                            <input type="checkbox" name="sameAddress" class="radio_1" id="sameAddress" onclick="sameAddressAction()"/> Same as Present Address &nbsp;&nbsp;
+                                        </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Address :</td>
-                                            <td class="day_value"><textarea name="permanent_address"></textarea></td>
+                                            <td class="day_value"><textarea name="permanent_address" id="permanent_address"></textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent City :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="permanent_city">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_city" id="permanent_city">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Taluka :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="permanent_taluka">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_taluka" id="permanent_taluka">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent District :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="permanent_district">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_district" id="permanent_district">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent State :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">    
-                                                <input type="text" name="permanent_state">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_state" id="permanent_state">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Country :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="permanentcountry">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_country" id="permanent_country">
+                                                </div>
                                             </td>
 
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Pincode :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="permanent_pincode">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="permanent_pincode" id="permanent_pincode">
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -732,33 +723,33 @@
                                             <tr class="opened_1">
                                                 <td class="day_label">Father's Name :</td>
                                                 <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="father_name">
-                                                </div>
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="father_name">
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Father's Ocuupation :</td>
+                                                <td class="day_label">Father's Occupation :</td>
                                                 <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="father_occupation">
-                                                </div>
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="father_occupation">
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
                                                 <td class="day_label">Father's Annual Income :</td>
                                                 <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="father_annual_income">
-                                                </div>
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="father_annual_income">
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
                                                 <td class="day_label">Father's Contact Number :</td>
                                                 <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="father_contact_no">
-                                                </div>
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="father_contact_no">
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -773,33 +764,33 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Mother's Name :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="mother_name">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="mother_name">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Mother's Ocuupation :</td>
+                                            <td class="day_label">Mother's Occupation :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="mother_occupation">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="mother_occupation">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Mother's Annual Income :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="mother_annual_income">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="mother_annual_income">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Mother's Contact Number :</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="mother_contact_no">
-                                            </div>
+                                                <div class="inputText_block1">
+                                                    <input type="text" name="mother_contact_no">
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -885,23 +876,88 @@
 </form>
 <script src="/js/multiform.js"></script>
 <script type="text/javascript">
+    function showImages() {
+        var fileInput = document.getElementById('profile_pic');
+        var files = fileInput.files;
+        for (i = 0; i < files.length; i++) {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(files[i]);
 
-function showImages() {
-    var fileInput = document.getElementById('profile_pic');
-    var files = fileInput.files;
-    for(i=0 ; i < files.length ; i++) {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(files[i]);
-
-        oFReader.onload = function (oFREvent) {
-            var imgElement = document.createElement("img");
-            document.getElementById("profileImageDiv").appendChild(imgElement);
-            imgElement.src = oFREvent.target.result;
-            imgElement.width = 100;
-            imgElement.height = 100;
-            imgElement.id = "img" + i;
+            oFReader.onload = function(oFREvent) {
+                var imgElement = document.createElement("img");
+                document.getElementById("profileImageDiv").appendChild(imgElement);
+                imgElement.src = oFREvent.target.result;
+                imgElement.width = 100;
+                imgElement.height = 100;
+                imgElement.id = "img" + i;
+            }
         }
     }
-}
+
+    function ShowHideDivProfileCreatedBy() {
+        var profile_created_by = document.getElementById("profile_created_by");
+        var divProfileCreatedBy = document.getElementById("divProfileCreatedBy");
+        divProfileCreatedBy.style.display = profile_created_by.value == "Others" ? "block" : "none";
+    }
+
+    function ShowHideDivEducation() {
+        var education = document.getElementById("education");
+        var divEducation = document.getElementById("divEducation");
+        divEducation.style.display = education.value == "Others" ? "block" : "none";
+    }
+
+    function showHideDevOccupation() {
+        var occupation = document.getElementById("occupation");
+
+        var divAreaOfBusiness = document.getElementById("divAreaOfBusiness");
+        divAreaOfBusiness.style.display = occupation.value == "Business" ? "block" : "none";
+
+        var divDesignation = document.getElementById("divDesignation");
+        divDesignation.style.display = occupation.value == "Job" ? "block" : "none";
+
+        var divAreaOfBusinessLabel = document.getElementById("divAreaOfBusinessLabel");
+        divAreaOfBusinessLabel.style.display = occupation.value == "Business" ? "block" : "none";
+
+        var divDesignationLabel = document.getElementById("divDesignationLabel");
+        divDesignationLabel.style.display = occupation.value == "Job" ? "block" : "none";
+    }
+
+    function sameAddressAction() {
+        var sameAddressCheckbox = document.getElementById('sameAddress');
+        if (sameAddressCheckbox.checked == true) {
+            document.getElementById('permanent_address').value = document.getElementById('present_address').value;
+            document.getElementById('permanent_city').value = document.getElementById('present_city').value;
+            document.getElementById('permanent_taluka').value = document.getElementById('present_taluka').value;
+            document.getElementById('permanent_district').value = document.getElementById('present_district').value;
+            document.getElementById('permanent_state').value = document.getElementById('present_state').value;
+            document.getElementById('permanent_country').value = document.getElementById('present_country').value;
+            document.getElementById('permanent_pincode').value = document.getElementById('present_pincode').value;
+
+            document.getElementById('permanent_address').readOnly  = true;
+            document.getElementById('permanent_city').readOnly  = true;
+            document.getElementById('permanent_taluka').readOnly  = true;
+            document.getElementById('permanent_district').readOnly = true;
+            document.getElementById('permanent_state').readOnly  = true;
+            document.getElementById('permanent_country').readOnly  = true;
+            document.getElementById('permanent_pincode').readOnly  = true;
+            
+        } else {
+            document.getElementById('permanent_address').value = "";
+            document.getElementById('permanent_city').value = "";
+            document.getElementById('permanent_taluka').value = "";
+            document.getElementById('permanent_district').value = "";
+            document.getElementById('permanent_state').value = "";
+            document.getElementById('permanent_country').value = "";
+            document.getElementById('permanent_pincode').value = "";
+            
+            document.getElementById('permanent_address').readOnly  = false;
+            document.getElementById('permanent_city').readOnly  = false;
+            document.getElementById('permanent_taluka').readOnly  = false;
+            document.getElementById('permanent_district').readOnly = false;
+            document.getElementById('permanent_state').readOnly  = false;
+            document.getElementById('permanent_country').readOnly  = false;
+            document.getElementById('permanent_pincode').readOnly  = false;
+        }
+    }
 </script>
 @endsection

@@ -44,29 +44,25 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label"><label>Images: </label></td>
-                                            <td class="day_value">
+                                            <td class="day_value" colspan=2>
                                                 <div class="img" id="profileImageDiv">
 
                                                 </div>
+                                                <div id="divOldProfiles" style="display: block">
+                                                    <?php
+                                                    if ($profile->profile_pic_path != null) {
+								                        $profile_pic_paths = explode(",",$profile->profile_pic_path);
+								                        foreach($profile_pic_paths as $profile_pic_path) {
+								                        	?>
+								                        	<img width=100 height=100 src="/storage/profile_images/thumbnail/{{$profile_pic_path}}"/>
+								                        	<?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                            <div id="divOldProfiles" style="display: block">
-                                            <?php
-                                            if ($profile->profile_pic_path != null) {
-								                $profile_pic_paths = explode(",",$profile->profile_pic_path);
-								                foreach($profile_pic_paths as $profile_pic_path) {
-								                	?>
-								                	<img src="/storage/profile_images/thumbnail/{{$profile_pic_path}}"/>
-								                	<?php
-                                                }
-                                            }
-                                            ?>
-                                            </div>
-                                            </td>
-                                        </tr>  
+                                       
                                         <tr class="opened_1">
                                             <td class="day_label">First Name :</td>
                                             <td class="day_value">
@@ -86,15 +82,12 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Gender :</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="gender" name="gender">
-                                                        <option value="M">Male</option>
-                                                        <option value="F">Female</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="gender" value="M" <?php if ($profile->gender == 'M') { echo "checked"; } else { echo ""; } ?>> Male &nbsp;&nbsp;
+                                                    <input type="radio"  name="gender" value="F" <?php if ($profile->gender == 'F') { echo "checked"; } else { echo ""; } ?>> Female
                                                 </div>
                                             </td>
                                         </tr>
-
                                         <tr class="opened_1">
                                             <td class="day_label">Physical Status:</td>
                                             <td class="day_value">
@@ -106,10 +99,18 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Height:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">    
-                                                <input type="text" name="height" value="{{$profile->height}}">
-                                            </div>
-                                            </td>
+                                                <?php
+                                                    if ($profile->height != null) {
+                                                        $heights = explode(".", $profile->height);
+                                                    }
+                                                ?>
+                                                        <div class="inputText_block1">
+                                                            <input type="text" name="heightfeet" value="<?php echo ($profile->height != null) ? $heights[0] : "" ?>"> feet
+                                                        </div>
+                                                        <div class="inputText_block1">
+                                                            <input type="text" name="heightinches" value="<?php echo ($profile->height != null) ? $heights[1] : "" ?>"> inches
+                                                        </div>
+                                                    </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Weight:</td>
@@ -149,66 +150,54 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Specs:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="specs" name="specs">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="specs" value="1" <?php if ($profile->specs == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="specs" value="0" <?php if ($profile->specs == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Vegetarion:</td>
+                                            <td class="day_label">Vegetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="vegetarion" name="vegetarion">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="vegetarian" value="1" <?php if ($profile->vegetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="vegetarian" value="0" <?php if ($profile->vegetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Non-Vegetarion:</td>
+                                            <td class="day_label">Non-Vegetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="non_vegetarion" name="non_vegetarion">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="non_vegetarian" value="1" <?php if ($profile->non_vegetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="non_vegetarian" value="0" <?php if ($profile->non_vegetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Eggetarion:</td>
+                                            <td class="day_label">Eggetarian:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="eggetarion" name="eggetarion">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="eggetarian" value="1" <?php if ($profile->eggetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="eggetarian" value="0" <?php if ($profile->eggetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Drink:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="drink" name="drink">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="drink" value="1" <?php if ($profile->drink == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="drink" value="0" <?php if ($profile->drink == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Smoke:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="smoke" name="smoke">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="smoke" value="1" <?php if ($profile->smoke == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="smoke" value="0" <?php if ($profile->smoke == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
@@ -222,13 +211,16 @@
                                             <td class="day_label">Profile Created By:</td>
                                             <td class="day_value">
                                             <div class="select-block1">
-                                                <select id="profile_created_by" name="profile_created_by">
-                                                    <option value="Self">Self</option>
-                                                    <option value="Sibling">Sibling</option>
-                                                    <option value="Parent/Guadian">Parent/Guadian</option>
-                                                    <option value="Others">Others</option>
-                                                </select>
-                                            </div>
+                                                    <select id="profile_created_by" name="profile_created_by" onchange="ShowHideDivProfileCreatedBy()">
+                                                        <option value="Self">Self</option>
+                                                        <option value="Sibling">Sibling</option>
+                                                        <option value="Parent/Guardian">Parent/Guardian</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                </div>
+                                                <div id="divProfileCreatedBy" class="inputText_block1" style="display: none">
+                                                    <input type="text" name="profile_created_by_others" value="{{$profile->profile_created_by}}">
+                                                </div>
                                            </td>
                                         </tr>
                                     </tbody>
@@ -466,22 +458,18 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Mangal:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="mangal" name="mangal" placeholder="Select YES/NO">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="mangal" value="1" <?php if ($profile->mangal == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="mangal" value="0" <?php if ($profile->mangal == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Shani:</td>
                                             <td class="day_value">
-                                                <div class="select-block1">
-                                                    <select id="shani" name="shani">
-                                                        <option value="1">YES</option>
-                                                        <option value="0">NO</option>
-                                                    </select>
+                                                <div class="form_radios">
+                                                    <input type="radio"  name="shani" value="1" <?php if ($profile->shani == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="shani" value="0" <?php if ($profile->shani == '0') { echo "checked"; } else { echo ""; } ?>> No
                                                 </div>
                                             </td>
                                         </tr>
@@ -499,33 +487,36 @@
 
 
                                         <tr class="opened_1">
-                                            <td class="day_label">Highest Education :</td>
+                                            <td class="day_label">Education :</td>
                                             <td class="day_value">
                                             <div class="select-block1">
-                                                <select id="highest_education" name="highest_education">
-                                                    <option value="Below SSC">Below SSC</option>
-                                                    <option value="SSC">SSC</option>
-                                                    <option value="HSC">HSC</option>
-                                                    <option value="Bachelor">Bachelor</option>
-                                                    <option value="Masters">Masters</option>
-                                                    <option value="Ph.D">Ph.D</option>
+                                                <select name="education" id="education" onchange="ShowHideDivEducation()">
+                                                        <option>Below SSC</option>
+                                                        <option>SSC</option>
+                                                        <option>HSC</option>
+                                                        <option>BCA</option>
+                                                        <option>BBA</option>
+                                                        <option>MCA</option>
+                                                        <option>MBA</option>
+                                                        <option>BSC</option>
+                                                        <option>Diploma Computer Engineering</option>
+                                                        <option>Diploma Electrical Engineering</option>
+                                                        <option>BE-Electrical Engineering</option>
+                                                        <option>BE-Computer Engineering</option>
+                                                        <option>Ph.D</option>
+                                                        <option>Others</option>
                                                 </select>
                                             </div>
-                                        </td>
-                                        </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Education Details :</td>
-                                            <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="education_details" value="{{$profile->education_details}}">
+                                            <div id="divEducation" class="inputText_block1" style="display:none" ?>
+                                                    <input type="text" name="education_others" value="{{$profile->education}}">
                                             </div>
-                                            </td>
+                                        </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Occupation :</td>
                                             <td class="day_value">
                                             <div class="select-block1">
-                                                <select id="occupation" name = "occupation">
+                                                <select name = "occupation" id="occupation" onchange="showHideDevOccupation()">
                                                     <option value="Job">Job</option>
                                                     <option value="Business">Business</option>
                                                 </select>
@@ -533,19 +524,27 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Area of Bussiness :</td>
+                                            <td class="day_label">
+                                                <div id="divAreaOfBusinessLabel" style="display: <?php echo ($profile->occupation == 'Job') ? "none" : "block" ?>">
+                                                    Area of Bussiness :
+                                                </div>
+                                            </td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="area_of_business" value="{{$profile->area_of_business}}">
+                                            <div class = "inputText_block1" id="divAreaOfBusiness" style="display: <?php echo ($profile->occupation == 'Job') ? "none" : "block" ?>">
+                                                <input type="text" name="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business">
                                             </div>
                                             </td>
                                         </tr>
 
                                         <tr class="opened_1">
-                                            <td class="day_label">Designation :</td>
+                                            <td class="day_label">
+                                                <div id="divDesignationLabel" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
+                                                    Designation :
+                                                </div>
+                                            </td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="designation" value="{{$profile->designation}}">
+                                            <div class = "inputText_block1" id="divDesignation" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
+                                                <input type="text" name="designation" value="{{$profile->designation}}" id="designation">
                                             </div>
                                             </td>
                                         </tr>
@@ -598,13 +597,13 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Address :</td>
-                                            <td class="day_value"><textarea name="present_address">{{$profile->present_address}}</textarea></td>
+                                            <td class="day_value"><textarea name="present_address" id="present_address">{{$profile->present_address}}</textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_city" value="{{$profile->present_city}}">
+                                                <input type="text" name="present_city" id="present_city" value="{{$profile->present_city}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -612,7 +611,7 @@
                                             <td class="day_label">Present Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_taluka" value="{{$profile->present_taluka}}">
+                                                <input type="text" name="present_taluka" id="present_taluka" value="{{$profile->present_taluka}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -620,7 +619,7 @@
                                             <td class="day_label">Present District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_district" value="{{$profile->present_district}}">
+                                                <input type="text" name="present_district" id="present_district" value="{{$profile->present_district}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -628,7 +627,7 @@
                                             <td class="day_label">Present State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_state" value="{{$profile->present_state}}">
+                                                <input type="text" name="present_state" id="present_state" value="{{$profile->present_state}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -636,7 +635,7 @@
                                             <td class="day_label">Present Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_country" value="{{$profile->present_country}}">
+                                                <input type="text" name="present_country" id="present_country" value="{{$profile->present_country}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -644,7 +643,7 @@
                                             <td class="day_label">Present Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_pincode" value="{{$profile->present_pincode}}">
+                                                <input type="text" name="present_pincode" id="present_pincode" value="{{$profile->present_pincode}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -657,15 +656,18 @@
                                 <h3>Permanent Details</h3>
                                 <table class="table_working_hours">
                                     <tbody>
+                                    <tr class="opened_1">
+                                            <input type="checkbox" name="sameAddress" class="radio_1" id="sameAddress" onclick="sameAddressAction()"/> Same as Present Address &nbsp;&nbsp;
+                                        </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Address :</td>
-                                            <td class="day_value"><textarea name="permanent_address">{{$profile->permanent_address}}</textarea></td>
+                                            <td class="day_value"><textarea name="permanent_address" id="permanent_address">{{$profile->permanent_address}}</textarea></td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_city" value="{{$profile->permanent_city}}">
+                                                <input type="text" name="permanent_city" id="permanent_city" value="{{$profile->permanent_city}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -673,7 +675,7 @@
                                             <td class="day_label">Permanent Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_taluka" value="{{$profile->permanent_taluka}}">
+                                                <input type="text" name="permanent_taluka" id="permanent_taluka" value="{{$profile->permanent_taluka}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -681,7 +683,7 @@
                                             <td class="day_label">Permanent District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_district" value="{{$profile->permanent_district}}">
+                                                <input type="text" name="permanent_district" id="permanent_district" value="{{$profile->permanent_district}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -689,7 +691,7 @@
                                             <td class="day_label">Permanent State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">    
-                                                <input type="text" name="permanent_state" value="{{$profile->permanent_state}}">
+                                                <input type="text" name="permanent_state" id="permanent_state" value="{{$profile->permanent_state}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -697,7 +699,7 @@
                                             <td class="day_label">Permanent Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_country" value="{{$profile->permanent_country}}">
+                                                <input type="text" name="permanent_country" id="permanent_country" value="{{$profile->permanent_country}}">
                                             </div>
                                             </td>
 
@@ -706,7 +708,7 @@
                                             <td class="day_label">Permanent Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_pincode" value="{{$profile->permanent_pincode}}">
+                                                <input type="text" name="permanent_pincode" id="permanent_pincode" value="{{$profile->permanent_pincode}}">
                                             </div>
                                             </td>
                                         </tr>
@@ -886,52 +888,47 @@ function setSelectedIndex(s, v) {
             return;
         }
     }
+    var opt = document.createElement('option');
+    opt.text = v;
+    opt.value = v; 
+    s.add(opt); 
+    setSelectedIndex(s,v);
 }
 
-setSelectedIndex(document.getElementById('gender'), "<?php echo $profile->gender ?>");
+
 setSelectedIndex(document.getElementById('complexion'), "<?php echo $profile->complexion ?>");
-setSelectedIndex(document.getElementById('specs'),"<?php echo $profile->specs ?>");
-setSelectedIndex(document.getElementById('vegetarion'),"<?php echo $profile->vegetarion ?>");
-setSelectedIndex(document.getElementById('non_vegetarion'),"<?php echo $profile->non_vegetarion ?>");
-setSelectedIndex(document.getElementById('eggetarion'),"<?php echo $profile->eggetarion ?>");
-setSelectedIndex(document.getElementById('drink'),"<?php echo $profile->drink ?>");
-setSelectedIndex(document.getElementById('smoke'),"<?php echo $profile->smoke ?>");
 setSelectedIndex(document.getElementById('profile_created_by'),"<?php echo $profile->profile_created_by ?>");
 setSelectedIndex(document.getElementById('marital_status'),"<?php echo $profile->marital_status ?>");
 setSelectedIndex(document.getElementById('rashi'),"<?php echo $profile->rashi ?>");
-setSelectedIndex(document.getElementById('mangal'),"<?php echo $profile->mangal ?>");
-setSelectedIndex(document.getElementById('shani'),"<?php echo $profile->shani ?>");
-setSelectedIndex(document.getElementById('highest_education'),"<?php echo $profile->highest_education ?>");
+setSelectedIndex(document.getElementById('education'),"<?php echo $profile->education ?>");
 setSelectedIndex(document.getElementById('occupation'),"<?php echo $profile->occupation ?>");
 setSelectedIndex(document.getElementById('no_of_brothers'),"<?php echo $profile->no_of_brothers ?>");
 setSelectedIndex(document.getElementById('no_of_sisters'),"<?php echo $profile->no_of_sisters ?>");
 
-
-
 <?php
-$time = $profile->birth_time;
-$timeArray = explode(':',$time);
-if (sizeof($timeArray) == 3) {
-    $hr = $timeArray[0];
-    $min = $timeArray[1];
-    $sec = $timeArray[2];
-    if ($hr < 12) {
-        if ($hr == 0) {
-            $hr = 12;
+    $time = $profile->birth_time;
+    $timeArray = explode(':',$time);
+    if (sizeof($timeArray) == 3) {
+        $hr = $timeArray[0];
+        $min = $timeArray[1];
+        $sec = $timeArray[2];
+        if ($hr < 12) {
+            if ($hr == 0) {
+                $hr = 12;
+            }
+            $ampm = "AM";
+        } else {
+            if ($hr != 12) {
+                $hr = $hr - 12;
+            }
+            $ampm = "PM";
         }
-        $ampm = "AM";
     } else {
-        if ($hr != 12) {
-            $hr = $hr - 12;
-        }
-        $ampm = "PM";
+        $hr = "12";
+        $min = "00";
+        $sec = "00";
+        $ampm = "AM";
     }
-} else {
-    $hr = "12";
-    $min = "00";
-    $sec = "00";
-    $ampm = "AM";
-}
 ?>
 setSelectedIndex(document.getElementById('hour'),"<?php echo $hr ?>");
 setSelectedIndex(document.getElementById('minute'),"<?php echo $min ?>");
@@ -962,5 +959,72 @@ function showImages() {
         }
     }
 }
+
+function ShowHideDivProfileCreatedBy() {
+        var profile_created_by = document.getElementById("profile_created_by");
+        var divProfileCreatedBy = document.getElementById("divProfileCreatedBy");
+        divProfileCreatedBy.style.display = profile_created_by.value == "Others" ? "block" : "none";
+    }
+
+function ShowHideDivEducation() {
+        var education = document.getElementById("education");
+        var divEducation = document.getElementById("divEducation");
+        divEducation.style.display = education.value == "Others" ? "block" : "none";
+    }
+
+function showHideDevOccupation() {
+        var occupation = document.getElementById("occupation");
+
+        var divAreaOfBusiness = document.getElementById("divAreaOfBusiness");
+        divAreaOfBusiness.style.display = occupation.value == "Business" ? "block" : "none";
+
+        var divDesignation = document.getElementById("divDesignation");
+        divDesignation.style.display = occupation.value == "Job" ? "block" : "none";
+
+        var divAreaOfBusinessLabel = document.getElementById("divAreaOfBusinessLabel");
+        divAreaOfBusinessLabel.style.display = occupation.value == "Business" ? "block" : "none";
+
+        var divDesignationLabel = document.getElementById("divDesignationLabel");
+        divDesignationLabel.style.display = occupation.value == "Job" ? "block" : "none";
+    }
+
+function sameAddressAction() {
+        var sameAddressCheckbox = document.getElementById('sameAddress');
+        if (sameAddressCheckbox.checked == true) {
+            document.getElementById('permanent_address').value = document.getElementById('present_address').value;
+            document.getElementById('permanent_city').value = document.getElementById('present_city').value;
+            document.getElementById('permanent_taluka').value = document.getElementById('present_taluka').value;
+            document.getElementById('permanent_district').value = document.getElementById('present_district').value;
+            document.getElementById('permanent_state').value = document.getElementById('present_state').value;
+            document.getElementById('permanent_country').value = document.getElementById('present_country').value;
+            document.getElementById('permanent_pincode').value = document.getElementById('present_pincode').value;
+
+            document.getElementById('permanent_address').readOnly  = true;
+            document.getElementById('permanent_city').readOnly  = true;
+            document.getElementById('permanent_taluka').readOnly  = true;
+            document.getElementById('permanent_district').readOnly = true;
+            document.getElementById('permanent_state').readOnly  = true;
+            document.getElementById('permanent_country').readOnly  = true;
+            document.getElementById('permanent_pincode').readOnly  = true;
+            
+        } else {
+            document.getElementById('permanent_address').value = "";
+            document.getElementById('permanent_city').value = "";
+            document.getElementById('permanent_taluka').value = "";
+            document.getElementById('permanent_district').value = "";
+            document.getElementById('permanent_state').value = "";
+            document.getElementById('permanent_country').value = "";
+            document.getElementById('permanent_pincode').value = "";
+            
+            document.getElementById('permanent_address').readOnly  = false;
+            document.getElementById('permanent_city').readOnly  = false;
+            document.getElementById('permanent_taluka').readOnly  = false;
+            document.getElementById('permanent_district').readOnly = false;
+            document.getElementById('permanent_state').readOnly  = false;
+            document.getElementById('permanent_country').readOnly  = false;
+            document.getElementById('permanent_pincode').readOnly  = false;
+        }
+    }
+
 </script>
 @endsection

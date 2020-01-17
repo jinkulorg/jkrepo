@@ -24,9 +24,9 @@ class CreateProfilesTable extends Migration
             $table->string('hobby')->nullable();
             $table->string('complexion')->nullable();
             $table->boolean('specs')->nullable();
-            $table->boolean('vegetarion')->nullable();
-            $table->boolean('non_vegetarion')->nullable();
-            $table->boolean('eggetarion')->nullable();
+            $table->boolean('vegetarian')->nullable();
+            $table->boolean('non_vegetarian')->nullable();
+            $table->boolean('eggetarian')->nullable();
             $table->boolean('drink')->nullable();
             $table->boolean('smoke')->nullable();
             $table->string('self_description')->nullable();
