@@ -70,13 +70,13 @@
               From
             </div>
             <div class="col-sm-2">
-              <input class="form-control has-dark-background" name="ageGreaterThan" id="slider-name" placeholder="18" type="text">
+              <input class="form-control has-dark-background" name="ageGreaterThan" id="ageGreaterThan" placeholder="18" type="text" onblur="validateNumber('ageGreaterThan')">
             </div>
             <div class="col-sm-1">
               To
             </div>
             <div class="col-sm-2">
-              <input class="form-control has-dark-background" name="ageLessThan" id="slider-name" placeholder="40" type="text">
+              <input class="form-control has-dark-background" name="ageLessThan" id="ageLessThan" placeholder="40" type="text" onblur="validateNumber('ageLessThan')">
             </div>
             <div class="clearfix"> </div>
           </div>
@@ -181,10 +181,10 @@
             </div>
           </div>
           <div class="col-sm-2">
-            <input type="text" id="amountfrom" name="amountfrom" class="form-control" placeholder="Amount" />
+            <input type="text" id="amountfrom" name="amountfrom" class="form-control" placeholder="Amount" onblur="validateNumber('amountfrom')"/>
           </div>
           <div id="divamountto" class="col-sm-2" style="display: none">
-            <input type="text" name="amountto" class="form-control" placeholder="To" />
+            <input type="text" id="amountto" name="amountto" class="form-control" placeholder="To" onblur="validateNumber('amountto')" />
           </div>
           <!-- </div> -->
           <div class="clearfix"> </div>
@@ -280,5 +280,12 @@
     divamountto.style.display = sign.value == "Range" ? "block" : "none";
     amountFrom.placeholder = sign.value == "Range" ? "From" : "Amount";
   }
+  function validateNumber(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            setTimeout(function () {document.getElementById(input).focus();}, 10);
+        }
+    }
 </script>
 @endsection

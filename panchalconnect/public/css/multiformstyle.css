@@ -26,11 +26,31 @@
     
   }
 
+  .invaliddata {
+    background-color: #ffdddd;
+  }
+
   /* Mark input boxes that gets an error on validation: */
-  input.invalid {
+  .inputText_block1 input.invaliddata {
     background-color: #ffdddd;
   }
   
+  .inputText_block1 textarea.invaliddata {
+    background-color: #ffdddd;
+  }
+
+  .select-block1 select.invaliddata {
+    background-color: #ffdddd;
+  }
+
+  .select-block1timepicker select.invaliddata {
+    background-color: #ffdddd;
+  }
+  
+  .checkmark {
+    background-color: #ffdddd;
+  }
+
   /* Hide all steps by default: */
   .tab {
     display: none;

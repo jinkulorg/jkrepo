@@ -23,8 +23,8 @@
             @if(Auth::User()->profile->status == "MARRIED")
             <div class="alert alert-success">
                 <?php
-                    $marriedControlle = new App\Http\Controllers\MarriedController();
-                    echo $marriedControlle->getMarriageStatus();
+                $marriedControlle = new App\Http\Controllers\MarriedController();
+                echo $marriedControlle->getMarriageStatus();
                 ?>
                 <br><br>
                 <h4>To correct your marriage information, please contact <a href="/contact">administrator</a>.</h4>
@@ -33,36 +33,44 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <form method="post" action="{{url('married')}}">
+                    <form id="marriedForm" method="post" action="{{url('married')}}">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="marriage_date" class="form-control" placeholder="Enter your Marriage Date (DD-MMM-YYYY)" />
+                            <input type="text" name="marriage_date" class="form-control" placeholder="Enter your Marriage Date (DD-MMM-YYYY)" oninput="this.className = 'form-control'"/>
                         </div>
                         <div class="form-group">
                             <input type="text" name="with_profile_id" class="form-control" <?php if ($with_profile_id != null) {
                                                                                                 echo 'value="' . $with_profile_id . '" readonly';
-                                                                                            } ?> placeholder="Enter your life partner's Panchal Connect Profile ID if exist" />
+                                                                                            } ?> placeholder="Enter your life partner's Panchal Connect Profile ID if exist" oninput="this.className = 'form-control'"/>
                         </div>
                         <div class="form-group">
                             <input type="text" name="with_person_name" class="form-control" <?php if ($with_profile_id != null) {
                                                                                                 echo 'value="' . $with_person_name . '" readonly';
-                                                                                            } ?> placeholder="Enter your life partner's full name" />
+                                                                                            } ?> placeholder="Enter your life partner's full name" oninput="this.className = 'form-control'" />
                         </div>
                         <div class="form-group">
                             <label>Was 'Reference Based Search' useful in using our service? </label>
-                            <input type="radio" name="reference_useful" value="1">Yes
-                            <input type="radio" name="reference_useful" value="0">No
+                            <span id="spanreference_useful1">
+                                <input type="radio" name="reference_useful" id="reference_useful" value="1" onchange="validSpan('spanreference_useful1','spanreference_useful0')">Yes
+                            </span>
+                            <span id="spanreference_useful0">
+                                <input type="radio" name="reference_useful" id="reference_useful" value="0" onchange="validSpan('spanreference_useful1','spanreference_useful0')">No
+                            </span>
                         </div>
                         <div class="form-group">
                             <label>Are you satisfied with the service provided? </label>
-                            <input type="radio" name="service_satisfied" value="1">Yes
-                            <input type="radio" name="service_satisfied" value="0">No
+                            <span id="spanservice_satisfied1">
+                                <input type="radio" name="service_satisfied" id="service_satisfied" value="1" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')">Yes
+                            </span>
+                            <span id="spanservice_satisfied0">
+                                <input type="radio" name="service_satisfied" id="service_satisfied" value="0" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')">No
+                            </span>
                         </div>
                         <div class="form-group">
-                            <textarea name="feedback" class="form-control" placeholder="Describe your experience using panchal connect"></textarea>
+                            <textarea name="feedback" id="feedback" class="form-control" placeholder="Describe your experience using panchal connect" oninput="this.className = 'form-control'"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Confirm" />
+                            <input type="button" class="btn btn-primary" value="Confirm" onclick="validateForm()" />
                         </div>
                 </div>
             </div>
@@ -72,4 +80,55 @@
 
     </div>
 </div>
+<script type="text/javascript">
+    function validateForm() {
+        var valid = true;
+        var i;
+        var inputs = document.getElementsByTagName("input");
+        for (i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "radio") {
+                radioOptions = document.getElementsByName(inputs[i].name);
+                var checked = false;
+                for (j = 0; j < radioOptions.length; j++) {
+                    if (radioOptions[j].checked == true) {
+                        checked = true;
+                        break;
+                    }
+                }
+                if (checked == false) {
+                    for (j = 0; j < radioOptions.length; j++) {
+                        var spanId = "span" + radioOptions[j].name + radioOptions[j].value;
+                        span = document.getElementById(spanId);
+                        span.className = "checkmark";
+                    }
+                    valid = false;
+                }
+            } else if (inputs[i].value == "" && inputs[i].placeholder.trim().includes('Optional') == false) {
+                inputs[i].className += " invaliddata";
+                valid = false;
+            }
+        }
+        var feedback = document.getElementById("feedback");
+        if (feedback.value == "") {
+            // add an "invalid" class to the field:
+            feedback.className += " invaliddata";
+            // and set the current valid status to false:
+            valid = false;
+        }
+
+        if (valid) {
+            document.getElementById("marriedForm").submit();
+        } else {
+            return;
+        }
+    }
+    
+    function validSpan(spanid1, spanid2) {
+        var span = document.getElementById(spanid1);
+        span.className = "";
+        span = document.getElementById(spanid2);
+        span.className = "";
+    }
+
+</script>
 @endsection

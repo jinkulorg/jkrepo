@@ -89,7 +89,8 @@
 				<div class="inline-block">
 					<div class="age_box2" style="max-width: 220px;">
 						<label class="gender_1">Age :</label>
-						<input name="ageGreaterThan" class="transparent" placeholder="From:" style="width: 34%;" type="text" value="">&nbsp;-&nbsp;<input name="ageLessThan" class="transparent" placeholder="To:" style="width: 34%;" type="text" value="">
+						<input name="ageGreaterThan" id="ageGreaterThan" class="transparent" placeholder="From:" style="width: 34%;" type="text" value="" onblur="validateNumber('ageGreaterThan')">&nbsp;-&nbsp;
+						<input name="ageLessThan" id="ageLessThan" class="transparent" placeholder="To:" style="width: 34%;" type="text" value="" onblur="validateNumber('ageLessThan')">
 					</div>
 				</div>
 				<div class="inline-block">
@@ -176,5 +177,13 @@
 		<script type="text/javascript" src="js/jquery.flexisel.js"></script>
 	</div>
 </div>
-
+<script type="text/javascript">
+ function validateNumber(input) {
+		var inputValue = document.getElementById(input).value;
+		if (isNaN(inputValue)) {
+		    alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+		    setTimeout(function () {document.getElementById(input).focus();}, 10);
+		}
+	}
+</script>
 @endsection

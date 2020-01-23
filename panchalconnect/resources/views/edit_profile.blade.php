@@ -39,7 +39,7 @@
                                             <td class="day_label">Select Profile Photo :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="file" name="profile_pic_path[]" id="profile_pic" onchange="showImages()" multiple>
+                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid"?>" type="file" name="profile_pic_path[]" id="profile_pic" oninput="this.className = ''" onchange="showImages()" multiple>
                                                 </div>
                                             </td>
                                         </tr>
@@ -92,7 +92,7 @@
                                             <td class="day_label">Physical Status:</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="physical_status" value="{{$profile->physical_status}}">
+                                                    <input type="text" name="physical_status" value="{{$profile->physical_status}}" oninput="this.className = ''">
                                                 </div>
                                             </td>
                                         </tr>
@@ -105,10 +105,10 @@
                                                     }
                                                 ?>
                                                         <div class="inputText_block1">
-                                                            <input type="text" name="heightfeet" value="<?php echo ($profile->height != null) ? $heights[0] : "" ?>"> feet
+                                                            <input oninput="this.className = ''" type="text" name="heightfeet" id="heightfeet" value="<?php echo ($profile->height != null) ? $heights[0] : "" ?>" onblur="validateNumber('heightfeet')"> feet
                                                         </div>
                                                         <div class="inputText_block1">
-                                                            <input type="text" name="heightinches" value="<?php echo ($profile->height != null) ? $heights[1] : "" ?>"> inches
+                                                            <input oninput="this.className = ''" type="text" name="heightinches" id="heightinches" value="<?php echo ($profile->height != null) ? $heights[1] : "" ?>" onblur="validateNumber('heightinches')"> inches
                                                         </div>
                                                     </td>
                                         </tr>
@@ -116,7 +116,7 @@
                                             <td class="day_label">Weight:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">    
-                                                <input type="text" name="weight" value="{{$profile->weight}}">
+                                                <input type="text" name="weight" id="weight" value="{{$profile->weight}}" oninput="this.className = ''" onblur="validateNumber('weight')">
                                             </div>
                                             </td>
                                         </tr>
@@ -131,7 +131,7 @@
                                             <td class="day_label">Hobby:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="hobby" value="{{$profile->hobby}}">
+                                                <input type="text" name="hobby" value="{{$profile->hobby}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -204,7 +204,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Describe Yourself:</td>
                                             <td class="day_value">
-                                                <textarea name="self_description">{{$profile->self_description}}</textarea>
+                                                <textarea oninput="this.className = ''" name="self_description">{{$profile->self_description}}</textarea>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -219,7 +219,7 @@
                                                     </select>
                                                 </div>
                                                 <div id="divProfileCreatedBy" class="inputText_block1" style="display: none">
-                                                    <input type="text" name="profile_created_by_others" value="{{$profile->profile_created_by}}">
+                                                    <input class="optional valid" type="text" name="profile_created_by_others" id="profile_created_by_others" value="{{$profile->profile_created_by}}" oninput="this.className = ''">
                                                 </div>
                                            </td>
                                         </tr>
@@ -236,7 +236,7 @@
                                             <td class="day_label">Subcast:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="subcast" value="{{$profile->subcast}}">
+                                                <input type="text" name="subcast" value="{{$profile->subcast}}" oninput="this.className = ''">
                                             </div>
                                             </td>
 
@@ -245,7 +245,7 @@
                                             <td class="day_label">Birth Date:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date..." value="{{$profile->birth_date}}">
+                                                <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date..." value="{{$profile->birth_date}}" onchange="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -403,7 +403,7 @@
                                             <td class="day_label">Birth Place:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="birth_place" value="{{$profile->birth_place}}">
+                                                <input type="text" name="birth_place" value="{{$profile->birth_place}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -412,7 +412,7 @@
                                             <td class="day_label">Native:</td>
                                             <td class="day_value"> 
                                             <div class = "inputText_block1">
-                                                <input type="text" name="native" value="{{$profile->native}}">
+                                                <input type="text" name="native" value="{{$profile->native}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -508,7 +508,7 @@
                                                 </select>
                                             </div>
                                             <div id="divEducation" class="inputText_block1" style="display:none" ?>
-                                                    <input type="text" name="education_others" value="{{$profile->education}}">
+                                                    <input class="optional valid" type="text" name="education_others" id="education_others" value="{{$profile->education}}" oninput="this.className = ''">
                                             </div>
                                         </td>
                                         </tr>
@@ -531,7 +531,7 @@
                                             </td>
                                             <td class="day_value">
                                             <div class = "inputText_block1" id="divAreaOfBusiness" style="display: <?php echo ($profile->occupation == 'Job') ? "none" : "block" ?>">
-                                                <input type="text" name="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business">
+                                                <input class="optional valid" type="text" name="area_of_business" id="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -544,7 +544,7 @@
                                             </td>
                                             <td class="day_value">
                                             <div class = "inputText_block1" id="divDesignation" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
-                                                <input type="text" name="designation" value="{{$profile->designation}}" id="designation">
+                                                <input class="optional valid" type="text" name="designation" id="designation" value="{{$profile->designation}}" id="designation" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -552,7 +552,7 @@
                                             <td class="day_label">Company Name :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="company_name" value="{{$profile->company_name}}">
+                                                <input type="text" name="company_name" value="{{$profile->company_name}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -560,7 +560,7 @@
                                             <td class="day_label">Annual Income :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="annual_income" value="{{$profile->annual_income}}">
+                                                <input type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')">
                                             </div>
                                             </td>
                                         </tr>
@@ -577,13 +577,17 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Email Address :</td>
                                             <td class="day_value">
-                                                <input type="text" name="email" value = "{{$profile->user->email}}" disabled>
+                                                <div class = "inputText_block1">
+                                                    <input type="text" name="email" value = "{{$profile->user->email}}" disabled>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Contact Number :</td>
                                             <td class="day_value">
-                                                <input type="text" name="contact_no" value="{{$profile->contact_no}}">
+                                                <div class = "inputText_block1">
+                                                    <input type="text" name="contact_no" id="contact_no" value="{{$profile->contact_no}}" oninput="this.className = ''" onblur="validateContactNumber('contact_no')">
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -597,13 +601,17 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">Present Address :</td>
-                                            <td class="day_value"><textarea name="present_address" id="present_address">{{$profile->present_address}}</textarea></td>
+                                            <td class="day_value">
+                                                <div class = "inputText_block1">
+                                                    <textarea oninput="this.className = ''" name="present_address" id="present_address">{{$profile->present_address}}</textarea>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Present City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_city" id="present_city" value="{{$profile->present_city}}">
+                                                <input type="text" name="present_city" id="present_city" value="{{$profile->present_city}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -611,7 +619,7 @@
                                             <td class="day_label">Present Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_taluka" id="present_taluka" value="{{$profile->present_taluka}}">
+                                                <input type="text" name="present_taluka" id="present_taluka" value="{{$profile->present_taluka}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -619,7 +627,7 @@
                                             <td class="day_label">Present District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_district" id="present_district" value="{{$profile->present_district}}">
+                                                <input type="text" name="present_district" id="present_district" value="{{$profile->present_district}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -627,7 +635,7 @@
                                             <td class="day_label">Present State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_state" id="present_state" value="{{$profile->present_state}}">
+                                                <input type="text" name="present_state" id="present_state" value="{{$profile->present_state}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -635,7 +643,7 @@
                                             <td class="day_label">Present Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_country" id="present_country" value="{{$profile->present_country}}">
+                                                <input type="text" name="present_country" id="present_country" value="{{$profile->present_country}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -643,7 +651,7 @@
                                             <td class="day_label">Present Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="present_pincode" id="present_pincode" value="{{$profile->present_pincode}}">
+                                                <input type="text" name="present_pincode" id="present_pincode" value="{{$profile->present_pincode}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -661,13 +669,17 @@
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent Address :</td>
-                                            <td class="day_value"><textarea name="permanent_address" id="permanent_address">{{$profile->permanent_address}}</textarea></td>
+                                            <td class="day_value">
+                                                <div class="inputText_block1">
+                                                    <textarea name="permanent_address" id="permanent_address" oninput="this.className = ''">{{$profile->permanent_address}}</textarea>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Permanent City :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_city" id="permanent_city" value="{{$profile->permanent_city}}">
+                                                <input type="text" name="permanent_city" id="permanent_city" value="{{$profile->permanent_city}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -675,7 +687,7 @@
                                             <td class="day_label">Permanent Taluka :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_taluka" id="permanent_taluka" value="{{$profile->permanent_taluka}}">
+                                                <input type="text" name="permanent_taluka" id="permanent_taluka" value="{{$profile->permanent_taluka}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -683,7 +695,7 @@
                                             <td class="day_label">Permanent District :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_district" id="permanent_district" value="{{$profile->permanent_district}}">
+                                                <input type="text" name="permanent_district" id="permanent_district" value="{{$profile->permanent_district}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -691,7 +703,7 @@
                                             <td class="day_label">Permanent State :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">    
-                                                <input type="text" name="permanent_state" id="permanent_state" value="{{$profile->permanent_state}}">
+                                                <input type="text" name="permanent_state" id="permanent_state" value="{{$profile->permanent_state}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -699,7 +711,7 @@
                                             <td class="day_label">Permanent Country :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_country" id="permanent_country" value="{{$profile->permanent_country}}">
+                                                <input type="text" name="permanent_country" id="permanent_country" value="{{$profile->permanent_country}}" oninput="this.className = ''">
                                             </div>
                                             </td>
 
@@ -708,7 +720,7 @@
                                             <td class="day_label">Permanent Pincode :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="permanent_pincode" id="permanent_pincode" value="{{$profile->permanent_pincode}}">
+                                                <input type="text" name="permanent_pincode" id="permanent_pincode" value="{{$profile->permanent_pincode}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -731,7 +743,7 @@
                                                 <td class="day_label">Father's Name :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_name" value="{{$profile->father_name}}">
+                                                    <input type="text" name="father_name" value="{{$profile->father_name}}" oninput="this.className = ''">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -739,7 +751,7 @@
                                                 <td class="day_label">Father's Ocuupation :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_occupation" value="{{$profile->father_occupation}}">
+                                                    <input type="text" name="father_occupation" value="{{$profile->father_occupation}}" oninput="this.className = ''">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -747,7 +759,7 @@
                                                 <td class="day_label">Father's Annual Income :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_annual_income" value="{{$profile->father_annual_income}}">
+                                                    <input type="text" name="father_annual_income" id="father_annual_income" value="{{$profile->father_annual_income}}" oninput="this.className = ''" onblur="validateNumber('father_annual_income')">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -755,7 +767,7 @@
                                                 <td class="day_label">Father's Contact Number :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" name="father_contact_no" value="{{$profile->father_contact_no}}">
+                                                    <input type="text" name="father_contact_no" id="father_contact_no" value="{{$profile->father_contact_no}}" oninput="this.className = ''" onblur="validateContactNumber('father_contact_no')">
                                                 </div>
                                                 </td>
                                             </tr>
@@ -772,7 +784,7 @@
                                             <td class="day_label">Mother's Name :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_name" value="{{$profile->mother_name}}">
+                                                <input type="text" name="mother_name" value="{{$profile->mother_name}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -780,7 +792,7 @@
                                             <td class="day_label">Mother's Ocuupation :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_occupation" value="{{$profile->mother_occupation}}">
+                                                <input type="text" name="mother_occupation" value="{{$profile->mother_occupation}}" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -788,7 +800,7 @@
                                             <td class="day_label">Mother's Annual Income :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_annual_income" value="{{$profile->mother_annual_income}}">
+                                                <input type="text" name="mother_annual_income" id="mother_annual_income" value="{{$profile->mother_annual_income}}" oninput="this.className = ''" onblur="validateNumber('mother_annual_income')">
                                             </div>
                                             </td>
                                         </tr>
@@ -796,7 +808,7 @@
                                             <td class="day_label">Mother's Contact Number :</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
-                                                <input type="text" name="mother_contact_no" value="{{$profile->mother_contact_no}}">
+                                                <input type="text" name="mother_contact_no" id="mother_contact_no" value="{{$profile->mother_contact_no}}" oninput="this.className = ''" onblur="validateContactNumber('mother_contact_no')">
                                             </div>
                                             </td>
                                         </tr>
@@ -964,12 +976,22 @@ function ShowHideDivProfileCreatedBy() {
         var profile_created_by = document.getElementById("profile_created_by");
         var divProfileCreatedBy = document.getElementById("divProfileCreatedBy");
         divProfileCreatedBy.style.display = profile_created_by.value == "Others" ? "block" : "none";
+        var inputProfileCreatedByOthers = document.getElementById("profile_created_by_others");
+        inputProfileCreatedByOthers.className = profile_created_by.value == "Others" ? "optional invalid" : "optional valid";
+        if (profile_created_by.value != "Others") {
+            inputProfileCreatedByOthers.value = "";
+        }
     }
 
 function ShowHideDivEducation() {
         var education = document.getElementById("education");
         var divEducation = document.getElementById("divEducation");
         divEducation.style.display = education.value == "Others" ? "block" : "none";
+        var inputEducation = document.getElementById("education_others");
+        inputEducation.className = education.value == "Others" ? "optional invalid" : "optional valid";
+        if (education.value != "Others") {
+            inputEducation.value = "";
+        }
     }
 
 function showHideDevOccupation() {
@@ -986,6 +1008,17 @@ function showHideDevOccupation() {
 
         var divDesignationLabel = document.getElementById("divDesignationLabel");
         divDesignationLabel.style.display = occupation.value == "Job" ? "block" : "none";
+
+        var inputAreaOfBusiness = document.getElementById("area_of_business");
+        var inputDesignation = document.getElementById("designation");
+        inputAreaOfBusiness.className = occupation.value == "Business" ? "optional invalid" : "optional valid";
+        inputDesignation.className = occupation.value == "Job" ? "optional invalid" : "optional valid";
+        if (occupation.value != "Business") {
+            inputAreaOfBusiness.value = "";
+        }
+        if (occupation.value != "Job") {
+            inputDesignation.value = "";
+        }
     }
 
 function sameAddressAction() {
@@ -1007,6 +1040,14 @@ function sameAddressAction() {
             document.getElementById('permanent_country').readOnly  = true;
             document.getElementById('permanent_pincode').readOnly  = true;
             
+            document.getElementById('permanent_address').className = '';
+            document.getElementById('permanent_city').className = '';
+            document.getElementById('permanent_taluka').className = '';
+            document.getElementById('permanent_district').className = '';
+            document.getElementById('permanent_state').className = '';
+            document.getElementById('permanent_country').className = '';
+            document.getElementById('permanent_pincode').className = '';
+
         } else {
             document.getElementById('permanent_address').value = "";
             document.getElementById('permanent_city').value = "";
@@ -1025,6 +1066,25 @@ function sameAddressAction() {
             document.getElementById('permanent_pincode').readOnly  = false;
         }
     }
+    function validateNumber(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            setTimeout(function () {document.getElementById(input).focus();}, 10);
+        }
+    }
 
+    function validateContactNumber(input) {
+        var inputValue = document.getElementById(input).value;
+        contactChars = Array.from(inputValue);
+
+        for (i=0 ; i < contactChars.length ; i++) {
+            if (isNaN(contactChars[i]) && contactChars[i] != ' ' && contactChars[i] != '-' && contactChars[i] != '+') {
+                alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
+                setTimeout(function () {document.getElementById(input).focus();}, 10);
+                break;
+            } 
+        }
+    }
 </script>
 @endsection
