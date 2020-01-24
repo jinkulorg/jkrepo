@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-
+	
 	<!-- Scripts -->
 	<script type="application/x-javascript">
 		addEventListener("load", function() {
@@ -67,7 +67,7 @@
 			});
 		});
 	</script>
-
+	<link href="/css/bell-notification.css" rel="stylesheet">
 </head>
 
 <body>
@@ -154,7 +154,10 @@
 										<li><a href="/reference_search">Reference Based Search</a> </li>
 		            				</ul>
 		            			</li>	
-								<li><a href="/requests">Requests</a></li>
+								<li><a href="/requests" class="notification">
+									<span>Requests</span>
+  									<span id="notificationCount" class="badge"><?php echo (Auth()->User()!=null && Auth()->User()->Profile!= null) ? Auth()->User()->Profile->Request_received->where('status','=','NEW')->count() : "0"; ?></span>
+								</a></li>
 								<li><a href="/about">About</a></li>
 								<li class="last"><a href="/contact">Contact</a></li>
 

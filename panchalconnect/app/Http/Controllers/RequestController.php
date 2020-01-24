@@ -15,6 +15,7 @@ class RequestController extends Controller
         $requestSents = null;
         $requestReceiveds = null;
         $allRequests = null;
+        $newRequestReceiveds = null;
         
         $isLoggedIn = true;
         $isProfileCreated = true;
@@ -23,15 +24,20 @@ class RequestController extends Controller
         if ($user == null) {
             $isLoggedIn = false;
             $isProfileCreated = false;
-            return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated'));
+            return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated','newRequestReceiveds'));
         }
         $profile = $user->Profile;
         if ($profile == null) {
             $isProfileCreated = false;
-            return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated'));
+            return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated','newRequestReceiveds'));
         }
         $requestSents = $profile->Request_sent->sortByDesc('created_at');
         $requestReceiveds = $profile->Request_received->sortByDesc('created_at');
+        $newRequestReceiveds = $profile->Request_received->where('status','=','NEW')->sortByDesc('created_at');
+        foreach($newRequestReceiveds as $newRequestReceived) {
+            $newRequestReceived->status = 'PENDING';
+            $newRequestReceived->save();
+        }
         $allRequests = DB::table('request_sents')
                             ->join('request_receiveds', 'request_sents.id', '=', 'request_receiveds.request_sent_id')
                             ->select('request_sents.profile_id as profile_id_from', 'request_sents.id as id_from', 'request_receiveds.*')
@@ -40,7 +46,7 @@ class RequestController extends Controller
                             ->orderBy('created_at','desc')
                             ->get();
 
-        return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated'));
+        return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated','newRequestReceiveds'));
     }
 
     public function gotMarried($with_profile_id) {

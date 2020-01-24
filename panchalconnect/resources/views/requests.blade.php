@@ -11,10 +11,16 @@
      </ul>
    </div>
   
-   @if(\Session::has('success'))
+   @if(Session::has('success'))
             <div class="alert alert-success">
                 <p>{{Session::get('success')}}</p>
             </div>
+	@endif
+
+	@if($newRequestReceiveds != null && $newRequestReceiveds->count() != 0) 
+		<div class="alert alert-success">
+			<p>{{sizeof($newRequestReceiveds)}} new request received. Please check</p>
+		</div>
 	@endif
 
    <div class="col-md-9 members_box2">
@@ -71,7 +77,6 @@
 		
 											<?php
 										}
-
 										echo "Profile Number: " . $request->profile_id;
 										?><br><?php
 										echo "Name: " . $user->name . " " . $user->lastname;
@@ -105,11 +110,18 @@
 		
 											<?php
 										}
+										
+										if ($newRequestReceiveds->find($request->id) != null) {
+											echo '<div style="background-color:LavenderBlush">';
+										} else {
+											echo '<div>';
+										}
 										echo "Profile Number:" . $from_id;
 										?><br><?php
 										echo "Name: " . $user->name . " " . $user->lastname;
 										?><br><?php
 										echo "Received at: " . $request->created_at;
+										echo "</div>";
 									}
 									?><br><?php
 									echo "Status: " . $request->status;
@@ -162,7 +174,7 @@
 									echo "Sent at: " . $requestsent->created_at;
 									?><br><?php
 									echo "Status: " . $requestsent->Request_received->status;
-									?><br><br><?php
+									?><br><hr><br><?php
 								}
 							}
 							?>
@@ -207,6 +219,11 @@
 	
 										<?php
 									}
+									if ($newRequestReceiveds->find($requestReceived->id) != null) {
+										echo '<div style="background-color:LavenderBlush">';
+									} else {
+										echo '<div>';
+									}
 									echo "Profile Number:" . $senderProfile->id;
 									?><br><?php
 									echo "Name: " . $user->name . " " . $user->lastname;
@@ -214,7 +231,8 @@
 									echo "Received at: " . $requestReceived->created_at;
 									?><br><?php
 									echo "Status: " . $requestReceived->status;
-									?><br><br><?php
+									echo "</div>";
+									?><br><hr><br><?php
 								}
 							}
 							?>
@@ -259,5 +277,7 @@
    <div class="clearfix"> </div>
   </div>
 </div>
-
+<script>
+	document.getElementById('notificationCount').innerText = <?php echo ($newRequestReceiveds != null) ? $newRequestReceiveds->count() : 0; ?>;
+</script>
 @endsection

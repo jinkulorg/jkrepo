@@ -40,7 +40,7 @@ class RequestReceivedController extends Controller
         $request_received = new Request_received([
             'request_sent_id' => $requestsentid,
             'profile_id' => $request->get('profileid'),
-            'status'=> 'pending'
+            'status'=> 'NEW'
         ]);
         
         $request_received->save();
