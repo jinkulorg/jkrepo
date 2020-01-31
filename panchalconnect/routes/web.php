@@ -132,3 +132,7 @@ Route::post('/paymentresponse',function(){
 });
 
 Route::resource('/payment','PaymentController');
+
+Route::post('/FPpaymentresponse',function(){
+    return view('payment.FPpgResponse');
+});

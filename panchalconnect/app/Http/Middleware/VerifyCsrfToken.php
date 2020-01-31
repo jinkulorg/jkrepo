@@ -25,5 +25,12 @@ class VerifyCsrfToken extends Middleware
         'http://panchalconnect/paymentresponse?*',
         'https://panchalconnect/paymentresponse',
         'https://panchalconnect/paymentresponse?*',
+        'http://localhost:8000/FPpaymentresponse',
+        'http://localhost:8000/FPpaymentresponse?*',
+        'http://panchalconnect/FPpaymentresponse',
+        'http://panchalconnect/FPpaymentresponse?*',
+        'https://panchalconnect/FPpaymentresponse',
+        'https://panchalconnect/FPpaymentresponse?*',
     ];
 }
+

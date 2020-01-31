@@ -44,6 +44,7 @@ header("Expires: 0");
 							<td><input title="TXN_AMOUNT" tabindex="10" type="text" name="TXN_AMOUNT" value="300" readonly>
 							</td>
 						</tr>
+						<input id="SOURCE" name="SOURCE" value="P" hidden>
 						<tr>
 							<td></td>
 							<td><input value="Pay" type="submit" onclick=""></td>

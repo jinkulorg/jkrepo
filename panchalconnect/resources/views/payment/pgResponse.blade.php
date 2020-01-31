@@ -47,7 +47,7 @@ header("Expires: 0");
 				foreach ($_POST as $paramName => $paramValue) {
 					$params[$paramName] = $paramValue;
 				}
-				echo $params['RESPMSG'];
+				$params['SOURCE'] = "P";
 				$paymentController = new App\Http\Controllers\PaymentController();
 				$paymentController->storePaymentDetails($params);
 			}
@@ -66,6 +66,9 @@ header("Expires: 0");
 				//Verify amount & order id received from Payment gateway with your application's order id and amount.
 			} else {
 				echo "<b>Transaction status is failure</b>" . "<br/>";
+				if ((array_key_exists('RESPMSG', $_POST))) {
+                    echo $_POST['RESPMSG'] . "<br>";
+                }
 			}
 			
 		} else {

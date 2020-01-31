@@ -102,7 +102,7 @@ class PaymentController extends Controller
         $payment->BANKTXNID = (array_key_exists('BANKTXNID', $params)) ? $params['BANKTXNID'] : null;
         $payment->BANKNAME = (array_key_exists('BANKNAME', $params)) ? $params['BANKNAME'] : null;
         $payment->CHECKSUMHASH = (array_key_exists('CHECKSUMHASH', $params)) ? $params['CHECKSUMHASH'] : null;
-        $payment->SOURCE = 'P';
+        $payment->SOURCE = (array_key_exists('SOURCE', $params)) ? $params['SOURCE'] : "P";
 
         if ((array_key_exists('STATUS', $params)) && $params['STATUS'] == "TXN_SUCCESS") {
             $payment->START_DATE = date("Y/m/d");
