@@ -430,6 +430,7 @@ class ComposerStaticInit788e8382b0e970350724df767cdc6402
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\SendMailable' => __DIR__ . '/../..' . '/app/Mail/SendMailable.php',
         'App\\Married' => __DIR__ . '/../..' . '/app/Married.php',
+        'App\\Payment' => __DIR__ . '/../..' . '/app/Payment.php',
         'App\\Profile' => __DIR__ . '/../..' . '/app/Profile.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

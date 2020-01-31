@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+	<meta name="GENERATOR" content="Evrsoft First Page">
 	
 	<!-- Scripts -->
 	<script type="application/x-javascript">
@@ -103,6 +104,7 @@
 										if (Auth::User()->profile != null) { ?>
 											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
+											<li><a href="/activate">Activate Account</a></li>
 											<li><a href="/featuredprofile">Promote Profile</a></li>
 											<li><a href="/married">Got Married</a></li>
 										<?php

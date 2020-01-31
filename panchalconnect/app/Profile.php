@@ -109,4 +109,10 @@ class Profile extends Model
         return $this->hasMany('App\FeaturedProfile');
         
     }
+
+    public function Payment()
+    {
+        return $this->hasMany('App\Payment');
+        
+    }
 }

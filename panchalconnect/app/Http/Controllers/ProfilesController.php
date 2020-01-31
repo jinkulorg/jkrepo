@@ -332,4 +332,20 @@ class ProfilesController extends Controller
             Storage::delete('public/profile_images/thumbnail/'. $file);
         }
     }
+    public function gotPaymentAndActivateProfile($id) {
+        $profile = Profile::find($id);
+        if ($profile == null) {
+            return false;
+        }
+        
+        $paymentController = new PaymentController();
+
+        if($paymentController->isPaymentReceived($id)) {
+            $profile->status = 'ACTIVE';
+            $profile->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -118,3 +118,17 @@ Route::post('/advanced_search','SearchController@advancedSearch');
 Route::get('/reference_search','SearchController@openReferenceSearch');
 
 Route::post('/reference_search','SearchController@referenceSearch');
+
+Route::get('/activate',function(){
+    return view('payment.activate');
+});
+
+Route::post('/pgRedirect',function(){
+    return view('payment.pgRedirect');
+});
+
+Route::post('/paymentresponse',function(){
+    return view('payment.pgResponse');
+});
+
+Route::resource('/payment','PaymentController');
