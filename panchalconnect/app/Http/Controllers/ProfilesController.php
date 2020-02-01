@@ -28,7 +28,9 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        return view('create_profile');
+        $homeController = new HomeController();
+        $allHobbies = $homeController->getAllHobbies();
+        return view('create_profile', compact('allHobbies'));
     }
 
     /**
@@ -125,7 +127,11 @@ class ProfilesController extends Controller
     public function edit($id)
     {
         $profile = Profile::find($id);
-        return view('edit_profile',compact('profile','id'));
+        
+        $homeController = new HomeController();
+        $allHobbies = $homeController->getAllHobbies();
+
+        return view('edit_profile',compact('profile','id','allHobbies'));
     }
 
     /**
@@ -179,7 +185,7 @@ class ProfilesController extends Controller
         }
         $profile->height               =     $height;
         $profile->weight               =     $request->input('weight');
-        $profile->hobby                =     $request->input('hobby');
+        $profile->hobby                =     ($request->input('hobby') == "Others") ? $request->input('hobby_others') : $request->input('hobby');
         $profile->complexion           =     $request->input('complexion');
         $profile->specs                =     $request->input('specs');
         $profile->vegetarian           =     $request->input('vegetarian');

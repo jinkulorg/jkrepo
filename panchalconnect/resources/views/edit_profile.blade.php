@@ -91,8 +91,12 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Physical Status:</td>
                                             <td class="day_value">
-                                                <div class="inputText_block1">
-                                                    <input type="text" name="physical_status" value="{{$profile->physical_status}}" oninput="this.className = ''">
+                                                <div class="select-block1">
+                                                    <select id="physical_status" name="physical_status">
+                                                        <option value="Normal">Normal</option>
+                                                        <option value="Abnormal">Abnormal</option>
+                                                        <option value="Handicapped">Handicapped</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
@@ -130,9 +134,31 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Hobby:</td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1">
-                                                <input type="text" name="hobby" value="{{$profile->hobby}}" oninput="this.className = ''">
-                                            </div>
+                                            <div class="select-block1">
+                                                    <select id="hobby" name="hobby" onchange="showHideDivHobby()">
+                                                        <option>Music</option>
+                                                        <option>Cooking</option>
+                                                        <option>Sports</option>
+                                                        <option>Programming</option>
+                                                        <option>Dancing</option>
+                                                        <option>Reading</option>
+                                                        <option>Writing</option>
+                                                        <?php
+                                                        $seededHobbies = array("Music", "Cooking", "Sports", "Programming", "Dancing", "Reading", "Writing");
+                                                        foreach ($allHobbies as $allHobby) {
+                                                            if (in_array($allHobby->hobby, $seededHobbies) == false) {
+                                                                ?>
+                                                                <option>{{$allHobby->hobby}}</option>
+                                                        <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <option>Others</option>
+                                                    </select>
+                                                </div>
+                                                <div id="divHobby" class="inputText_block1" style="display: none">
+                                                    <input class="optional valid" type="text" name="hobby_others" id="hobby_others" value="{{$profile->hobby}}" oninput="this.className = ''">
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -151,8 +177,9 @@
                                             <td class="day_label">Specs:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="specs" value="1" <?php if ($profile->specs == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="specs" value="0" <?php if ($profile->specs == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="specs" value="Yes" <?php if ($profile->specs == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="specs" value="No" <?php if ($profile->specs == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="specs" value="Occasionally" <?php if ($profile->specs == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -160,8 +187,9 @@
                                             <td class="day_label">Vegetarian:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="vegetarian" value="1" <?php if ($profile->vegetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="vegetarian" value="0" <?php if ($profile->vegetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="vegetarian" value="Yes" <?php if ($profile->vegetarian == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="vegetarian" value="No" <?php if ($profile->vegetarian == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="vegetarian" value="Occasionally" <?php if ($profile->vegetarian == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -169,8 +197,9 @@
                                             <td class="day_label">Non-Vegetarian:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="non_vegetarian" value="1" <?php if ($profile->non_vegetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="non_vegetarian" value="0" <?php if ($profile->non_vegetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="non_vegetarian" value="Yes" <?php if ($profile->non_vegetarian == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="non_vegetarian" value="No" <?php if ($profile->non_vegetarian == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="non_vegetarian" value="Occasionally" <?php if ($profile->non_vegetarian == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -178,8 +207,9 @@
                                             <td class="day_label">Eggetarian:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="eggetarian" value="1" <?php if ($profile->eggetarian == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="eggetarian" value="0" <?php if ($profile->eggetarian == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="eggetarian" value="Yes" <?php if ($profile->eggetarian == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="eggetarian" value="No" <?php if ($profile->eggetarian == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="eggetarian" value="Occasionally" <?php if ($profile->eggetarian == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -187,8 +217,9 @@
                                             <td class="day_label">Drink:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="drink" value="1" <?php if ($profile->drink == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="drink" value="0" <?php if ($profile->drink == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="drink" value="Yes" <?php if ($profile->drink == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="drink" value="No" <?php if ($profile->drink == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="drink" value="Occasionally" <?php if ($profile->drink == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -196,8 +227,9 @@
                                             <td class="day_label">Smoke:</td>
                                             <td class="day_value">
                                                 <div class="form_radios">
-                                                    <input type="radio"  name="smoke" value="1" <?php if ($profile->smoke == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
-                                                    <input type="radio"  name="smoke" value="0" <?php if ($profile->smoke == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    <input type="radio"  name="smoke" value="Yes" <?php if ($profile->smoke == 'Yes') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
+                                                    <input type="radio"  name="smoke" value="No" <?php if ($profile->smoke == 'No') { echo "checked"; } else { echo ""; } ?>> No &nbsp;&nbsp;
+                                                    <input type="radio"  name="smoke" value="Occasionally" <?php if ($profile->smoke == 'Occasionally') { echo "checked"; } else { echo ""; } ?>> Occasionally
                                                 </div>
                                             </td>
                                         </tr>
@@ -825,16 +857,13 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_brothers" name="no_of_brothers">
-                                                        <option value="0">0</option>
+                                                        <option value="None">None</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
                                                         <option value="4">4</option>
                                                         <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
+                                                        <option value="More than 5">More than 5</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -844,16 +873,13 @@
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_sisters" name="no_of_sisters">
-                                                    <option value="0">0</option>
+                                                    <option value="None">None</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
                                                     <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
+                                                    <option value="More than 5">More than 5</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -907,7 +933,8 @@ function setSelectedIndex(s, v) {
     setSelectedIndex(s,v);
 }
 
-
+setSelectedIndex(document.getElementById('physical_status'), "<?php echo $profile->physical_status ?>");
+setSelectedIndex(document.getElementById('hobby'),"<?php echo $profile->hobby ?>");
 setSelectedIndex(document.getElementById('complexion'), "<?php echo $profile->complexion ?>");
 setSelectedIndex(document.getElementById('profile_created_by'),"<?php echo $profile->profile_created_by ?>");
 setSelectedIndex(document.getElementById('marital_status'),"<?php echo $profile->marital_status ?>");
@@ -991,6 +1018,17 @@ function ShowHideDivEducation() {
         inputEducation.className = education.value == "Others" ? "optional invalid" : "optional valid";
         if (education.value != "Others") {
             inputEducation.value = "";
+        }
+    }
+
+function showHideDivHobby() {
+        var hobby = document.getElementById("hobby");
+        var divHobby = document.getElementById("divHobby");
+        divHobby.style.display = hobby.value == "Others" ? "block" : "none";
+        var inputHobby = document.getElementById("hobby_others");
+        inputHobby.className = hobby.value == "Others" ? "optional invalid" : "optional valid";
+        if (hobby.value != "Others") {
+            inputHobby.value = "";
         }
     }
 

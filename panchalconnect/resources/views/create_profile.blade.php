@@ -82,8 +82,13 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Physical Status:</td>
                                             <td class="day_value">
-                                                <div class="inputText_block1">
-                                                    <p><input type="text" oninput="this.className = ''" id="physical_status" name="physical_status"></p>
+                                                <div class="select-block1">
+                                                    <select id="physical_status" name="physical_status" onchange="this.className = ''">
+                                                        <option selected disabled hidden value="">--Select Physical Status--</option>
+                                                        <option>Normal</option>
+                                                        <option>Abnormal</option>
+                                                        <option>Handicapped</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
@@ -116,8 +121,31 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Hobby:</td>
                                             <td class="day_value">
-                                                <div class="inputText_block1">
-                                                    <input type="text" name="hobby" oninput="this.className = ''">
+                                                <div class="select-block1">
+                                                    <select id="hobby" name="hobby" onchange="showHideDivHobby(this)">
+                                                        <option selected disabled hidden value="">--Select Hobby--</option>
+                                                        <option>Music</option>
+                                                        <option>Cooking</option>
+                                                        <option>Sports</option>
+                                                        <option>Programming</option>
+                                                        <option>Dancing</option>
+                                                        <option>Reading</option>
+                                                        <option>Writing</option>
+                                                        <?php
+                                                        $seededHobbies = array("Music", "Cooking", "Sports", "Programming", "Dancing", "Reading", "Writing");
+                                                        foreach ($allHobbies as $allHobby) {
+                                                            if (in_array($allHobby->hobby, $seededHobbies) == false) {
+                                                                ?>
+                                                                <option>{{$allHobby->hobby}}</option>
+                                                        <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <option>Others</option>
+                                                    </select>
+                                                </div>
+                                                <div id="divHobby" class="inputText_block1" style="display: none">
+                                                    <input class="optional valid" type="text" name="hobby_others" id="hobby_others" oninput="this.className = ''">
                                                 </div>
                                             </td>
                                         </tr>
@@ -138,11 +166,14 @@
                                             <td class="day_label">Specs:</td>
                                             <td class="day_value">
                                                 <div id="divspecs" class="form_radios">
-                                                    <span id="spanspecs1">
-                                                        <input type="radio" class="radio_1" name="specs" value="1" onchange="validSpan('spanspecs1','spanspecs0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spanspecsYes">
+                                                        <input type="radio" class="radio_1" name="specs" value="Yes" onchange="validSpan('spanspecsYes','spanspecsNo','spanspecsOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spanspecs0">
-                                                        <input type="radio" class="radio_1" name="specs" value="0" onchange="validspan('spanspecs1','spanspecs0')"> No
+                                                    <span id="spanspecsNo">
+                                                        <input type="radio" class="radio_1" name="specs" value="No" onchange="validSpan('spanspecsYes','spanspecsNo','spanspecsOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spanspecsOccasionally">
+                                                        <input type="radio" class="radio_1" name="specs" value="Occasionally" onchange="validSpan('spanspecsYes','spanspecsNo','spanspecsOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -151,11 +182,14 @@
                                             <td class="day_label">Vegetarian:</td>
                                             <td class="day_value">
                                                 <div id="divvegetarian" class="form_radios">
-                                                    <span id="spanvegetarian1">
-                                                        <input type="radio" class="radio_1" name="vegetarian" value="1" onchange="validSpan('spanvegetarian1','spanvegetarian0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spanvegetarianYes">
+                                                        <input type="radio" class="radio_1" name="vegetarian" value="Yes" onchange="validSpan('spanvegetarianYes','spanvegetarianNo','spanvegetarianOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spanvegetarian0">
-                                                        <input type="radio" class="radio_1" name="vegetarian" value="0" onchange="validSpan('spanvegetarian1','spanvegetarian0')"> No
+                                                    <span id="spanvegetarianNo">
+                                                        <input type="radio" class="radio_1" name="vegetarian" value="No" onchange="validSpan('spanvegetarianYes','spanvegetarianNo','spanvegetarianOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spanvegetarianOccasionally">
+                                                        <input type="radio" class="radio_1" name="vegetarian" value="Occasionally" onchange="validSpan('spanvegetarianYes','spanvegetarianNo','spanvegetarianOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -164,11 +198,14 @@
                                             <td class="day_label">Non-Vegetarian:</td>
                                             <td class="day_value">
                                                 <div id="divnon_vegetarian" class="form_radios">
-                                                    <span id="spannon_vegetarian1">
-                                                        <input type="radio" class="radio_1" name="non_vegetarian" value="1" onchange="validSpan('spannon_vegetarian1','spannon_vegetarian0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spannon_vegetarianYes">
+                                                        <input type="radio" class="radio_1" name="non_vegetarian" value="Yes" onchange="validSpan('spannon_vegetarianYes','spannon_vegetarianNo','spannon_vegetarianOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spannon_vegetarian0">
-                                                        <input type="radio" class="radio_1" name="non_vegetarian" value="0" onchange="validSpan('spannon_vegetarian1','spannon_vegetarian0')"> No
+                                                    <span id="spannon_vegetarianNo">
+                                                        <input type="radio" class="radio_1" name="non_vegetarian" value="No" onchange="validSpan('spannon_vegetarianYes','spannon_vegetarianNo','spannon_vegetarianOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spannon_vegetarianOccasionally">
+                                                        <input type="radio" class="radio_1" name="non_vegetarian" value="Occasionally" onchange="validSpan('spannon_vegetarianYes','spannon_vegetarianNo','spannon_vegetarianOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -177,11 +214,14 @@
                                             <td class="day_label">Eggetarian:</td>
                                             <td class="day_value">
                                                 <div id="diveggetarian" class="form_radios">
-                                                    <span id="spaneggetarian1">
-                                                        <input type="radio" class="radio_1" name="eggetarian" value="1" onchange="validSpan('spaneggetarian1','spaneggetarian0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spaneggetarianYes">
+                                                        <input type="radio" class="radio_1" name="eggetarian" value="Yes" onchange="validSpan('spaneggetarianYes','spaneggetarianNo','spaneggetarianOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spaneggetarian0">
-                                                        <input type="radio" class="radio_1" name="eggetarian" value="0" onchange="validSpan('spaneggetarian1','spaneggetarian0')"> No
+                                                    <span id="spaneggetarianNo">
+                                                        <input type="radio" class="radio_1" name="eggetarian" value="No" onchange="validSpan('spaneggetarianYes','spaneggetarianNo','spaneggetarianOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spaneggetarianOccasionally">
+                                                        <input type="radio" class="radio_1" name="eggetarian" value="Occasionally" onchange="validSpan('spaneggetarianYes','spaneggetarianNo','spaneggetarianOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -190,11 +230,14 @@
                                             <td class="day_label">Drink:</td>
                                             <td class="day_value">
                                                 <div id="divdrink" class="form_radios">
-                                                    <span id="spandrink1">
-                                                        <input type="radio" class="radio_1" name="drink" value="1" onchange="validSpan('spandrink1','spandrink0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spandrinkYes">
+                                                        <input type="radio" class="radio_1" name="drink" value="Yes" onchange="validSpan('spandrinkYes','spandrinkNo','spandrinkOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spandrink0">
-                                                        <input type="radio" class="radio_1" name="drink" value="0" onchange="validSpan('spandrink1','spandrink0')"> No
+                                                    <span id="spandrinkNo">
+                                                        <input type="radio" class="radio_1" name="drink" value="No" onchange="validSpan('spandrinkYes','spandrinkNo','spandrinkOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spandrinkOccasionally">
+                                                        <input type="radio" class="radio_1" name="drink" value="Occasionally" onchange="validSpan('spandrinkYes','spandrinkNo','spandrinkOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -203,11 +246,14 @@
                                             <td class="day_label">Smoke:</td>
                                             <td class="day_value">
                                                 <div id="divsmoke" class="form_radios">
-                                                    <span id="spansmoke1">
-                                                        <input type="radio" class="radio_1" name="smoke" value="1" onchange="validSpan('spansmoke1','spansmoke0')"> Yes &nbsp;&nbsp;
+                                                    <span id="spansmokeYes">
+                                                        <input type="radio" class="radio_1" name="smoke" value="Yes" onchange="validSpan('spansmokeYes','spansmokeNo','spansmokeOccasionally')"> Yes &nbsp;&nbsp;
                                                     </span>
-                                                    <span id="spansmoke0">
-                                                        <input type="radio" class="radio_1" name="smoke" value="0" onchange="validSpan('spansmoke1','spansmoke0')"> No
+                                                    <span id="spansmokeNo">
+                                                        <input type="radio" class="radio_1" name="smoke" value="No" onchange="validSpan('spansmokeYes','spansmokeNo','spansmokeOccasionally')"> No &nbsp;&nbsp;
+                                                    </span>
+                                                    <span id="spansmokeOccasionally">
+                                                        <input type="radio" class="radio_1" name="smoke" value="Occasionally" onchange="validSpan('spansmokeYes','spansmokeNo','spansmokeOccasionally')"> Occasionally
                                                     </span>
                                                 </div>
                                             </td>
@@ -233,7 +279,7 @@
                                                     </select>
                                                 </div>
                                                 <div id="divProfileCreatedBy" class="inputText_block1" style="display: none">
-                                                    <input class="optional valid" type="text" name="profile_created_by_others" id="profile_created_by_others"  oninput="this.className = ''">
+                                                    <input class="optional valid" type="text" name="profile_created_by_others" id="profile_created_by_others" oninput="this.className = ''">
                                                 </div>
                                             </td>
                                         </tr>
@@ -857,16 +903,13 @@
                                                 <div class="select-block1">
                                                     <select id="no_of_brothers" name="no_of_brothers" onchange="this.className = ''">
                                                         <option selected disabled hidden value="">--Select Number of Brothers--</option>
-                                                        <option>0</option>
+                                                        <option>None</option>
                                                         <option>1</option>
                                                         <option>2</option>
                                                         <option>3</option>
                                                         <option>4</option>
                                                         <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
+                                                        <option>More than 5</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -877,16 +920,13 @@
                                                 <div class="select-block1">
                                                     <select id="no_of_sisters" name="no_of_sisters" onchange="this.className = ''">
                                                         <option selected disabled hidden value="">--Select Number of Sisters--</option>
-                                                        <option>0</option>
+                                                        <option>None</option>
                                                         <option>1</option>
                                                         <option>2</option>
                                                         <option>3</option>
                                                         <option>4</option>
                                                         <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
+                                                        <option>More than 5</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -965,6 +1005,18 @@
         inputEducation.className = education.value == "Others" ? "optional invalid" : "optional valid";
         if (education.value != "Others") {
             inputEducation.value = "";
+        }
+    }
+
+    function showHideDivHobby(obj) {
+        obj.className = '';
+        var hobby = document.getElementById("hobby");
+        var divHobby = document.getElementById("divHobby");
+        divHobby.style.display = hobby.value == "Others" ? "block" : "none";
+        var inputHobby = document.getElementById("hobby_others");
+        inputHobby.className = hobby.value == "Others" ? "optional invalid" : "optional valid";
+        if (hobby.value != "Others") {
+            inputHobby.value = "";
         }
     }
 
@@ -1050,11 +1102,22 @@
         span.className = "";
     }
 
+    function validSpan(spanid1, spanid2, spanid3) {
+        var span = document.getElementById(spanid1);
+        span.className = "";
+        span = document.getElementById(spanid2);
+        span.className = "";
+        span = document.getElementById(spanid3);
+        span.className = "";
+    }
+
     function validateNumber(input) {
         var inputValue = document.getElementById(input).value;
         if (isNaN(inputValue)) {
             alert("Invalid value: " + inputValue + ", Please enter numeric value.");
-            setTimeout(function () {document.getElementById(input).focus();}, 10);
+            setTimeout(function() {
+                document.getElementById(input).focus();
+            }, 10);
         }
     }
 
@@ -1062,12 +1125,14 @@
         var inputValue = document.getElementById(input).value;
         contactChars = Array.from(inputValue);
 
-        for (i=0 ; i < contactChars.length ; i++) {
+        for (i = 0; i < contactChars.length; i++) {
             if (isNaN(contactChars[i]) && contactChars[i] != ' ' && contactChars[i] != '-' && contactChars[i] != '+') {
                 alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
-                setTimeout(function () {document.getElementById(input).focus();}, 10);
+                setTimeout(function() {
+                    document.getElementById(input).focus();
+                }, 10);
                 break;
-            } 
+            }
         }
     }
 </script>
