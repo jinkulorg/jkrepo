@@ -20,6 +20,7 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+	
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script>
@@ -49,6 +50,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 	<!-- Custom Theme files -->
+	<link href="/css/style2.css" rel='stylesheet' type='text/css' />
 	<link href="/css/style.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="/css/multiformstyle.css" />
 

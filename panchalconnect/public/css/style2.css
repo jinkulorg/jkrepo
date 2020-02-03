@@ -1,0 +1,80 @@
+/* For Describe yourself textarea*/
+.container2 {
+    max-width: auto;
+    margin: 0px auto;
+    margin-top: 0px;
+}
+
+.comment {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.commenter {
+    float: left;
+}
+
+.commenter img {
+    width: 35px;
+    height: 35px;
+}
+
+.comment-text-area {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.textinput {
+    float: left;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    resize: none;
+    border: 1px solid grey;
+}
+
+/* For Address Textarea*/
+.container3 {
+    max-width: auto;
+    margin: 0px auto;
+    margin-top: 0px;
+}
+
+.comment3 {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.commenter3 {
+    float: left;
+}
+
+.commenter3 img {
+    width: 35px;
+    height: 35px;
+}
+
+.comment3-text-area {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.textinput3 {
+    float: left;
+    width: 265px;
+    min-height: 50px;
+    outline: none;
+    resize: none;
+    border: 1px solid rgb(179, 176, 176);
+    padding-left: 15px;
+}
+
+.profile_title {
+    /* background-color: rgb(245, 239, 239); */
+    background-image: linear-gradient(to right, rgb(245, 239, 239) , white);
+    
+}
