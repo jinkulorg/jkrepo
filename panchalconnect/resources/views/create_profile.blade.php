@@ -34,7 +34,7 @@
                                 <h4>About Myself</h4>
                             </div>
                             <hr>
-                            <h3 class="profile_title"">Appearance</h3>
+                            <h3 class="profile_title">Appearance</h3>
                             <div class=" row">
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
@@ -105,6 +105,12 @@
                                                 <td class="day_label"><b>Profile No:</b></td>
                                                 <td class="day_value">
                                                     <b>AUTO GENERATE</b>
+                                                </td>
+                                            </tr>
+                                            <tr class="opened_1">
+                                                <td class="day_label"><b>Status:</b></td>
+                                                <td class="day_value">
+                                                    <b>INACTIVE</b>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1055,11 +1061,11 @@
                                     <tbody>
                                         <h3 class="profile_title"> Brothers & Sister's Details </h3>
                                         <tr class="opened_1">
-                                            <td class="day_label">No. of Brothers: </td>
+                                            <td class="day_label">Number of Brothers: </td>
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_brothers" name="no_of_brothers" onchange="this.className = ''">
-                                                        <option selected disabled hidden value="">--Select Number of Brothers--</option>
+                                                        <option selected disabled hidden value="">--Select No. of Brothers--</option>
                                                         <option>None</option>
                                                         <option>1</option>
                                                         <option>2</option>
@@ -1072,11 +1078,11 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">No. of Sisters: </td>
+                                            <td class="day_label">Number of Sisters: </td>
                                             <td class="day_value">
                                                 <div class="select-block1">
                                                     <select id="no_of_sisters" name="no_of_sisters" onchange="this.className = ''">
-                                                        <option selected disabled hidden value="">--Select Number of Sisters--</option>
+                                                        <option selected disabled hidden value="">--Select No. of Sisters--</option>
                                                         <option>None</option>
                                                         <option>1</option>
                                                         <option>2</option>
