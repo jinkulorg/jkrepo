@@ -43,7 +43,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $profile_pic_path = $this->storeAndGetProfilePicPath($request);
+        $profile_pic_path = $this->storeAndGetProfilePicPath($request,"");
 
         $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, $profile_pic_path);
         
@@ -147,10 +147,7 @@ class ProfilesController extends Controller
 
         $profile_pic_path = $profile->profile_pic_path;
 
-        if ($request->hasFile('profile_pic_path')) {
-            $this->removeOldProfilePics($profile_pic_path);
-            $profile_pic_path = $this->storeAndGetProfilePicPath($request);
-        }
+        $profile_pic_path = $this->storeAndGetProfilePicPath($request, $profile_pic_path);
 
         $this->saveProfileData($profile, $request, $profile->status, $profile->user_id, $profile_pic_path);
 
@@ -202,15 +199,17 @@ class ProfilesController extends Controller
         $minute = $request->input('minute');
         $second = $request->input('second');
         $format = $request->input('format');
-        if($format == "PM" && $hour!= 12)
-        {
-            $hour = $hour+12;
+        if ($hour != "" && $minute != "" && $format != "") {
+            if($format == "PM" && $hour!= 12)
+            {
+                $hour = $hour+12;
+            }
+            else if($format == "AM" && $hour == 12)
+            {
+                $hour = $hour-12;
+            }
+            $profile->birth_time           =     "$hour:$minute:$second";
         }
-        else if($format == "AM" && $hour == 12)
-        {
-            $hour = $hour-12;
-        }
-        $profile->birth_time           =     "$hour:$minute:$second";
 
         $profile->birth_place          =     $request->input('birth_place');
         $profile->native               =     $request->input('native');
@@ -288,23 +287,48 @@ class ProfilesController extends Controller
         $viewerProfile->save();
     }
 
-    public function storeAndGetProfilePicPath($request) {
+    public function storeAndGetProfilePicPath($request, $oldProfilePicPath) {
 
-        $profile_pic_path = null;
+        $oldPics = [];
+        $removePics = [];
+        $newPics = [];
 
-        if ($request->hasFile('profile_pic_path') == false) {
-            return $profile_pic_path;
+        $removeFilesList = $request->input('removeFilesList');
+        $removeFiles = explode(",",$removeFilesList);
+        $oldProfilePicPaths = explode(",",$oldProfilePicPath);
+        $i = 1;
+
+        foreach ($oldProfilePicPaths as $oldProfilePic) {
+            $oldPics["image".$i] = $oldProfilePic;
+            if (in_array($oldProfilePic, $removeFiles)) {
+                $removePics["image".$i] = $oldProfilePic;
+            } else {
+                $newPics["image".$i] = $oldProfilePic;
+            }
+            $i++;
         }
 
-        $index = 0;
-        foreach($request->file('profile_pic_path') as $file){
- 
+        if ($removeFilesList != "") {
+            $this->removeOldProfilePics($removeFilesList);
+            
+        }
+
+        for($fileIndex = 1 ; $fileIndex <= 4 ; $fileIndex++) {
+
+            $inputFileName = "profile_pic_path" . $fileIndex;
+
+            if ($request->hasFile($inputFileName) == false) {
+                continue;
+            }
+            
+            $file = $request->file($inputFileName);
+
             //get filename with extension
             $filenamewithextension = $file->getClientOriginalName();
  
             //get filename without extension
             $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
- 
+
             //get file extension
             $extension = $file->getClientOriginalExtension();
  
@@ -321,14 +345,11 @@ class ProfilesController extends Controller
             });
             $img->save($thumbnailpath);
 
-            if ($index == 0) {
-                $profile_pic_path = $filenametostore;
-            } else {
-                $profile_pic_path = $profile_pic_path . "," . $filenametostore;
-            }
-            $index = $index + 1;
+            $newPics["image".$fileIndex] = $filenametostore;
         }
-        return $profile_pic_path;
+        
+        ksort($newPics);
+        return implode(',', array_values($newPics));
     }
 
     public function removeOldProfilePics($profile_pic_path) {

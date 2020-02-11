@@ -31,34 +31,109 @@
                     <div class="col-md-12 basic_1_left">
                         <!--------------------About Myself & Life Cycle------------------------------->
                         <div class="tab">
+                        <div class=" row">
+                                <div class="col-sm-5">
+                                    <table class="table_working_hours">
+                                        <tbody>
+                                            <tr class="opened_1">
+                                                <td class="day_value" colspan="2">
+                                                    <div class="img" id="profileImageDiv">
+                                                        <table>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <?php
+                                                                    $totalPics = 0;
+                                                                    if ($profile->profile_pic_path != null) {
+                                                                        $profile_pic_paths = explode(",", $profile->profile_pic_path);
+                                                                        $totalPics = sizeof($profile_pic_paths);
+                                                                        if ($totalPics != 0) {
+                                                                            ?>
+                                                                            <img id='mainimage' src='/storage/profile_images/thumbnail/{{$profile_pic_paths[0]}}' width='300' height='250'>
+                                                                        <?php
+                                                                            } else {
+                                                                                ?>
+                                                                            <img id='mainimage' src='#' width='300' height='250'>
+                                                                        <?php
+                                                                            }
+                                                                        } else {
+                                                                            ?>
+                                                                        <img id='mainimage' src='#' width='300' height='250'>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <?php
+                                                                $totalPics = 0;
+                                                                if ($profile->profile_pic_path != null) {
+                                                                    $profile_pic_paths = explode(",", $profile->profile_pic_path);
+                                                                    $totalPics = sizeof($profile_pic_paths);
+                                                                    $i = 1;
+                                                                    foreach ($profile_pic_paths as $profile_pic_path) {
+                                                                        ?>
+                                                                        <td>
+                                                                            <img id="image{{$i}}" width="73" height="63" src="/storage/profile_images/thumbnail/{{$profile_pic_path}}" onclick="showInMainImage('image{{$i}}')" />&nbsp;
+                                                                        </td>
+                                                                    <?php
+                                                                            $i++;
+                                                                        }
+                                                                    }
+                                                                    for ($i = $totalPics + 1; $i <= 4; $i++) {
+                                                                        ?>
+                                                                    <td>
+                                                                        <img id="image{{$i}}" width="73" height="63" src="#" onclick="showInMainImage('image{{$i}}')" />&nbsp;
+                                                                    </td>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage1" class="button_add button4" data-toggle="tooltip" title="Add first image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" title="Remove first image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage2" class="button_add button4" data-toggle="tooltip" title="Add second image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" title="Remove second image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage3" class="button_add button4" data-toggle="tooltip" title="Add third image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" title="Remove third image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage4" class="button_add button4" data-toggle="tooltip" title="Add fourth image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" title="Remove fourth image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                            </tr>
+                                                            <input type="text" class="optional valid" name="removeFilesList" id="removeFilesList" value="" hidden>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
                             <div class="col-sm-6">
                                 <h3>About Myself</h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
-                                            <td class="day_label">Select Profile Photo :</td>
+                                            <td class="day_label" style="display: none">Select Profile Photo :</td>
                                             <td class="day_value">
-                                                <div class="inputText_block1">
-                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid"?>" type="file" name="profile_pic_path[]" id="profile_pic" oninput="this.className = ''" onchange="showImages()" multiple>
+                                                <div id="divImage1" class="inputText_block1" style="display: none">
+                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = ''" onchange="showImages(1)">
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_value" colspan=2>
-                                                <div class="img" id="profileImageDiv">
-
+                                                <div id="divImage2" class="inputText_block1" style="display: none">
+                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = ''" onchange="showImages(2)">
                                                 </div>
-                                                <div id="divOldProfiles" style="display: block">
-                                                    <?php
-                                                    if ($profile->profile_pic_path != null) {
-								                        $profile_pic_paths = explode(",",$profile->profile_pic_path);
-								                        foreach($profile_pic_paths as $profile_pic_path) {
-								                        	?>
-								                        	<img width=100 height=100 src="/storage/profile_images/thumbnail/{{$profile_pic_path}}"/>
-								                        	<?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                <div id="divImage3" class="inputText_block1" style="display: none">
+                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = ''" onchange="showImages(3)">
+                                                </div>
+                                                <div id="divImage4" class="inputText_block1" style="display: none">
+                                                    <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = ''" onchange="showImages(4)">
                                                 </div>
                                             </td>
                                         </tr>
@@ -974,30 +1049,37 @@ setSelectedIndex(document.getElementById('minute'),"<?php echo $min ?>");
 setSelectedIndex(document.getElementById('second'),"<?php echo $sec?>");
 setSelectedIndex(document.getElementById('format'),"<?php echo $ampm?>");
 
+function showImages(identity) {
+        var fileInput = document.getElementById('profile_pic' + identity);
+        makeAllFileInputValid();
+        var files = fileInput.files;
+        for (i = 0; i < files.length; i++) {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(files[i]);
 
-function showImages() {
-    var fileInput = document.getElementById('profile_pic');
-    var files = fileInput.files;
-
-    if (files.length != 0) {
-        var divOldProfiles = document.getElementById("divOldProfiles");
-        divOldProfiles.style.display = "none";
-    }
-
-    for(i=0 ; i < files.length ; i++) {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(files[i]);
-
-        oFReader.onload = function (oFREvent) {
-            var imgElement = document.createElement("img");
-            document.getElementById("profileImageDiv").appendChild(imgElement);
-            imgElement.src = oFREvent.target.result;
-            imgElement.width = 100;
-            imgElement.height = 100;
-            imgElement.id = "img" + i;
+            oFReader.onload = function(oFREvent) {
+                var imageName = "image" + identity;
+                var imgElement = document.getElementById(imageName);
+                imgElement.src = oFREvent.target.result;
+            }
         }
+        setTimeout(function() {
+            showInMainImage('image' + identity);
+        }, 20);
     }
-}
+
+function makeAllFileInputValid() {
+        document.getElementById('profile_pic1').className = "optional valid";
+        document.getElementById('profile_pic2').className = "optional valid";
+        document.getElementById('profile_pic3').className = "optional valid";
+        document.getElementById('profile_pic4').className = "optional valid";
+    }
+
+function showInMainImage(image) {
+        var imageFrom = document.getElementById(image);
+        var mainImageElement = document.getElementById('mainimage');
+        mainImageElement.src = imageFrom.src;
+    }
 
 function ShowHideDivProfileCreatedBy() {
         var profile_created_by = document.getElementById("profile_created_by");
@@ -1124,5 +1206,130 @@ function sameAddressAction() {
             } 
         }
     }
+
+    
+    const fileSelect1 = document.getElementById("AddImage1"),
+        fileElem1 = document.getElementById("profile_pic1")
+    fileSelect1.addEventListener("click", function(e) {
+        if (fileElem1) {
+            fileElem1.click();
+        }
+    }, false);
+
+    const fileSelect2 = document.getElementById("AddImage2"),
+        fileElem2 = document.getElementById("profile_pic2")
+    fileSelect2.addEventListener("click", function(e) {
+        if (fileElem2) {
+            fileElem2.click();
+        }
+    }, false);
+
+    const fileSelect3 = document.getElementById("AddImage3"),
+        fileElem3 = document.getElementById("profile_pic3")
+    fileSelect3.addEventListener("click", function(e) {
+        if (fileElem3) {
+            fileElem3.click();
+        }
+    }, false);
+
+    const fileSelect4 = document.getElementById("AddImage4"),
+        fileElem4 = document.getElementById("profile_pic4")
+    fileSelect4.addEventListener("click", function(e) {
+        if (fileElem4) {
+            fileElem4.click();
+        }
+    }, false);
+
+    mainImageElement = document.getElementById('mainimage');
+    removeFilesListInput = document.getElementById("removeFilesList");
+
+    const rmfileSelect1 = document.getElementById("RemoveImage1"),
+        rmfileElem1 = document.getElementById("profile_pic1")
+    rmfileSelect1.addEventListener("click", function(e) {
+
+        if (rmfileElem1) {
+            rmfileElem1.value = "";
+            img1 = document.getElementById("image1");
+            oldImage1 = img1.src.substr(img1.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img1.src) {
+                mainImageElement.src = "";
+            }
+            img1.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage1;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage1;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect2 = document.getElementById("RemoveImage2"),
+        rmfileElem2 = document.getElementById("profile_pic2")
+    rmfileSelect2.addEventListener("click", function(e) {
+
+
+        if (rmfileElem2) {
+            rmfileElem2.value = "";
+            img2 = document.getElementById("image2");
+            oldImage2 = img2.src.substr(img2.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img2.src) {
+                mainImageElement.src = "";
+            }
+            img2.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage2;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage2;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect3 = document.getElementById("RemoveImage3"),
+        rmfileElem3 = document.getElementById("profile_pic3")
+    rmfileSelect3.addEventListener("click", function(e) {
+
+        if (rmfileElem3) {
+            rmfileElem3.value = "";
+            img3 = document.getElementById("image3");
+            oldImage3 = img3.src.substr(img3.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img3.src) {
+                mainImageElement.src = "";
+            }
+            img3.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage3;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage3;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect4 = document.getElementById("RemoveImage4"),
+        rmfileElem4 = document.getElementById("profile_pic4")
+    rmfileSelect4.addEventListener("click", function(e) {
+
+        if (rmfileElem4) {
+            rmfileElem4.value = "";
+            img4 = document.getElementById("image4");
+            oldImage4 = img4.src.substr(img4.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img4.src) {
+                mainImageElement.src = "";
+            }
+            img4.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage4;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage4;
+            }
+        }
+
+    }, false);
+
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 @endsection

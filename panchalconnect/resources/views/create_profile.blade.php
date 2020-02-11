@@ -62,6 +62,24 @@
                                                                     <img id="image4" src="#" width="73" height="63" onclick="showInMainImage('image4')">&nbsp;
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage1" class="button_add button4" data-toggle="tooltip" title="Add first image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" title="Remove first image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage2" class="button_add button4" data-toggle="tooltip" title="Add second image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" title="Remove second image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage3" class="button_add button4" data-toggle="tooltip" title="Add third image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" title="Remove third image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                                <td>
+                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage4" class="button_add button4" data-toggle="tooltip" title="Add fourth image">&nbsp;+&nbsp;</label>
+                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" title="Remove fourth image">&nbsp;x&nbsp;</label>
+                                                                </td>
+                                                            </tr>
                                                         </table>
                                                     </div>
                                                 </td>
@@ -72,6 +90,7 @@
                                 <div class="col-sm-7">
                                     <table class="table_working_hours">
                                         <tbody>
+                                            <br>
                                             <tr class="opened_1">
                                                 <td class="day_label">
                                                     <h3>Name:</h3>
@@ -94,12 +113,20 @@
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Select Profile Photo :</td>
                                                 <td class="day_value">
-                                                    <div class="inputText_block1">
-                                                        <input type="file" name="profile_pic_path[]" id="profile_pic" oninput="this.className = ''" onchange="showImages()" multiple>
-                                                    </div>
-                                                </td>
+                                                <div id="divImage1" class="inputText_block1" style="display: none">
+                                                    <input class="optional invalid" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = ''" onchange="showImages(1)">
+                                                </div>
+                                                <div id="divImage2" class="inputText_block1" style="display: none">
+                                                    <input class="optional invalid" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = ''" onchange="showImages(2)">
+                                                </div>
+                                                <div id="divImage3" class="inputText_block1" style="display: none">
+                                                    <input class="optional invalid" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = ''" onchange="showImages(3)">
+                                                </div>
+                                                <div id="divImage4" class="inputText_block1" style="display: none">
+                                                    <input class="optional invalid" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = ''" onchange="showImages(4)">
+                                                </div>
+                                            </td>
                                             </tr>
                                             <tr class="opened_1">
                                                 <td class="day_label">Gender :</td>
@@ -1097,29 +1124,31 @@
 </form>
 <script src="/js/multiform.js"></script>
 <script type="text/javascript">
-    var imageCount = 0;
 
-    function showImages() {
-        var fileInput = document.getElementById('profile_pic');
+    function showImages(identity) {
+        var fileInput = document.getElementById('profile_pic' + identity);
+        makeAllFileInputValid();
         var files = fileInput.files;
-        if (imageCount + files.length >= 5) {
-            alert("You can add only 4 images.");
-            return;
-        }
         for (i = 0; i < files.length; i++) {
             var oFReader = new FileReader();
             oFReader.readAsDataURL(files[i]);
 
             oFReader.onload = function(oFREvent) {
-                imageCount++;
-                var imageName = "image" + imageCount;
+                var imageName = "image" + identity;
                 var imgElement = document.getElementById(imageName);
                 imgElement.src = oFREvent.target.result;
             }
         }
         setTimeout(function() {
-            showInMainImage('image' + imageCount);
-        }, 10);
+            showInMainImage('image' + identity);
+        }, 20);
+    }
+
+    function makeAllFileInputValid() {
+        document.getElementById('profile_pic1').className = "optional valid";
+        document.getElementById('profile_pic2').className = "optional valid";
+        document.getElementById('profile_pic3').className = "optional valid";
+        document.getElementById('profile_pic4').className = "optional valid";
     }
 
     function showInMainImage(image) {
@@ -1299,5 +1328,129 @@
             }
         }
     }
+
+    const fileSelect1 = document.getElementById("AddImage1"),
+        fileElem1 = document.getElementById("profile_pic1")
+    fileSelect1.addEventListener("click", function(e) {
+        if (fileElem1) {
+            fileElem1.click();
+        }
+    }, false);
+
+    const fileSelect2 = document.getElementById("AddImage2"),
+        fileElem2 = document.getElementById("profile_pic2")
+    fileSelect2.addEventListener("click", function(e) {
+        if (fileElem2) {
+            fileElem2.click();
+        }
+    }, false);
+
+    const fileSelect3 = document.getElementById("AddImage3"),
+        fileElem3 = document.getElementById("profile_pic3")
+    fileSelect3.addEventListener("click", function(e) {
+        if (fileElem3) {
+            fileElem3.click();
+        }
+    }, false);
+
+    const fileSelect4 = document.getElementById("AddImage4"),
+        fileElem4 = document.getElementById("profile_pic4")
+    fileSelect4.addEventListener("click", function(e) {
+        if (fileElem4) {
+            fileElem4.click();
+        }
+    }, false);
+
+    mainImageElement = document.getElementById('mainimage');
+    removeFilesListInput = document.getElementById("removeFilesList");
+
+    const rmfileSelect1 = document.getElementById("RemoveImage1"),
+        rmfileElem1 = document.getElementById("profile_pic1")
+    rmfileSelect1.addEventListener("click", function(e) {
+
+        if (rmfileElem1) {
+            rmfileElem1.value = "";
+            img1 = document.getElementById("image1");
+            oldImage1 = img1.src.substr(img1.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img1.src) {
+                mainImageElement.src = "";
+            }
+            img1.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage1;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage1;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect2 = document.getElementById("RemoveImage2"),
+        rmfileElem2 = document.getElementById("profile_pic2")
+    rmfileSelect2.addEventListener("click", function(e) {
+
+
+        if (rmfileElem2) {
+            rmfileElem2.value = "";
+            img2 = document.getElementById("image2");
+            oldImage2 = img2.src.substr(img2.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img2.src) {
+                mainImageElement.src = "";
+            }
+            img2.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage2;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage2;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect3 = document.getElementById("RemoveImage3"),
+        rmfileElem3 = document.getElementById("profile_pic3")
+    rmfileSelect3.addEventListener("click", function(e) {
+
+        if (rmfileElem3) {
+            rmfileElem3.value = "";
+            img3 = document.getElementById("image3");
+            oldImage3 = img3.src.substr(img3.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img3.src) {
+                mainImageElement.src = "";
+            }
+            img3.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage3;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage3;
+            }
+        }
+
+    }, false);
+
+    const rmfileSelect4 = document.getElementById("RemoveImage4"),
+        rmfileElem4 = document.getElementById("profile_pic4")
+    rmfileSelect4.addEventListener("click", function(e) {
+
+        if (rmfileElem4) {
+            rmfileElem4.value = "";
+            img4 = document.getElementById("image4");
+            oldImage4 = img4.src.substr(img4.src.lastIndexOf("/") + 1);
+            if (mainImageElement.src == img4.src) {
+                mainImageElement.src = "";
+            }
+            img4.src = "";
+            if (removeFilesListInput.value == "") {
+                removeFilesListInput.value = oldImage4;
+            } else {
+                removeFilesListInput.value = removeFilesListInput.value + "," + oldImage4;
+            }
+        }
+
+    }, false);
+
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 @endsection

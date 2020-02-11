@@ -78,3 +78,66 @@
     background-image: linear-gradient(to right, rgb(245, 239, 239) , white);
     
 }
+
+.button_add {
+    background-color: whitesmoke; /* Green */
+    border: none;
+    color: Green;
+    padding: 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+  }
+  .button_add:hover {
+    background-color: orange;
+    color: Green;
+  }
+
+  .button_remove {
+    background-color: whitesmoke; /* Green */
+    border: none;
+    color: red;
+    /* padding: 5px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+  }
+
+  .button_remove:hover {
+    background-color: orange;
+    color: red;
+  }
+  .button4 {border-radius: 50px;}
+
+  /* Tooltip container */
+.tooltip label{
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip label .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip label:hover .tooltiptext {
+    visibility: visible;
+  }
