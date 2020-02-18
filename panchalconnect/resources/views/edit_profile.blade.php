@@ -681,12 +681,12 @@
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">
-                                                <div id="divAreaOfBusinessLabel" style="display: <?php echo ($profile->occupation == 'Job') ? "none" : "block" ?>">
+                                                <div id="divAreaOfBusinessLabel" style="display: <?php echo ($profile->occupation == 'Business') ? "block" : "none" ?>">
                                                     Area of Bussiness :
                                                 </div>
                                             </td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1" id="divAreaOfBusiness" style="display: <?php echo ($profile->occupation == 'Job') ? "none" : "block" ?>">
+                                            <div class = "inputText_block1" id="divAreaOfBusiness" style="display: <?php echo ($profile->occupation == 'Business') ? "block" : "none" ?>">
                                                 <input class="optional valid" type="text" name="area_of_business" id="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business" oninput="this.className = ''">
                                             </div>
                                             </td>
@@ -711,11 +711,9 @@
                                                 </div>
                                             </td>
                                             <td class="day_value">
-                                            <div class = "inputText_block1" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
-                                                <div id="divCompanyName" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
+                                                <div  class = "inputText_block1" id="divCompanyName" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
                                                     <input type="text" name="company_name" value="{{$profile->company_name}}" oninput="this.className = ''">
                                                 </div>
-                                            </div>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
@@ -1225,6 +1223,7 @@ function showHideDivHobby() {
 
 function showHideDevOccupation() {
         var occupation = document.getElementById("occupation");
+        
 
         var divAreaOfBusinessLabel = document.getElementById("divAreaOfBusinessLabel");
         divAreaOfBusinessLabel.style.display = occupation.value == "Business" ? "block" : "none";

@@ -154,7 +154,7 @@
                                 $marriedController = new App\Http\Controllers\MarriedController();
                                 // Checking if logged in user is not married and searched user is also not married. 
                                 // If any one of them is married, Send request button will not be displayed.
-                                if (!($marriedController->isMarried(Auth::user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
+                                if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
                                     ?>
                                     <form id="sendInterestForm" method="post" action="{{url('requestsent')}}">
                                         @csrf
@@ -187,7 +187,7 @@
             <div class="view_profile view_profile2">
                 <h3>Recently Viewed Profiles</h3>
                 <?php
-                $user = Auth::user();
+                $user = Auth()->user();
                 if ($user != null) {
                     $loginprofile = $user->profile;
                     if ($loginprofile != null) {
