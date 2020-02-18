@@ -19,7 +19,7 @@
     });
    </script>-->
     <div class="col-md-9 search_left">
-      <form method="post" action="/advanced_search">
+      <form method="get" action="/advanced_search">
         @csrf
         <div class="form_but1">
           <label class="col-sm-5 control-lable1">Gender : </label>
@@ -70,13 +70,13 @@
               From
             </div>
             <div class="col-sm-2">
-              <input class="form-control has-dark-background" name="ageGreaterThan" id="ageGreaterThan" placeholder="18" type="text" onblur="validateNumber('ageGreaterThan')">
+              <input class="form-control has-dark-background" name="ageGreaterThan" id="ageGreaterThan" placeholder="18" value="18" type="text" onblur="validateNumber('ageGreaterThan')">
             </div>
             <div class="col-sm-1">
               To
             </div>
             <div class="col-sm-2">
-              <input class="form-control has-dark-background" name="ageLessThan" id="ageLessThan" placeholder="40" type="text" onblur="validateNumber('ageLessThan')">
+              <input class="form-control has-dark-background" name="ageLessThan" id="ageLessThan" placeholder="40" value="40" type="text" onblur="validateNumber('ageLessThan')">
             </div>
             <div class="clearfix"> </div>
           </div>
@@ -181,10 +181,10 @@
             </div>
           </div>
           <div class="col-sm-2">
-            <input type="text" id="amountfrom" name="amountfrom" class="form-control" placeholder="Amount" onblur="validateNumber('amountfrom')"/>
+            <input type="text" id="amountfrom" name="amountfrom" class="form-control" placeholder="Amount" value="" onblur="validateNumber('amountfrom')"/>
           </div>
           <div id="divamountto" class="col-sm-2" style="display: none">
-            <input type="text" id="amountto" name="amountto" class="form-control" placeholder="To" onblur="validateNumber('amountto')" />
+            <input type="text" id="amountto" name="amountto" class="form-control" placeholder="To" value="" onblur="validateNumber('amountto')" />
           </div>
           <!-- </div> -->
           <div class="clearfix"> </div>

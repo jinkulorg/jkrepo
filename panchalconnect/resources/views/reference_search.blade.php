@@ -52,7 +52,7 @@
 
       </p>
       <br>
-      <form method="post" action="/reference_search">
+      <form method="get" action="/reference_search">
         @csrf
         <input type="submit" value="Find Profiles With Mutual Reference" />
       </form>

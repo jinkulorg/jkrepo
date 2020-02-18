@@ -939,7 +939,7 @@ h4.post-title a:hover{
 	margin-bottom:2em;
 }
 /* Shutter In Vertical */
-.vertical {
+.vertical a{
     display: inline-block;
     vertical-align: middle;
     -webkit-transform: translateZ(0);
@@ -958,7 +958,7 @@ h4.post-title a:hover{
     font-size: 12px;
     color:#fff;
 }
-.vertical:before {
+.vertical a:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -978,11 +978,11 @@ h4.post-title a:hover{
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.vertical:hover, .vertical:focus, .vertical:active {
+.vertical a:hover, .vertical a:focus, .vertical a:active {
   color: white;
   text-decoration:none;
 }
-.vertical:hover:before, .vertical:focus:before, .vertical:active:before {
+.vertical a:hover:before, .vertical a:focus:before, .vertical a:active:before {
   -webkit-transform: scaleY(0);
   transform: scaleY(0);
 }

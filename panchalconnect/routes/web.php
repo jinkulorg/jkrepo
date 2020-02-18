@@ -109,15 +109,15 @@ Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeatured
 /**
  * Routes for Search
  */
-Route::post('/basicsearch','SearchController@basicSearch')->name('basicsearch');
+Route::get('/basicsearch','SearchController@basicSearch')->name('basicsearch');
 
-Route::get('/advanced_search','SearchController@openAdvancedSearch');
+Route::get('/advanced_search_open','SearchController@openAdvancedSearch');
 
-Route::post('/advanced_search','SearchController@advancedSearch');
+Route::get('/advanced_search','SearchController@advancedSearch');
 
-Route::get('/reference_search','SearchController@openReferenceSearch');
+Route::get('/reference_search_open','SearchController@openReferenceSearch');
 
-Route::post('/reference_search','SearchController@referenceSearch');
+Route::get('/reference_search','SearchController@referenceSearch');
 
 Route::get('/activate',function(){
     return view('payment.activate');

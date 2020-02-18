@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\Reference;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -51,23 +52,33 @@ class SearchController extends Controller
     }
 
     public function referenceSearch() {
-        $loggedInProfileId = Auth()->User()->Profile->id;
-        $references = Reference::where('profile_id',$loggedInProfileId)->get();
-        $filteredProfiles = [];
+        $filteredProfiles = Profile::whereIn('id', function($query){
+            $query->select('profile_id')
+            ->from('references')
+            ->whereIn('code', function($query){
+                $query->select('code')
+                ->from('references')
+                ->where('profile_id', Auth()->User()->Profile->id);
+            })
+            ->where('profile_id','!=',Auth()->User()->Profile->id);
+        })->paginate(1);
 
-        foreach($references as $reference) {
-            $code = $reference->code;
-            $mutualReferences = Reference::where('code',$code)->where('profile_id','!=',$loggedInProfileId)->get();
-            
-            foreach($mutualReferences as $mutualReference) {
-                $profile = Profile::find($mutualReference->profile_id);
-               
-                if ($profile != null) {
-                    $filteredProfiles[$reference->id] = $profile;
-                }
-            }
+        return view('search_result',compact('filteredProfiles'));
+    }
+
+    public function getMutualReference($forProfileId) {
+        $mutualReferences = [];
+        $references = Reference::whereIn('code', function($query){
+            $query->select('code')
+            ->from('references')
+            ->where('profile_id', Auth()->User()->Profile->id);
+        })->where('profile_id','=',$forProfileId)->get();
+
+        foreach ($references as $reference) {
+            array_push($mutualReferences, $reference->first_name . " " . $reference->last_name . " (" . $reference->city . ")");
         }
-        return view('reference_search_result',compact('filteredProfiles'));
+
+        return $mutualReferences;
     }
 
     public function basicSearch(Request $request)
@@ -75,14 +86,16 @@ class SearchController extends Controller
         $ageGreaterThan = $request->get('ageGreaterThan');
         $ageLessThan = $request->get('ageLessThan');
 
-        $preFilteredProfiles = Profile::search([
+        $filteredProfiles = Profile::search([
             'gender' => $request->get('gender'),
             'present_state' => $request->get('present_state'),
             'hobby' => $request->get('hobby'),
             'marital_status' => $request->get('marital_status')
-        ], [])->get();
-
-        $filteredProfiles = $this->getAgeFilteredProfiles($preFilteredProfiles, $ageGreaterThan, $ageLessThan);
+        ], [])
+        ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
+        ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
+        ->where('id','!=',Auth()->User()->Profile->id)
+        ->paginate(5);
 
         return view('search_result', compact('filteredProfiles'));
     }
@@ -122,94 +135,129 @@ class SearchController extends Controller
             $mangal = '0';
         }
 
-
-        $preFilteredProfiles = Profile::search([
-            'gender' => $request->get('gender'),
-            'present_state' => $request->get('present_state'),
-            'hobby' => $request->get('hobby'),
-            'shani' => $shani,
-            'mangal' => $mangal,
-            'education' => $request->get('education'),
-            'occupation' => $request->get('occupation'),
-            'designation' => $request->get('designation')
-        ], ['marital_status' => $marital_status])->get();
-
-        
-        $ageFilteredProfiles = $this->getAgeFilteredProfiles($preFilteredProfiles, $ageGreaterThan, $ageLessThan);
-
         $sign = $request->get('sign');
         $amountfrom = $request->get('amountfrom');
         $amountto = $request->get('amountto');
 
-        $filteredProfiles = $this->getIncomeFilteredProfiles($ageFilteredProfiles, $sign, $amountfrom, $amountto);
-
+        if ($amountfrom == "" && $amountto == "") {
+            $filteredProfiles = Profile::search([
+                'gender' => $request->get('gender'),
+                'present_state' => $request->get('present_state'),
+                'hobby' => $request->get('hobby'),
+                'shani' => $shani,
+                'mangal' => $mangal,
+                'education' => $request->get('education'),
+                'occupation' => $request->get('occupation'),
+                'designation' => $request->get('designation')
+            ], ['marital_status' => $marital_status])
+            ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
+            ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
+            ->where('id','!=',Auth()->User()->Profile->id)
+            ->paginate(5);
+        } else {
+            if ($sign == "Range") {
+                $filteredProfiles = Profile::search([
+                    'gender' => $request->get('gender'),
+                    'present_state' => $request->get('present_state'),
+                    'hobby' => $request->get('hobby'),
+                    'shani' => $shani,
+                    'mangal' => $mangal,
+                    'education' => $request->get('education'),
+                    'occupation' => $request->get('occupation'),
+                    'designation' => $request->get('designation')
+                ], ['marital_status' => $marital_status])
+                ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
+                ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
+                ->whereBetween('annual_income', [$amountfrom, $amountto])
+                ->where('id','!=',Auth()->User()->Profile->id)
+                ->paginate(5);
+        
+            } else {
+                $filteredProfiles = Profile::search([
+                    'gender' => $request->get('gender'),
+                    'present_state' => $request->get('present_state'),
+                    'hobby' => $request->get('hobby'),
+                    'shani' => $shani,
+                    'mangal' => $mangal,
+                    'education' => $request->get('education'),
+                    'occupation' => $request->get('occupation'),
+                    'designation' => $request->get('designation')
+                ], ['marital_status' => $marital_status])
+                ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
+                ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
+                ->where('annual_income',$sign,$amountfrom)
+                ->where('id','!=',Auth()->User()->Profile->id)
+                ->paginate(5);
+            }
+        }
+        
         return view('search_result', compact('filteredProfiles'));
     }
 
-    public function getAgeFilteredProfiles($preFilteredProfiles, $ageGreaterThan, $ageLessThan)
-    {
-        if (!(ctype_digit($ageGreaterThan) AND ctype_digit($ageLessThan))) {
-            return $preFilteredProfiles;
-        }
+    // public function getAgeFilteredProfiles($preFilteredProfiles, $ageGreaterThan, $ageLessThan)
+    // {
+    //     if (!(ctype_digit($ageGreaterThan) AND ctype_digit($ageLessThan))) {
+    //         return $preFilteredProfiles;
+    //     }
 
-        $ageFilteredProfiles = array();
-        foreach ($preFilteredProfiles as $profile) {
-            if ($ageGreaterThan != null and $ageLessThan != null) {
-                $age = $profile->age();
-                if (!($age >= $ageGreaterThan and $age <= $ageLessThan)) {
-                    continue;
-                } else {
-                    array_push($ageFilteredProfiles, $profile);
-                }
-            } else {
-                $ageFilteredProfiles = $preFilteredProfiles;
-            }
-        }
-        return $ageFilteredProfiles;
-    }
+    //     $ageFilteredProfiles = array();
+    //     foreach ($preFilteredProfiles as $profile) {
+    //         if ($ageGreaterThan != null and $ageLessThan != null) {
+    //             $age = $profile->age();
+    //             if (!($age >= $ageGreaterThan and $age <= $ageLessThan)) {
+    //                 continue;
+    //             } else {
+    //                 array_push($ageFilteredProfiles, $profile);
+    //             }
+    //         } else {
+    //             $ageFilteredProfiles = $preFilteredProfiles;
+    //         }
+    //     }
+    //     return $ageFilteredProfiles;
+    // }
 
-    public function getIncomeFilteredProfiles($preFilteredProfiles, $sign, $amountfrom, $amountto)
-    {
-        if (!(ctype_digit($amountfrom))) {
-            return $preFilteredProfiles;
-        }
+    // public function getIncomeFilteredProfiles($preFilteredProfiles, $sign, $amountfrom, $amountto)
+    // {
+    //     if (!(ctype_digit($amountfrom))) {
+    //         return $preFilteredProfiles;
+    //     }
 
-        if ($sign == "Range" AND !ctype_digit($amountto)) {
-            return $preFilteredProfiles;
-        }
+    //     if ($sign == "Range" AND !ctype_digit($amountto)) {
+    //         return $preFilteredProfiles;
+    //     }
 
-        $incomeFilteredProfiles = array();
-        foreach ($preFilteredProfiles as $profile) {
+    //     $incomeFilteredProfiles = array();
+    //     foreach ($preFilteredProfiles as $profile) {
 
-            if ($sign == "Range") {
-                if (!($profile->annual_income >= $amountfrom and $profile->annual_income <= $amountto)) {
-                    continue;
-                } else {
-                    array_push($incomeFilteredProfiles, $profile);
-                }
-            } else if ($sign == "=") {
-                if (!($profile->annual_income == $amountfrom)) {
-                    continue;
-                } else {
-                    array_push($incomeFilteredProfiles, $profile);
-                }
-            } else if ($sign == ">") {
-                if (!($profile->annual_income > $amountfrom)) {
-                    continue;
-                } else {
-                    array_push($incomeFilteredProfiles, $profile);
-                }
-            } else if ($sign == "<") {
-                if (!($profile->annual_income < $amountfrom)) {
-                    continue;
-                } else {
-                    array_push($incomeFilteredProfiles, $profile);
-                }
-            } else {
-                $incomeFilteredProfiles = $preFilteredProfiles;
-                break;
-            }
-        }
-        return $incomeFilteredProfiles;
-    }
+    //         if ($sign == "Range") {
+    //             if (!($profile->annual_income >= $amountfrom and $profile->annual_income <= $amountto)) {
+    //                 continue;
+    //             } else {
+    //                 array_push($incomeFilteredProfiles, $profile);
+    //             }
+    //         } else if ($sign == "=") {
+    //             if (!($profile->annual_income == $amountfrom)) {
+    //                 continue;
+    //             } else {
+    //                 array_push($incomeFilteredProfiles, $profile);
+    //             }
+    //         } else if ($sign == ">") {
+    //             if (!($profile->annual_income > $amountfrom)) {
+    //                 continue;
+    //             } else {
+    //                 array_push($incomeFilteredProfiles, $profile);
+    //             }
+    //         } else if ($sign == "<") {
+    //             if (!($profile->annual_income < $amountfrom)) {
+    //                 continue;
+    //             } else {
+    //                 array_push($incomeFilteredProfiles, $profile);
+    //             }
+    //         } else {
+    //             $incomeFilteredProfiles = $preFilteredProfiles;
+    //             break;
+    //         }
+    //     }
+    //     return $incomeFilteredProfiles;
+    // }
 }

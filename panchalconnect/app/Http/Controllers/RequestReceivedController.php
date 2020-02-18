@@ -50,7 +50,11 @@ class RequestReceivedController extends Controller
         $isSelf = false;
         $noProfile = false;
         $isReceived = false;
-        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));;
+
+        $homeController = new HomeController();
+        $allHobbies = $homeController->getAllHobbies();
+
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));;
     }
 
     /**

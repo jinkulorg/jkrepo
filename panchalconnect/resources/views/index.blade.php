@@ -42,7 +42,7 @@
 	<div class="profile_search">
 		<div class="container wrap_1">
 
-			<form action="/basicsearch" method="post" >
+			<form action="/basicsearch" method="get" >
 			@csrf
 				<div class="search_top">
 					<div class="inline-block">
@@ -89,8 +89,8 @@
 				<div class="inline-block">
 					<div class="age_box2" style="max-width: 220px;">
 						<label class="gender_1">Age :</label>
-						<input name="ageGreaterThan" id="ageGreaterThan" class="transparent" placeholder="From:" style="width: 34%;" type="text" value="" onblur="validateNumber('ageGreaterThan')">&nbsp;-&nbsp;
-						<input name="ageLessThan" id="ageLessThan" class="transparent" placeholder="To:" style="width: 34%;" type="text" value="" onblur="validateNumber('ageLessThan')">
+						<input name="ageGreaterThan" id="ageGreaterThan" class="transparent" placeholder="From:" style="width: 34%;" type="text" value="0" onblur="validateNumber('ageGreaterThan')">&nbsp;-&nbsp;
+						<input name="ageLessThan" id="ageLessThan" class="transparent" placeholder="To:" style="width: 34%;" type="text" value="100" onblur="validateNumber('ageLessThan')">
 					</div>
 				</div>
 				<div class="inline-block">

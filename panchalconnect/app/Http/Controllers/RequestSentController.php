@@ -91,4 +91,28 @@ class RequestSentController extends Controller
         $request_sent->delete();
         return redirect()->action('RequestReceivedController@destroy',[$request_received->id]);
     }
+
+    public function isRequestSentTo($toProfileId) {
+        $requestsents = Auth()->User()->Profile->Request_sent;
+                        
+        foreach($requestsents as $requestsent) {
+            $profileidreceived = $requestsent->Request_received->profile_id;
+            if ($profileidreceived == $toProfileId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isRequestReceivedFrom($fromProfileId) {
+        $requestreceiveds = Auth()->User()->Profile->Request_received;
+                        
+        foreach($requestreceiveds as $requestreceived) {
+            $profileidsent = $requestreceived->Request_sent->profile_id;
+            if ($profileidsent == $fromProfileId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
