@@ -59,6 +59,10 @@
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
+	<!-- FlexSlider -->
+	<script defer src="/js/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
 	<!-- Javascript -->
 	<script>
 		$(function() {

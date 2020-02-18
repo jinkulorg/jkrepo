@@ -63,6 +63,10 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
+
+        $homeController = new HomeController();
+        $allHobbies = $homeController->getAllHobbies();
+
         $profile = Profile::find($id);
         if ($profile == false) {
             return "No profile for id: " . $id;
@@ -105,7 +109,7 @@ class ProfilesController extends Controller
                             if ($profileidsent == $id) {
                                 $isReceived = true;
                                 $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
-                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
+                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));
                             }
                         }
                         
@@ -114,7 +118,8 @@ class ProfilesController extends Controller
                 
             }
             $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
-            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived'));
+
+            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));
         }
     }
 
@@ -339,9 +344,15 @@ class ProfilesController extends Controller
             Storage::put('public/profile_images/thumbnail/'. $filenametostore, fopen($file, 'r+'));
  
             //Resize image here
+            $imagepath = public_path('storage/profile_images/'.$filenametostore);
+            $img = Image::make($imagepath)->resize(400, 400, function($constraint) {
+                // $constraint->aspectRatio();
+            });
+            $img->save($imagepath);
+
             $thumbnailpath = public_path('storage/profile_images/thumbnail/'.$filenametostore);
-            $img = Image::make($thumbnailpath)->resize(400, 150, function($constraint) {
-                $constraint->aspectRatio();
+            $img = Image::make($thumbnailpath)->resize(100, 100, function($constraint) {
+                // $constraint->aspectRatio();
             });
             $img->save($thumbnailpath);
 
