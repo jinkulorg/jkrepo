@@ -75,7 +75,8 @@
 
 .profile_title {
     /* background-color: rgb(245, 239, 239); */
-    background-image: linear-gradient(to right, rgb(245, 239, 239) , white);
+    /* background-image: linear-gradient(to right, rgb(245, 239, 239) , white); */
+    background-image: linear-gradient(to right, rgb(233, 178, 178) , white);
     
 }
 

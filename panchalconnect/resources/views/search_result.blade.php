@@ -64,7 +64,7 @@
             if ($diff->format("%a") == 0) {
                 $lastSeen = "Today";
             } else if ($diff->format("%a") == 1) {
-                $lastSeen = $diff->format("%a day");
+                $lastSeen = $diff->format("Yesterday");
             } else {
                 $lastSeen = $diff->format("%a days");
             }

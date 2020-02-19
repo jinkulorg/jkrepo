@@ -13,36 +13,7 @@
 
 
         <div class="col-md-9 search_left">
-            <?php
-            if ($isGuest) {
-            ?> <a href="/login">Login/Register</a>
-            <?php
-            } else if ($noProfile) {
-            ?>
-                <a href="{{route('profile.create')}}"> Create your profile to send request</a>
-                <?php
-            } else if ($isSelf) {
-                // echo "Your Profile";
-            } else if ($isSent) {
-                echo "Request already sent";
-            } else if ($isReceived) {
-                echo "Request already received";
-            } else {
-                $marriedController = new App\Http\Controllers\MarriedController();
-                // Checking if logged in user is not married and searched user is also not married. 
-                // If any one of them is married, Send request button will not be displayed.
-                if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
-                ?>
-                    <form method="post" action="{{url('requestsent')}}">
-                        @csrf
-                        <input type="hidden" name="profileid" value="{{$profile->id }}" />
-                        <input type="submit" value="Send Request" />
-                    </form>
-
-            <?php
-                }
-            }
-            ?>
+            
             <div class="col_4">
 
                 <div class="basic_1">
@@ -52,16 +23,77 @@
                             <table width=100%>
                                 <td>
                                     <h4>{{$profile->id}} | {{ $profile->User->name }} {{ $profile->User->lastname }}</h4>
+                                    <ul class="login_details1">
+                                        <?php
+                                        $date1 = date_create(date("Y/m/d"));
+                                        $date2 = date_create($profile->user->last_login_date);
+                                        $diff = date_diff($date1, $date2);
+                                        if ($diff->format("%a") == 0) {
+                                            $lastSeen = "Today";
+                                        } else if ($diff->format("%a") == 1) {
+                                            $lastSeen = $diff->format("Yesterday");
+                                        } else {
+                                            $lastSeen = $diff->format("%a days");
+                                        }
+                                        ?>
+                                        <li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($profile->user->last_login_date))}})</li>
+                                    </ul>
                                 </td>
-                                <?php
-                                if ($isSelf || Auth()->user()->isAdmin()) {
-                                ?>
+                                
                                     <td align="right">
-                                        <h3><a href="{{action('ProfilesController@edit',$profile->id)}}">Edit Profile</a></h3>
+                                    <div class="buttons">
+                                        <!-- <div class="vertical">Send Mail</div> -->
+                                        <div class="vertical">
+                                            <?php
+                                                if ($isSelf || (Auth()->user() != null && Auth()->user()->isAdmin())) {
+                                            ?>
+                                                    <a href="{{action('ProfilesController@edit',$profile->id)}}" class="vertical">Edit Profile</a>
+                                            <?php
+                                                }
+                                            ?>
+                                            
+                                            <?php
+                                            if ($isGuest) {
+                                            ?> <a href="/login" class="vertical">Login/Register</a>
+                                            <?php
+                                            } else if ($noProfile) {
+                                            ?>
+                                                Create your profile to send request <a href="{{route('profile.create')}}" class="vertical">Create</a>
+                                                <?php
+                                            } else if ($isSelf) {
+                                            ?>
+                                                <a href="#" class="vertical">Activate Profile</a>
+                                                <a href="#" class="vertical">Promote Profile</a>
+                                            <?php
+                                            } else if ($isSent) {
+                                            ?>
+                                                <a href="/requests" class="vertical">View Request Sent</a>
+                                            <?php
+                                            } else if ($isReceived) {
+                                            ?>
+                                                <a href="/requests" class="vertical">View Request Received</a>
+                                            <?php
+                                            } else {
+                                                $marriedController = new App\Http\Controllers\MarriedController();
+                                                // Checking if logged in user is not married and searched user is also not married. 
+                                                // If any one of them is married, Send request button will not be displayed.
+                                                if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
+                                                ?>
+                                                    <a href="#" onclick="sendInterestClicked()" class="vertical">Send Interest</a>
+                                                    <form id="sendInterestForm" method="post" action="{{url('requestsent')}}">
+                                                        @csrf
+                                                        <input type="hidden" name="profileid" value="{{$profile->id }}" />
+                                                        <!-- <input type="submit" value="Send Request" /> -->
+                                                    </form>
+                                                
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
                                     </td>
-                                <?php
-                                }
-                                ?>
+                                
                             </table>
                         </div>
                         <hr>
@@ -111,34 +143,25 @@
                                 <table class="table_working_hours">
                                     <tbody>
                                         <br>
-                                        <?php
-                                        $date1 = date_create(date("Y/m/d"));
-                                        $date2 = date_create($profile->user->last_login_date);
-                                        $diff = date_diff($date1, $date2);
-                                        if ($diff->format("%a") == 0) {
-                                            $lastSeen = "Today";
-                                        } else if ($diff->format("%a") == 1) {
-                                            $lastSeen = $diff->format("%a day");
-                                        } else {
-                                            $lastSeen = $diff->format("%a days");
-                                        }
-                                        ?>
+                                        
                                         <tr class="opened_1">
-                                            <td>
-                                                <ul class="login_details1">
-                                                    <li>Last Seen:</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul class="login_details1">
-                                                    <li>{{$lastSeen}}</li>
-                                                </ul>
+                                            <td class="day_label">Profile Id:</td>
+                                            <td class="day_value">
+                                                <b>{{$profile->id}}</b>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
                                             <td class="day_label">Status:</td>
                                             <td class="day_value">
                                                 <b>{{$profile->status}}</b>
+                                            </td>
+                                        </tr>
+                                        <tr class="opened_1">
+                                            <td class="day_label">Profile Created By:</td>
+                                            <td class="day_value">
+                                                <div class="select-block1">
+                                                    <b>{{$profile->profile_created_by}}</b>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -211,25 +234,7 @@
                                                 {{$profile->specs}}
                                             </td>
                                         </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Profile Created By:</td>
-                                            <td class="day_value">
-                                                <div class="select-block1">
-                                                    {{$profile->profile_created_by}}
-                                                </div>
-                                                <div id="divProfileCreatedBy" class="inputText_block1" style="display: none">
-                                                    <input class="optional valid" type="text" name="profile_created_by_others" id="profile_created_by_others" value="{{$profile->profile_created_by}}" oninput="this.className = ''">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="opened_1">
-                                            <td class="day_label">Last Login Date:</td>
-                                            <td class="day_value">
-                                                <div class="select-block1">
-                                                    {{date("d-M-Y", strtotime($profile->user->last_login_date))}}
-                                                </div>
-                                            </td>
-                                        </tr>
+                                       
                                         <tr class="opened_1">
                                             <td class="day_label">Marital Status:</td>
                                             <td class="day_value">
@@ -274,7 +279,7 @@
                             <div class="col-sm-12">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title">About Me</h3>
+                                        <h3 class="profile_title">&nbsp;About Me</h3>
                                         <tr class="opened_1">
                                             <td class="day_value">
                                                 <div class="container2">
@@ -291,7 +296,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-4">
-                                <h3 class="profile_title">Life Style</h3>
+                                <h3 class="profile_title">&nbsp;Life Style</h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -331,7 +336,7 @@
                             <div class="col-sm-2"></div>
                             <!-- <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 150px;"></div> -->
                             <div class="col-sm-6">
-                                <h3 class="profile_title">Education & Career</h3>
+                                <h3 class="profile_title">&nbsp;Education & Career</h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -408,7 +413,7 @@
                             </div>
                         </div>
                         <hr />
-                        <h3 class="profile_title">Astro Details</h3>
+                        <h3 class="profile_title">&nbsp;Astro Details</h3>
                         <div class="row">
                             <div class="col-sm-4">
                                 <table class="table_working_hours">
@@ -510,7 +515,7 @@
                                 <h4>Communication Details</h4>
                             </div>
                             <hr> -->
-                        <h3 class="profile_title">Contact Details</h3>
+                        <h3 class="profile_title">&nbsp;Contact Details</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <br>
@@ -518,11 +523,11 @@
                                     <tbody>
                                         <tr class="opened_1">
                                             <td class="day_label">
-                                                <h3>Email Address: </h3>
+                                                Email Address:
                                             </td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <h3><b>{{Auth::user()->email}}</b></h3>
+                                                    {{$profile->user->email}}
                                                 </div>
                                             </td>
                                         </tr>
@@ -546,7 +551,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title">Present Address</h3>
+                        <h3 class="profile_title">&nbsp;Present Address</h3>
                         <br>
                         <div class="row">
                             <div class="col-sm-6">
@@ -621,7 +626,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title">Permanent Address</h3>
+                        <h3 class="profile_title">&nbsp;Permanent Address</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
@@ -704,7 +709,7 @@
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title"> Father's Details </h3>
+                                        <h3 class="profile_title">&nbsp;Father's Details </h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Name :</td>
                                             <td class="day_value">
@@ -744,7 +749,7 @@
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title"> Mother' Details </h3>
+                                        <h3 class="profile_title">&nbsp;Mother' Details </h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Name :</td>
                                             <td class="day_value">
@@ -782,7 +787,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title"> Brothers & Sister's Details </h3>
+                        <h3 class="profile_title">&nbsp;Brothers & Sister's Details </h3>
                         <div class="row">
                             <div class="col-sm-4">
                                 <table class="table_working_hours">
@@ -890,6 +895,10 @@
     function setAction() {
         var your_form = document.getElementById('profile_search_form');
         your_form.action = "/profile/" + document.getElementsByName("searchprofileid")[0].value;
+    }
+
+    function sendInterestClicked() {
+        document.getElementById("sendInterestForm").submit();
     }
 
     function showInMainImage(image) {
