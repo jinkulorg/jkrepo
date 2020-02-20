@@ -78,6 +78,10 @@ class Profile extends Model
         return $from->diff($to)->y;
     }
 
+    public function isActive() {
+        return $this->status == "ACTIVE";
+    }
+
     /**
      * One to One relationship between User and Profile.
      */

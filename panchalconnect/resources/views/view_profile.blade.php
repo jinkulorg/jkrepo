@@ -62,8 +62,12 @@
                                                 <?php
                                             } else if ($isSelf) {
                                             ?>
-                                                <a href="#" class="vertical">Activate Profile</a>
-                                                <a href="#" class="vertical">Promote Profile</a>
+                                                @if(!$profile->isActive())
+                                                    <a href="/activate" class="vertical">Activate Profile</a>
+                                                @endif
+                                                @if($profile->isActive())
+                                                    <a href="/featuredprofile" class="vertical">Promote Profile</a>
+                                                @endif
                                             <?php
                                             } else if ($isSent) {
                                             ?>
