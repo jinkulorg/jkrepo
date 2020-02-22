@@ -53,7 +53,7 @@ class HomeController extends Controller
         $email = $request->input('email');
         $msg = $request->input('message');
 
-        Mail::to('kuldeepjinkal@panchalconnect.com')->send(new SendMailable($name, $phone, $email, $msg));
+        Mail::to('kul.d.panchal@gmail.com')->send(new SendMailable($name, $phone, $email, $msg));
         return redirect()->route('contact')->with('success','Email sent successfully');
     }
 
