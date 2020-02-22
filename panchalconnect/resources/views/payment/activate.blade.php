@@ -16,6 +16,53 @@ header("Expires: 0");
 				<li class="current-page">Activate Profile</li>
 			</ul>
 		</div>
+		@if(Auth::User() != null && Auth::User()->profile != null && Auth::User()->profile->status == "RENEW")
+			 <div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Your profile is INACTIVE. Kindly activate again to renew it.<b></h3>
+			</div>
+		@endif
+		<?php
+			if (Auth::User() != null && Auth::User()->profile != null && Auth::User()->profile->isActive()) {
+				$paymentController = new App\Http\Controllers\PaymentController();
+				$paymentDetails = $paymentController->getPaymentDetailsForActivateProfile();
+				?>
+					@if($paymentDetails != null)
+					 <div class="alert alert-success">
+						<h3><b><i class='fa fa-check' aria-hidden='true'></i> Thank you for registering with us!</b> <br><br>
+							Your profile is active and all the below listed benefits are granted.</h3><br><br>
+						<div class="row">
+							<div class="col-sm-2" style="line-height: 2em">
+								<b>Status:</b><br>
+								<b>Payment Id</b><br>
+								<b>Amount Paid</b><br>
+								<b>Validity:</b><br>
+								<b>Next Renewal Date:</b><br>
+								
+							</div>
+							<div class="col-sm-4" style="line-height: 2em">
+								ACTIVE<br>
+								{{$paymentDetails->ORDERID}}<br>
+								Rs. {{$paymentDetails->TXNAMOUNT}}/-<br>
+								From {{date('d-M-Y', strtotime($paymentDetails->START_DATE))}} to {{date('d-M-Y', strtotime($paymentDetails->END_DATE))}}<br>
+								{{ date('d-M-Y', strtotime("+1 days", strtotime($paymentDetails->END_DATE) )) }}<br>
+							</div>
+						</div>
+					</div>
+					@else
+					<div class="alert alert-danger">
+        			    <ul>
+        			        <li>
+								<b><i class='fa fa-times' aria-hidden='true'></i> It seems that your profile is active but payment information is not available.</b><br><br>
+							</li>
+        			    </ul>
+        			</div>
+					@endif    
+					<hr>
+				<?php
+			}
+		?>
+
 		<div class="basic_1">
 			<div class="list-heading"><strong>Benefits on Activate Profile</strong></div>
 			<br>
@@ -41,13 +88,13 @@ header("Expires: 0");
 			</ul>
 		</div>
 		<hr>
-		<h3><b><i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only Rs. 351/- to activate your profile and get these benefits for one year</b></h3>
-		<br>
+		
 
 		<?php
-		if (Auth::User() != null && Auth::User()->profile != null) {
+		if (Auth::User() != null && Auth::User()->profile != null && !Auth::User()->profile->isActive()) {
 			?>
-
+			<h3><b><i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only Rs. 351/- to activate your profile and get these benefits for one year</b></h3>
+			<br>
 			<form id="payment_form" method="post" action="/pgRedirect">
 				@csrf
 				<table>
@@ -55,8 +102,8 @@ header("Expires: 0");
 						<tr>
 							<td>
 
-								<input type="checkbox" id="confirm" name="confirm" value="confirm" />
-								&nbsp;Confirm that your profile id is {{Auth::User()->profile->id}} and your name is {{Auth::User()->name}} {{Auth::User()->lastname}}
+								<!-- <input type="checkbox" id="confirm" name="confirm" value="confirm" />
+								&nbsp;Confirm that your profile id is {{Auth::User()->profile->id}} and your name is {{Auth::User()->name}} {{Auth::User()->lastname}} -->
 							</td>
 						</tr>
 						<tr>
@@ -86,7 +133,7 @@ header("Expires: 0");
 						</tr>
 						<input id="SOURCE" name="SOURCE" value="P" hidden>
 						<tr>
-							<td><br>
+							<td>
 								<!-- <input class="my-buttons" value="Proceed to pay Rs. 351" type="submit" > -->
 							</td>
 							<td></td>
@@ -96,7 +143,7 @@ header("Expires: 0");
 			</form>
 			<div class="buttons">
 				<div class="my-buttons">
-					<a href="#" class="my-buttons" onclick="paymentClicked()">Proceed to pay Rs. 351</a>
+					<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay Rs. 351</a>
 				</div>
 			</div>
 		<?php
@@ -106,10 +153,10 @@ header("Expires: 0");
 </div>
 <script type="text/javascript">
 	function paymentClicked() {
-		if (document.getElementById("confirm").checked == false) {
-			alert("Please confirm and then proceed to pay.");
-			return;
-		}
+		// if (document.getElementById("confirm").checked == false) {
+		// 	alert("Please confirm and then proceed to pay.");
+		// 	return;
+		// }
 		document.getElementById("payment_form").submit();
 	}
 </script>

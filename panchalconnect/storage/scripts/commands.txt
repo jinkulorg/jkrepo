@@ -3,3 +3,10 @@ Before using the web application below are the mandatory commands need to be run
 command: php artisan storage:link
 Description: This command will create the symbolic link. It would create a storage folder under the public directory. 
 This is where we store our profile image files.
+
+To get the Cron job running, follow below steps:
+1. goto terminal
+2. Fire below command:
+    shell> crontab -e
+3. Below should be the content of the file: (Note: change the path accordingly)
+* * * * * cd /opt/lampp/htdocs/laravelapp/trunk/panchalconnect && php artisan schedule:run >> /dev/null 2>&1

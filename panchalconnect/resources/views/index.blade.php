@@ -123,9 +123,12 @@
 		</div>
 		<ul id="flexiselDemo3">
 		<?php
-		foreach($featuredProfiles as $featuredProfile) { ?>
+		foreach($featuredProfiles as $featuredProfile) { 
+			$profile_pic_paths = explode(",",$featuredProfile->profile->profile_pic_path);
+			$profile_pic_path = ($profile_pic_paths == null || sizeof($profile_pic_paths) == 0) ? "" : $profile_pic_paths[0];
+			?>
 			<li><div class="col_1"><a href="{{action('ProfilesController@show',$featuredProfile->profile_id)}}">
-			<img src="images/1.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+			<img src="/storage/profile_images/{{$profile_pic_path}}" alt="" class="hover-animation image-zoom-in img-responsive"/>
 			 <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
 				<div class="center-middle">
 				<?php 

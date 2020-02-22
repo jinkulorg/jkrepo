@@ -110,12 +110,8 @@
 										if (Auth::User()->profile != null) { ?>
 											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
-											@if(!Auth::user()->profile->isActive())
-												<li><a href="/activate">Activate Profile</a></li>
-											@endif
-											@if(Auth::user()->profile->isActive())
-												<li><a href="/featuredprofile">Promote Profile</a></li>
-											@endif
+											<li><a href="/activate">Activate Profile</a></li>
+											<li><a href="/featuredprofile">Promote Profile</a></li>
 											<li><a href="/married">Got Married</a></li>
 										<?php
 										}

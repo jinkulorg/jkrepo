@@ -40,8 +40,6 @@ header("Expires: 0");
 
         if ($isValidChecksum == "TRUE") {
 
-            echo "<b>Checksum matched and following are the transaction details:</b>" . "<br/>";
-
             $params = [];
             if (isset($_POST) && count($_POST) > 0) {
                 foreach ($_POST as $paramName => $paramValue) {
@@ -49,49 +47,100 @@ header("Expires: 0");
                 }
                 $params['SOURCE'] = "FP";
                 $paymentController = new App\Http\Controllers\PaymentController();
-                $paymentController->storePaymentDetails($params);
+                $txnid = $params['TXNID'];
+				$samepayments = App\Payment::all()->where('TXNID','=',$txnid);
+				if ($samepayments == null || sizeof($samepayments) == 0) {
+                    $paymentController->storePaymentDetails($params);
+                }
             }
 
             if ((array_key_exists('STATUS', $_POST)) && $_POST["STATUS"] == "TXN_SUCCESS") {
-                echo "<b>Panchal Connect transaction status is success</b>" . "<br/>";
+                
                 $featuredProfileController = new App\Http\Controllers\FeaturedProfileController();
+                $planName = "";
                 $plan = null;
+                
                 if ((array_key_exists('TXNAMOUNT', $params))) {
                     if ($params['TXNAMOUNT'] == 100) {
                         $plan = "plan1";
+                        $planName = "SILVER";
+                        $enddate = date('Y/m/d', strtotime("+1 months", strtotime(date("Y/m/d"))));
                     } else if ($params['TXNAMOUNT'] == 500) {
                         $plan = "plan2";
+                        $planName = "GOLD";
+                        $enddate = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
                     } else if ($params['TXNAMOUNT'] == 1000) {
                         $plan = "plan3";
+                        $planName = "PLATINUM";
+                        $enddate = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+                    } else {
+                        $enddate = date("Y/m/d");
                     }
                 }
-                $isSuccess = $featuredProfileController->storeFeaturedProfile($plan);
+                $isSuccess = "true";
+                if ($samepayments == null || sizeof($samepayments) == 0) {
+                    $isSuccess = $featuredProfileController->storeFeaturedProfile($plan);
+                }
 
                 if ($isSuccess) {
-                    ?>
-                    <div class="alert alert-success">
-                        <?php echo "Your profile is promoted succesfully."; ?>
-                        <br><br>
-                    </div>
-                <?php
-                        } else {
-                            ?>
-                    <div class="alert alert-success">
-                        <?php echo "Your profile is not promoted succesfully. Please contact administrator"; ?>
-                        <br><br>
-                    </div>
-                <?php
+				        ?>
+				        	 <div class="alert alert-success">
+				        		<h3><b><i class='fa fa-check' aria-hidden='true'></i> Transaction is successful. Thank you for promoting your profile!</b> <br><br>
+				        			We have received your payment. Your profile is promoted succesfully for {{$planName}} plan and your profile is now visilbe on <a href="/">home</a> page under featured profiles.</h3><br><br>
+				        		<div class="row">
+				        			<div class="col-sm-2" style="line-height: 2em">
+				        				<b>Status:</b><br>
+				        				<b>Payment Id</b><br>
+				        				<b>Amount Paid</b><br>
+				        				<b>Validity:</b><br>
+				        			</div>
+				        			<div class="col-sm-4" style="line-height: 2em">
+				        				PROMOTED<br>
+				        				{{$params['ORDERID']}}<br>
+				        				Rs. {{$params['TXNAMOUNT']}}/-<br>
+				        				From {{date('d-M-Y', strtotime(date("Y/m/d")))}} to {{date('d-M-Y', strtotime($enddate))}}<br>
+				        			</div>
+                                </div>
+                                <br>
+                                We hope you will promote your profile again in future.
+				        	</div>
+				        <?php
+
+                    } else {
+                        echo "Your profile is not promoted succesfully. Please contact administrator"; 
                 }
+                
                 //Process your transaction here as success transaction.
                 //Verify amount & order id received from Payment gateway with your application's order id and amount.
-            } else {
-                echo "<b>Transaction status is failure</b>" . "<br/>";
-                if ((array_key_exists('RESPMSG', $_POST))) {
-                    echo $_POST['RESPMSG'] . "<br>";
-                }
+            } else {?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>
+                            <b><i class='fa fa-times' aria-hidden='true'></i> Transaction is failed. We apologize for inconvenience caused to you. Please try again later.</b><br><br>
+                            <b>Message from Paytm:</b><br>
+                            <?php
+                            if ((array_key_exists('RESPMSG', $_POST))) {
+                                echo $_POST['RESPMSG'] . "<br>";
+                            }
+                            ?>
+                        </li>
+                    </ul>
+                </div>
+            <?php
             }
         } else {
-            echo "<b>Checksum mismatched.</b>";
+            ?>
+        		<div class="alert alert-danger">
+        			<ul>
+        			    <li>
+							<b><b><i class='fa fa-times' aria-hidden='true'></i> Transaction is failed. We apologize for inconvenience caused to you. Please try again later.</b><br><br>
+							<?php
+								echo "Reason: <b>Checksum mismatched.</b>";
+							?>
+						</li>
+        			</ul>
+        		</div>
+			<?php
             //Process transaction as suspicious.
         }
 

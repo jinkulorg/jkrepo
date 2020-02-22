@@ -10,6 +10,11 @@
                 <li class="current-page">Got Married</li>
             </ul>
             <br>
+            <div id="validationError" class="alert alert-danger" style="display: none">
+            <ul>
+                <li>Please fill up all the highlighted fields</li>
+            </ul>
+            </div>
             @if(count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
@@ -35,45 +40,61 @@
 
                     <form id="marriedForm" method="post" action="{{url('married')}}">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group" style="width: 62%">
                             <input type="text" name="marriage_date" class="form-control" placeholder="Enter your Marriage Date (DD-MMM-YYYY)" oninput="this.className = 'form-control'"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 62%">
                             <input type="text" name="with_profile_id" class="form-control" <?php if ($with_profile_id != null) {
                                                                                                 echo 'value="' . $with_profile_id . '" readonly';
-                                                                                            } ?> placeholder="Enter your life partner's Panchal Connect Profile ID if exist" oninput="this.className = 'form-control'"/>
+                                                                                            } ?> placeholder="Enter your life partner's Panchal Connect Profile ID if exist (Optional)" oninput="this.className = 'form-control'"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 62%">
                             <input type="text" name="with_person_name" class="form-control" <?php if ($with_profile_id != null) {
                                                                                                 echo 'value="' . $with_person_name . '" readonly';
                                                                                             } ?> placeholder="Enter your life partner's full name" oninput="this.className = 'form-control'" />
                         </div>
                         <div class="form-group">
+                            <div class="row">
+                            <div class="col-sm-6">
                             <label>Was 'Reference Based Search' useful in using our service? </label>
+                            </div>
+                            <div class="col-sm-6">
                             <span id="spanreference_useful1">
-                                <input type="radio" name="reference_useful" id="reference_useful" value="1" onchange="validSpan('spanreference_useful1','spanreference_useful0')">Yes
+                                <input type="radio" name="reference_useful" id="reference_useful" value="1" onchange="validSpan('spanreference_useful1','spanreference_useful0')"> Yes &nbsp;&nbsp;
                             </span>
                             <span id="spanreference_useful0">
-                                <input type="radio" name="reference_useful" id="reference_useful" value="0" onchange="validSpan('spanreference_useful1','spanreference_useful0')">No
-                            </span>
+                                <input type="radio" name="reference_useful" id="reference_useful" value="0" onchange="validSpan('spanreference_useful1','spanreference_useful0')"> No
+                            </span></div>
+                            </div>
                         </div>
                         <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
                             <label>Are you satisfied with the service provided? </label>
+                            </div>
+                            <div class="col-sm-6">
                             <span id="spanservice_satisfied1">
-                                <input type="radio" name="service_satisfied" id="service_satisfied" value="1" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')">Yes
+                                <input type="radio" name="service_satisfied" id="service_satisfied" value="1" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')"> Yes &nbsp;&nbsp;
                             </span>
                             <span id="spanservice_satisfied0">
-                                <input type="radio" name="service_satisfied" id="service_satisfied" value="0" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')">No
+                                <input type="radio" name="service_satisfied" id="service_satisfied" value="0" onchange="validSpan('spanservice_satisfied1','spanservice_satisfied0')"> No
                             </span>
+                            </div>
                         </div>
-                        <div class="form-group">
+                        </div>
+                        <div class="form-group" style="width: 62%">
                             <textarea name="feedback" id="feedback" class="form-control" placeholder="Describe your experience using panchal connect" oninput="this.className = 'form-control'"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="button" class="btn btn-primary" value="Confirm" onclick="validateForm()" />
+                            <!-- <input type="button" class="btn btn-primary" value="Confirm" onclick="validateForm()" /> -->
                         </div>
                 </div>
             </div>
+            <div class="buttons">
+				<div class="my-buttons">
+					<a href="#" class="my-buttons" style="text-align: center; " onclick="validateFormAndSubmit()">Confirm</a>
+				</div>
+			</div>
             @endif
 
         </div>
@@ -81,7 +102,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    function validateForm() {
+    function validateFormAndSubmit() {
         var valid = true;
         var i;
         var inputs = document.getElementsByTagName("input");
@@ -119,6 +140,7 @@
         if (valid) {
             document.getElementById("marriedForm").submit();
         } else {
+            document.getElementById("validationError").style.display = "block";
             return;
         }
     }

@@ -63,7 +63,11 @@
                                             } else if ($isSelf) {
                                             ?>
                                                 @if(!$profile->isActive())
-                                                    <a href="/activate" class="vertical">Activate Profile</a>
+                                                    @if($profile->status == "RENEW")
+                                                        <a href="/activate" class="vertical">Renew Profile</a>
+                                                    @else
+                                                        <a href="/activate" class="vertical">Activate Profile</a>
+                                                    @endif
                                                 @endif
                                                 @if($profile->isActive())
                                                     <a href="/featuredprofile" class="vertical">Promote Profile</a>
@@ -157,7 +161,15 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Status:</td>
                                             <td class="day_value">
-                                                <b>{{$profile->status}}</b>
+                                                <b>
+                                                    <?php
+                                                    if ($profile->status == "RENEW") {
+                                                        echo "INACTIVE (Please Renew)";
+                                                    } else {
+                                                        echo $profile->status;
+                                                    }
+                                                    ?>
+                                                </b>
                                             </td>
                                         </tr>
                                         <tr class="opened_1">

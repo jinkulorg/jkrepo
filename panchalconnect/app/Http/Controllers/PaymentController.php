@@ -85,13 +85,16 @@ class PaymentController extends Controller
     }
 
     public function storePaymentDetails($params) {
+        $source = (array_key_exists('SOURCE', $params)) ? $params['SOURCE'] : "P";
+        $amountPaid = (array_key_exists('TXNAMOUNT', $params)) ? $params['TXNAMOUNT'] : null;
+
         $payment = new Payment();
       
         $payment->PROFILE_ID = Auth()->User()->Profile->id;
         $payment->ORDERID = (array_key_exists('ORDERID', $params)) ? $params['ORDERID'] : null;
         $payment->MID = (array_key_exists('MID', $params)) ? $params['MID'] : null;
         $payment->TXNID = (array_key_exists('TXNID', $params)) ? $params['TXNID'] : null;
-        $payment->TXNAMOUNT = (array_key_exists('TXNAMOUNT', $params)) ? $params['TXNAMOUNT'] : null;
+        $payment->TXNAMOUNT = $amountPaid;
         $payment->PAYMENTMODE = (array_key_exists('PAYMENTMODE', $params)) ? $params['PAYMENTMODE'] : null;
         $payment->CURRENCY = (array_key_exists('CURRENCY', $params)) ? $params['CURRENCY'] : null;
         $payment->TXNDATE = (array_key_exists('TXNDATE', $params)) ? $params['TXNDATE'] : null;
@@ -102,11 +105,23 @@ class PaymentController extends Controller
         $payment->BANKTXNID = (array_key_exists('BANKTXNID', $params)) ? $params['BANKTXNID'] : null;
         $payment->BANKNAME = (array_key_exists('BANKNAME', $params)) ? $params['BANKNAME'] : null;
         $payment->CHECKSUMHASH = (array_key_exists('CHECKSUMHASH', $params)) ? $params['CHECKSUMHASH'] : null;
-        $payment->SOURCE = (array_key_exists('SOURCE', $params)) ? $params['SOURCE'] : "P";
+        $payment->SOURCE = $source;
 
         if ((array_key_exists('STATUS', $params)) && $params['STATUS'] == "TXN_SUCCESS") {
             $payment->START_DATE = date("Y/m/d");
-            $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+            if ($source == "FP") {
+                if ($amountPaid == "100") {
+                    $payment->END_DATE = date('Y/m/d', strtotime("+1 months", strtotime(date("Y/m/d"))));
+                } else if ($amountPaid == "500") {
+                    $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
+                } else if ($amountPaid == "1000") {
+                    $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+                } else {
+                    $payment->END_DATE = date("Y/m/d");
+                }
+            } else {
+                $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+            }
         } else {
             $payment->START_DATE = date("Y/m/d");
             $payment->END_DATE = date("Y/m/d");
@@ -123,7 +138,7 @@ class PaymentController extends Controller
             return false;
         }
 
-        $activePayments = $profile->Payment->where('END_DATE','>=',date('Y/m/d'))->where('START_DATE','<=',date('Y/m/d'));
+        $activePayments = $profile->Payment->where('END_DATE','>=',date('Y-m-d'))->where('START_DATE','<=',date('Y-m-d'));
 
         $isSuccess = false;
         foreach($activePayments as $payment) {
@@ -133,5 +148,25 @@ class PaymentController extends Controller
             }
         }
         return $isSuccess;
+    }
+
+    public function getPaymentDetailsForActivateProfile() {
+        $activePayments = Auth()->User()->Profile->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','P');
+        foreach($activePayments as $payment) {
+            if ($payment->STATUS == "TXN_SUCCESS") {
+                return $payment; 
+            }
+        }
+        return null;
+    }
+
+    public function getPaymentDetailsForPromoteProfile() {
+        $activePayments = Auth()->User()->Profile->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','FP');
+        foreach($activePayments as $payment) {
+            if ($payment->STATUS == "TXN_SUCCESS") {
+                return $payment; 
+            }
+        }
+        return null;
     }
 }

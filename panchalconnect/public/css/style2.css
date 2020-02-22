@@ -167,6 +167,56 @@
     margin: 0 0 0 20px;
   }
 
+  .offer-heading {
+    font-size: 2em;
+    text-shadow: 1px 1px;
+    color: #be3e5a;
+    text-align: center;
+  }
+
+  .offer-subheading {
+    font-size: 1.3em;
+    text-shadow: 1px 1px;
+    color: rgb(247, 212, 170);
+    text-align: center;
+    
+  }
+
+  .offer {
+    text-align: center;
+    /* background-color: #c75b73; */
+    background-color: rgb(221, 134, 19);
+    font-size: 1.3em;
+    color: white;
+    padding: 10px;
+    margin: 20px 10px 50px 10px;
+    border-radius: 20px;
+    /* box-shadow: 5px 5px 8px linen, 10px 10px 8px rgb(167, 82, 82); */
+    box-shadow: 4px 4px 8px white, 8px 8px 8px rgb(230, 176, 106);
+  }
+
+  .offer-active {
+    text-align: center;
+    background-color: #ce3b5b;
+    font-size: 1.3em;
+    color: white;
+    padding: 10px;
+    margin: 20px 10px 50px 10px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;
+  }
+
+  .offer li{
+    /* margin: 0 0 0 20px; */
+    color: white;
+  }
+
+  .offer:hover {
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1); 
+  }
+
   /* Buttons */
   .my-buttons a{
     display: inline-block;
@@ -184,7 +234,7 @@
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     padding:5px 10px;
-    font-size: 20px;
+    font-size: 15px;
     color:#fff;
     border-radius: 8px;
 }
