@@ -16,7 +16,12 @@ header("Expires: 0");
 				<li class="current-page">Activate Profile</li>
 			</ul>
 		</div>
-		@if(Auth::User() != null && Auth::User()->profile != null && Auth::User()->profile->status == "RENEW")
+		@if(Auth::User()->profile == null)
+			<div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Please <a href="{{route('profile.create')}}"> create</a> your profile<b></h3>
+			</div>
+		@elseif(Auth::User()->profile->status == "RENEW")
 			 <div class="alert alert-info">
 				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
 					Your profile is INACTIVE. Kindly activate again to renew it.<b></h3>

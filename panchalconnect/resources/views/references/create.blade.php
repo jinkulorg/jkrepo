@@ -47,7 +47,7 @@
                         <input type="text" name="pincode" class="form-control" placeholder="Enter pincode (Optional)" />
                     </div>
                     <div class="form-group">
-                        <input type="button" onclick="validateForm()" class="btn btn-primary" value="Save Reference" />
+                        <input class="btn_1" type="button" onclick="validateForm()" class="btn btn-primary" value="Save Reference" />
                     </div>
                 </form>
             </div>

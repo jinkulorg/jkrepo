@@ -63,28 +63,44 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
+        $isReceived = false;
+        $isSent = false;
+        $isGuest = false;
+        $isSelf = false;
+        $noProfile = false;
+        $loginprofile = null;
+        $successmsg = "";
+        $failuremsg = "";
 
         $homeController = new HomeController();
         $allHobbies = $homeController->getAllHobbies();
 
         $profile = Profile::find($id);
         if ($profile == false) {
-            return "No profile for id: " . $id;
+            $failuremsg = "Profile not found for id: " . $id;
+            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg', 'failuremsg'));
 
         } else {
-            $isReceived = false;
-            $isSent = false;
-            $isGuest = false;
-            $isSelf = false;
-            $noProfile = false;
-            $loginprofile = null;
+           
+
             if ((Auth()->User()) == null) {
                 $isGuest = true;
+
+                if (Profile::find($id)->status != "ACTIVE" && Profile::find($id)->status != "MARRIED") {
+                    $failuremsg = "Profile found for id: " . $id . " But it is not active. Please try again later.";
+                    return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg', 'failuremsg'));
+                }
+
             } else {
                 $loginuserid = Auth()->User()->id;
                 $loginprofile = User::find($loginuserid)->Profile;
                 if ($loginprofile == null) {
                     $noProfile = true;
+
+                    if (Profile::find($id)->status != "ACTIVE" && Profile::find($id)->status != "MARRIED") {
+                        $failuremsg = "Profile found for id: " . $id . " But it is not active. Please try again later.";
+                        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg', 'failuremsg'));
+                    }
 
                 } else {
                     $loginprofileid = $loginprofile->id;
@@ -92,13 +108,17 @@ class ProfilesController extends Controller
                         $isSelf = true;
                     } else {
                         
+                        if (Profile::find($id)->status != "ACTIVE" && Profile::find($id)->status != "MARRIED") {
+                            $failuremsg = "Profile found for id: " . $id . " But it is not active. Please try again later.";
+                            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg', 'failuremsg'));
+                        }
+
                         $requestsents = Profile::find($loginprofileid)->Request_sent;
                         
                         foreach($requestsents as $requestsent) {
                             $profileidreceived = $requestsent->Request_received->profile_id;
-                            if ($profileidreceived == $id) {
+                            if ($profileidreceived == $id && ($requestsent->Request_received->status == "NEW" || $requestsent->Request_received->status == "PENDING" || $requestsent->Request_received->status == "INTERESTED")) {
                                 $isSent = true;
-                                break;
                             }
                         }
 
@@ -106,20 +126,22 @@ class ProfilesController extends Controller
                         
                         foreach($requestreceiveds as $requestreceived) {
                             $profileidsent = $requestreceived->Request_sent->profile_id;
-                            if ($profileidsent == $id) {
+                            if ($profileidsent == $id && ($requestreceived->status == "NEW" || $requestreceived->status == "PENDING" || $requestreceived->status == "INTERESTED")) {
                                 $isReceived = true;
-                                $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
-                                return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));
                             }
                         }
                         
+                        if ($isReceived) {
+                            $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
+                            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
+                        }
                     }
                 }
                 
             }
             $this->storeRecentlyViewedProfiles($profile, $loginprofile, $isSelf);
 
-            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));
+            return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
         }
     }
 

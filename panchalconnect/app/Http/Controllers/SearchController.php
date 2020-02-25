@@ -47,7 +47,10 @@ class SearchController extends Controller
     }
 
     public function openReferenceSearch() {
-        $references = Reference::where('profile_id',Auth()->User()->Profile->id)->get()->toArray();
+        $references = null;
+        if (Auth()->user() != null && Auth()->user()->Profile != null) {
+            $references = Reference::where('profile_id',Auth()->User()->Profile->id)->get()->toArray();
+        }
         return view('reference_search',compact('references'));
     }
 
@@ -61,7 +64,9 @@ class SearchController extends Controller
                 ->where('profile_id', Auth()->User()->Profile->id);
             })
             ->where('profile_id','!=',Auth()->User()->Profile->id);
-        })->paginate(1);
+        })
+        ->where('status','=','ACTIVE')
+        ->paginate(5);
 
         return view('search_result',compact('filteredProfiles'));
     }
@@ -90,11 +95,12 @@ class SearchController extends Controller
             'gender' => $request->get('gender'),
             'present_state' => $request->get('present_state'),
             'hobby' => $request->get('hobby'),
-            'marital_status' => $request->get('marital_status')
+            'marital_status' => $request->get('marital_status'),
+            'status' => 'ACTIVE'
         ], [])
         ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
         ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
-        ->where('id','!=',Auth()->User()->Profile->id)
+        ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
         ->paginate(5);
 
         return view('search_result', compact('filteredProfiles'));
@@ -148,11 +154,12 @@ class SearchController extends Controller
                 'mangal' => $mangal,
                 'education' => $request->get('education'),
                 'occupation' => $request->get('occupation'),
-                'designation' => $request->get('designation')
+                'designation' => $request->get('designation'),
+                'status' => 'ACTIVE'
             ], ['marital_status' => $marital_status])
             ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
             ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
-            ->where('id','!=',Auth()->User()->Profile->id)
+            ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
             ->paginate(5);
         } else {
             if ($sign == "Range") {
@@ -164,12 +171,13 @@ class SearchController extends Controller
                     'mangal' => $mangal,
                     'education' => $request->get('education'),
                     'occupation' => $request->get('occupation'),
-                    'designation' => $request->get('designation')
+                    'designation' => $request->get('designation'),
+                    'status' => 'ACTIVE'
                 ], ['marital_status' => $marital_status])
                 ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
                 ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
                 ->whereBetween('annual_income', [$amountfrom, $amountto])
-                ->where('id','!=',Auth()->User()->Profile->id)
+                ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
                 ->paginate(5);
         
             } else {
@@ -181,12 +189,13 @@ class SearchController extends Controller
                     'mangal' => $mangal,
                     'education' => $request->get('education'),
                     'occupation' => $request->get('occupation'),
-                    'designation' => $request->get('designation')
+                    'designation' => $request->get('designation'),
+                    'status' => 'ACTIVE'
                 ], ['marital_status' => $marital_status])
                 ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
                 ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
                 ->where('annual_income',$sign,$amountfrom)
-                ->where('id','!=',Auth()->User()->Profile->id)
+                ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
                 ->paginate(5);
             }
         }

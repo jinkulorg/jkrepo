@@ -97,7 +97,19 @@ class RequestSentController extends Controller
                         
         foreach($requestsents as $requestsent) {
             $profileidreceived = $requestsent->Request_received->profile_id;
-            if ($profileidreceived == $toProfileId) {
+            if ($profileidreceived == $toProfileId && ($requestsent->Request_received->status == "NEW" || $requestsent->Request_received->status == "PENDING")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isRequestSentApproved($toProfileId) {
+        $requestsents = Auth()->User()->Profile->Request_sent;
+                        
+        foreach($requestsents as $requestsent) {
+            $profileidreceived = $requestsent->Request_received->profile_id;
+            if ($profileidreceived == $toProfileId && $requestsent->Request_received->status == "INTERESTED") {
                 return true;
             }
         }
@@ -109,7 +121,19 @@ class RequestSentController extends Controller
                         
         foreach($requestreceiveds as $requestreceived) {
             $profileidsent = $requestreceived->Request_sent->profile_id;
-            if ($profileidsent == $fromProfileId) {
+            if ($profileidsent == $fromProfileId  && ($requestreceived->status == "NEW" || $requestreceived->status == "PENDING")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isRequestReceivedApproved($fromProfileId) {
+        $requestreceiveds = Auth()->User()->Profile->Request_received;
+                        
+        foreach($requestreceiveds as $requestreceived) {
+            $profileidsent = $requestreceived->Request_sent->profile_id;
+            if ($profileidsent == $fromProfileId  && $requestreceived->status == "INTERESTED") {
                 return true;
             }
         }

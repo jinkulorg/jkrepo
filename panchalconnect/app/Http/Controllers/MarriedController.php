@@ -139,6 +139,7 @@ class MarriedController extends Controller
         if ($this->isMarried($profile->id)) {
             $marriedWithProfile = null;
             $marriedData = $profile->Married;
+            
             if ($marriedData == null) {
                 $marriedData = Married::where('with_profile_id', '=', $profile->id)->first();
                 $marriedWithProfile = Profile::find($marriedData->profile_id);
@@ -147,12 +148,13 @@ class MarriedController extends Controller
             }
 
             if ($marriedWithProfile == null) {
-                return "<h1>Congratulations!!!</h1><br><br> <h4>You are married.</h4>";
+                $marriedData = Married::where('profile_id', '=', $profile->id)->first();
+                return "<h1>Congratulations!!!</h1><br><br> <h4>You are married with " . $marriedData->with_person_name . ".</h4> <br>" . $marriedData->with_person_name . " is not on panchal connect.";
             } else {
-                return "<h1>Congratulations!!!</h1><br><br> <h4>You are married with " . $marriedWithProfile->User->name . " " . $marriedWithProfile->User->lastname . '</h4>';
+                return "<h1>Congratulations!!!</h1><br><br> <h4>You are married with " . $marriedWithProfile->User->name . " " . $marriedWithProfile->User->lastname . '</h4> <br>' . $marriedWithProfile->User->name . " " . $marriedWithProfile->User->lastname . " is on panchal connect, profile id is " . $marriedWithProfile->id . ".";
             }
         } else {
-            return "You are not married yet.";
+            return "<i class='fa fa-info-circle' aria-hidden='true'></i> You are not married yet.";
         }
     }
 
@@ -160,5 +162,24 @@ class MarriedController extends Controller
     {
         $profile = Profile::find($profileId);
         return strtoupper($profile->status) == "MARRIED";
+    }
+
+    public function marriedPartnerOf($profileId) {
+        $marriedWithProfile = null;
+            $marriedData = Profile::find($profileId)->Married;
+            
+            if ($marriedData == null) {
+                $marriedData = Married::where('with_profile_id', '=', $profileId)->first();
+                $marriedWithProfile = Profile::find($marriedData->profile_id);
+            } else {
+                $marriedWithProfile = Profile::find($marriedData->with_profile_id);
+            }
+
+            if ($marriedWithProfile == null) {
+                $marriedData = Married::where('profile_id', '=', $profileId)->first();
+                return $marriedData->with_person_name;
+            } else {
+                return $marriedWithProfile->User->name . " " . $marriedWithProfile->User->lastname;
+            }
     }
 }

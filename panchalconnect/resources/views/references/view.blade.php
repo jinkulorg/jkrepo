@@ -18,12 +18,18 @@
         </div>
         @endif
 
+        @if(Auth()->user()->Profile == null)
+            <div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Please <a href="{{route('profile.create')}}"> create</a> your profile<b></h3>
+			</div>
+        @else
         <table width=100%>
             <td>
                 <h3>{{ Auth::user()->name }} {{ Auth::user()->lastname }} References </h3>
             </td>
             <td align="right">
-                <h4><a href="{{route('reference.create')}}">Add Reference</a></h4>
+                <h4><a class="btn_2" href="{{route('reference.create')}}">Add Reference</a></h4>
             </td>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -47,12 +53,19 @@
                         <td>{{$reference['city']}}</td>
                         <td>{{$reference['state']}}</td>
                         <td>{{$reference['pincode']}}</td>
-                        <td><a href="{{action('ReferenceController@edit', $reference['id'])}}">Edit</a></td>
                         <td>
-                            <form method="post" class="delete_form" action="{{action('ReferenceController@destroy',$reference['id'])}}">
+                            <div class="my-buttons">
+                                <a class="my-buttons" href="{{action('ReferenceController@edit', $reference['id'])}}">Edit</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="my-buttons">
+                                <a class="my-buttons" onclick="onDelete()" href="#">Delete</a>
+                            </div>
+                            <form id="delete_form" method="post" class="delete_form" action="{{action('ReferenceController@destroy',$reference['id'])}}">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE" />
-                                <button type="submit" style="width:100px; height:30px">Delete</button>
+                                <div class="my-buttons">
                             </form>
                         </td>
                     </tr>
@@ -60,18 +73,20 @@
                 </table>
             </div>
             <div class="clearfix"> </div>
+    
+    
+        @endif
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-        $('.delete_form').on('submit', function(){    
-                if (confirm('Are you sure you want to delete it?')) {
-                        return true;
-                } else {
-                        return false;
-                }
-        });
-});
+
+function onDelete() {
+    if (confirm('Are you sure you want to delete it?')) {
+        document.getElementById("delete_form").submit();
+    } else {
+        return false;
+    }
+}
 </script>
 @endsection

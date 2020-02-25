@@ -14,7 +14,10 @@ class ReferenceController extends Controller
      */
     public function index()
     {
-        $references = Reference::where('profile_id',Auth()->User()->Profile->id)->get()->toArray();
+        $references = null;
+        if ((Auth()->user() != null && Auth()->user()->Profile != null)) {
+            $references = Reference::where('profile_id',Auth()->User()->Profile->id)->get()->toArray();
+        }
         return view('references.view',compact('references'));
     }
 

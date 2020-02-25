@@ -26,6 +26,12 @@
             <p>{{\Session::get('success')}}</p>
         </div>
         @else
+        @if(Auth()->user()->Profile == null)
+            <div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Please <a href="{{route('profile.create')}}"> create</a> your profile<b></h3>
+			</div>
+        @else
         <?php
         $featuredProfileCount = Auth::User()->profile->FeaturedProfile->whereIn('status', ['APPROVED', 'REQUESTED'])->count();
         ?>
@@ -81,11 +87,13 @@
             <br><br>
         @elseif(Auth::User()->profile->isActive())
         <hr>
+
         <div class="basic_3" style="text-align: center">
             <h4>Promote your profile to get highlighted in featured profiles on the home page of this website.</h4>
         </div>
         <hr>
         <br>
+
         <div class="offer-heading"><strong>Select plan to promote</strong></div>
         <br>
         <div class="basic_1">
@@ -183,6 +191,7 @@
 				<a href="#" id="submitButton" class="my-buttons" style="text-align: center" onclick="paymentClicked()" >Proceed to pay</a>
 			</div>
         </div>
+
         @else
             <div class="alert alert-warning">
                 <ul>
@@ -193,6 +202,7 @@
 		    		</li>
                 </ul>
             </div>
+        @endif
         @endif
         @endif
 

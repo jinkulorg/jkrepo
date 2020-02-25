@@ -25,7 +25,17 @@
             </div>
             @endif
 
-            @if(Auth::User()->profile->status == "MARRIED")
+            @if(Auth()->user()->Profile == null)
+            <div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Please <a href="{{route('profile.create')}}"> create</a> your profile<b></h3>
+            </div>
+            @elseif(Auth()->user()->Profile->isActive() == false && Auth()->user()->Profile->status != "MARRIED")
+            <div class="alert alert-info">
+				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
+					Please <a href="/activate"> activate</a> your profile<b></h3>
+            </div>
+            @elseif(Auth()->User()->profile->status == "MARRIED")
             <div class="alert alert-success">
                 <?php
                 $marriedControlle = new App\Http\Controllers\MarriedController();

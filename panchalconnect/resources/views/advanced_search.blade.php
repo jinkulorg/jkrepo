@@ -204,7 +204,7 @@
           <label class="col-sm-5 control-lable1"> </label>
           <div class="col-sm-7">
             <br>
-            <input id="submit" type="submit" value="Find Matches">
+            <input class="btn_2" id="submit" type="submit" value="Find Matches">
           </div>
           <div class="clearfix"> </div>
         </div>

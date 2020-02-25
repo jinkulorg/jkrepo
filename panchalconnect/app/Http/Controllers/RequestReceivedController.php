@@ -50,11 +50,14 @@ class RequestReceivedController extends Controller
         $isSelf = false;
         $noProfile = false;
         $isReceived = false;
+        $failuremsg = "";
 
         $homeController = new HomeController();
         $allHobbies = $homeController->getAllHobbies();
 
-        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies'));;
+        $successmsg = "You have successfully sent interest to " . $request_received->profile->user->name . " " . $request_received->profile->user->lastname;
+
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 
     /**
@@ -107,16 +110,62 @@ class RequestReceivedController extends Controller
             return view('married',compact('with_profile_id','with_person_name'));
         }
 
+        $input = Input::get('SenderMarriedNever');
+        if (isset($input)) {
+            $request->status = "NOT MARRY BY SENDER";
+            $msg = "You decided not to marry " . $request->profile->user->name . " " . $request->profile->user->lastname;
+        }
+
+        $input = Input::get('ReceiverMarriedNever');
+        if (isset($input)) {
+            $request->status = "NOT MARRY BY RECEIVER";
+            $msg = "You decided not to marry " . $user->name . " " . $user->lastname;
+        }
+
         $input = Input::get('Interested');
         if (isset($input)) {
             $request->status = "INTERESTED";
-            $msg = "You have successfully shown interest in " . $user->name . " " . $user->lastname . " profile" ;
+            $msg = "You have successfully sent interest to " . $user->name . " " . $user->lastname;
         }
 
         $input = Input::get('Not_Interested');
         if (isset($input)) {
             $request->status = "NOT INTERESTED";
-            $msg = "You have successfully shown not interested in " . $user->name . " " . $user->lastname . " profile" ;
+            $msg = "You have successfully sent not interested to " . $user->name . " " . $user->lastname;
+        }
+
+        $input = Input::get('NotMarried');
+        if (isset($input)) {
+            $request->status = "DISCONNECTED";
+            //change status from both profiles
+
+            $paymentController = new PaymentController();
+            if ($paymentController->isPaymentReceivedFor($request->profile->id)) {
+                $request->profile->status = "ACTIVE";
+            } else {
+                $request->profile->status = "INACTIVE";
+            }
+            $request->profile->save();
+            
+            if ($paymentController->isPaymentReceivedFor($user->profile->id)) {
+                $user->profile->status = "ACTIVE";
+            } else {
+                $user->profile->status = "INACTIVE";
+            }
+            $user->profile->save();
+
+            //remove marrieds table entry 
+            $married = $request->profile->married;
+            if ($married != null) {
+                $married->delete();
+            }
+
+            $married = $user->profile->married;
+            if ($married != null) {
+                $married->delete();
+            }
+
+            $msg = "Your marriage is reverted back";
         }
 
         $request->save();
@@ -136,6 +185,8 @@ class RequestReceivedController extends Controller
     {
         $request_received = Request_received::find($id);
         $request_received->delete();
-        return redirect()->back()->with('success','Request unsent successfully ');
+        $msg = "Request to " . $request_received->profile->user->name . " is unsent successfully";
+        
+        return redirect()->back()->with('success',$msg);
     }
 }

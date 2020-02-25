@@ -103,20 +103,15 @@
 									</div>
 									<ul>
 										@guest
-										<li><a href="/login">Login</a></li>
-										<li><a href="/register">Register</a></li>
+											<li><a href="/login">Login</a></li>
+											<li><a href="/register">Register</a></li>
 										@else
-										<?php
-										if (Auth::User()->profile != null) { ?>
-											<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
+											<li><a href="<?php echo (Auth::User()->profile != null) ? action('ProfilesController@show',Auth::User()->profile->id) : '#'?>">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
 											<li><a href="/activate">Activate Profile</a></li>
 											<li><a href="/featuredprofile">Promote Profile</a></li>
 											<li><a href="/married">Got Married</a></li>
-										<?php
-										}
-										?>
-										<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+											<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}
 											</a>
@@ -158,7 +153,7 @@
 								<li class="dropdown">
 		              				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<span class="caret"></span></a>
 		              				<ul class="dropdown-menu" role="menu">
-										<li><a href="/advanced_search_open">Regular Search</a> </li>
+										<li><a href="/advanced_search_open">Advanced Search</a> </li>
 										<li><a href="/reference_search_open">Reference Based Search</a> </li>
 		            				</ul>
 		            			</li>	
@@ -195,22 +190,17 @@
 			<div class="col-md-2 col_2">
 				<h4>Explore</h4>
 				<ul class="footer_links">
-				<?php
-				if (Auth::User() != null AND Auth::User()->profile != null) { ?>
-					<li><a href="{{action('ProfilesController@show',Auth::User()->profile->id)}}">My Profile</a></li>
+				@if (Auth::User() != null)
+					<li><a href="<?php echo (Auth::User()->profile != null) ? action('ProfilesController@show',Auth::User()->profile->id) : '#'?>">My Profile</a></li>
 					<li><a href="/reference">My References</a></li>
 					<li><a href="/featuredprofile">Promote Profile</a></li>
 					<li><a href="/married">Got Married</a></li>
-				<?php
-				} else {
-				?>
+				@else
 					<li><a href="#">My Profile</a></li>
 					<li><a href="#">My References</a></li>
 					<li><a href="#">Promote Profile</a></li>
 					<li><a href="#">Got Married</a></li>
-					<?php
-				}
-				?>
+				@endif
 				</ul>
 			</div>
 			<div class="col-md-2 col_2">

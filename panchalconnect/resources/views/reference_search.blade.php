@@ -10,7 +10,11 @@
         <li class="current-page">Reference Based Search</li>
       </ul>
     </div>
-
+    @if (Auth()->user() == null)
+      Please <a href='/login'>Login/Register</a> to use this feature
+    @elseif (Auth()->user()->Profile == null)
+      Please <a class='vertical' href=" . route('profile.create') . ">create</a> your profile to use this feature
+    @else
     <div class="col-md-9 search_left">
       <table width=100%>
         <td>
@@ -116,6 +120,7 @@
         ?>
       </div>
     </div>
+    @endif
     <div class="clearfix"> </div>
   </div>
 </div>

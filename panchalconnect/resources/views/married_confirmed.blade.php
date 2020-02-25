@@ -19,9 +19,9 @@
                 </ul>
             </div>
             @endif
-            <h1>Congratulations!!!</h1>
             <div class="alert alert-success">
-                {{$success}}
+                <h1>Congratulations!!!</h1><br><br>
+                <h4>{{$success}}</h4>
             </div>
         </div>
     </div>

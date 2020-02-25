@@ -267,3 +267,34 @@
   -webkit-transform: scaleY(0);
   transform: scaleY(0);
 }
+
+/* Buttons 2 */
+.btn_2 {
+  /* padding: 6px 20px; */
+  padding: 5px 8px;
+}
+
+.btn_2 {
+  /* background: #c32143;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px; */
+  /* padding: 8px 25px; */
+  /* display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
+  outline: none;
+  border: none;
+  margin: 1em 0 0 0;
+  font-size: 0.85em; */
+
+   background-color: #c32143;
+    padding: 7px 10px;
+    color: #fff;
+    font-size: 12px;
+}
+
+.btn_2:hover {
+background:#555;
+}

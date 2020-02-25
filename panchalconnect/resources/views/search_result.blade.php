@@ -62,15 +62,17 @@
             $date2 = date_create($profile->user->last_login_date);
             $diff = date_diff($date1, $date2);
             if ($diff->format("%a") == 0) {
-                $lastSeen = "Today";
+                $lastSeen = "today";
             } else if ($diff->format("%a") == 1) {
-                $lastSeen = $diff->format("Yesterday");
+                $lastSeen = $diff->format("yesterday");
             } else {
                 $lastSeen = $diff->format("%a days");
             }
 
-            $searchController = new App\Http\Controllers\SearchController();
-            $mutualReferences = $searchController->getMutualReference($profile->id);
+            if (Auth()->user() != null && Auth()->user()->Profile != null) {
+                $searchController = new App\Http\Controllers\SearchController();
+                $mutualReferences = $searchController->getMutualReference($profile->id);
+            }
             ?>
             <div class="profile_top">
                 <h2>{{$profile->id}} | {{$profile->user->name}} {{$profile->user->lastname}}</h2>
@@ -119,7 +121,7 @@
                                     <td class="day_value">{{$profile->designation}}</td>
                                 </tr>
                                 <?php
-                                if (sizeof($mutualReferences) != 0) {
+                                if ((Auth()->user() != null && Auth()->user()->Profile != null) && sizeof($mutualReferences) != 0) {
                                     ?>
                                     <tr class="opened">
                                         <td class="day_label1">Mutual References:</td>
@@ -136,35 +138,68 @@
                             <div class="vertical">
                                 <a href="{{action('ProfilesController@show',$profile->id)}}" class="vertical">View Full Profile</a>
                                 <?php
+                                $marriedController = new App\Http\Controllers\MarriedController();
+                                if (Auth()->user() == null) {
+                                    echo "<a class='vertical' href='/login'>Please Login/Register</a>";
+                                } else if (Auth()->user()->Profile == null) {
+                                    echo "<a class='vertical' href=" . route('profile.create') . ">Please create your profile</a>";
+                                } else if (Auth()->user()->profile->isActive() == false  && Auth()->user()->Profile->status != "MARRIED" ) {
+                                    echo "<a href='/activate' class='vertical'>Activate your Profile</a>";
+                                } else {
+                                    
                                 $requestSentController = new App\Http\Controllers\RequestSentController();
-                                if ($requestSentController->isRequestSentTo($profile->id)) {
+                                if (($requestSentController->isRequestSentTo($profile->id) || $requestSentController->isRequestSentApproved($profile->id)) && ($marriedController->isMarried(Auth()->user()->Profile->id )== false)) {
                                     ?>
                                     <a href="/requests" class="vertical">View Request Sent</a>
-                                <?php } else if ($requestSentController->isRequestReceivedFrom($profile->id)) {
+                                <?php 
+                                } else if ($requestSentController->isRequestReceivedFrom($profile->id) || $requestSentController->isRequestReceivedApproved($profile->id) && ($marriedController->isMarried(Auth()->user()->Profile->id )== false)) {
                                 ?>
                                     <a href="/requests" class="vertical">View Request Received</a>
                                 <?php
+                                } else if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
+                                    ?>
+                                    <a href="#" onclick="sendInterestClicked({{$profile->id}})" class="vertical">Send Interest</a>
+                                <?php
                                 } else {
                                     ?>
-                                    <a href="#" onclick="sendInterestClicked()" class="vertical">Send Interest</a>
-                                <?php
+                                    @if($profile->status == "MARRIED")
+                                        <ul class="login_details1">
+                                            <li>
+                                                <label style="color: #c32143; margin: 10px">
+                                                    @if($profile->gender == "M") He @else She @endif is married <?php echo ($marriedController->marriedPartnerOf($profile->id) != null) ? "with " . $marriedController->marriedPartnerOf($profile->id) : ""?>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    @elseif($marriedController->isMarried(Auth()->user()->Profile->id))
+                                        <ul class="login_details1">
+                                            <li>
+                                                <label style="color: #c32143; margin: 10px">
+                                                    You can not send request as you are already married.
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    @endif
+                                    <?php
                                 }
                                 ?>
                                 <?php
-                                $marriedController = new App\Http\Controllers\MarriedController();
+                                
                                 // Checking if logged in user is not married and searched user is also not married. 
                                 // If any one of them is married, Send request button will not be displayed.
                                 if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
                                     ?>
                                     <form id="sendInterestForm" method="post" action="{{url('requestsent')}}">
                                         @csrf
-                                        <input type="hidden" name="profileid" value="{{$profile->id }}" />
+                                        <input type="hidden" id="profileidInput" name="profileid" value="" />
                                     </form>
-                                <?php } ?>
+                                <?php } 
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
+                <hr>
                 <div class="clearfix"> </div>
             </div>
             @endforeach
@@ -235,7 +270,8 @@
         your_form.action = "/profile/" + document.getElementsByName("profileid")[0].value;
     }
 
-    function sendInterestClicked() {
+    function sendInterestClicked($profileId) {
+        document.getElementById("profileidInput").value = $profileId;
         document.getElementById("sendInterestForm").submit();
     }
 </script>

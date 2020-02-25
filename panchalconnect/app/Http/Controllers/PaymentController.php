@@ -169,4 +169,14 @@ class PaymentController extends Controller
         }
         return null;
     }
+
+    public function isPaymentReceivedFor($profileid) {
+        $activePayments = Profile::find($profileid)->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','P');
+        foreach($activePayments as $payment) {
+            if ($payment->STATUS == "TXN_SUCCESS") {
+                return true; 
+            }
+        }
+        return false;
+    }
 }

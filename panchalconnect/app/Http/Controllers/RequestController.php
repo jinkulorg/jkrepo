@@ -33,6 +33,7 @@ class RequestController extends Controller
         }
         $requestSents = $profile->Request_sent->sortByDesc('created_at');
         $requestReceiveds = $profile->Request_received->sortByDesc('created_at');
+
         $newRequestReceiveds = $profile->Request_received->where('status','=','NEW')->sortByDesc('created_at');
         foreach($newRequestReceiveds as $newRequestReceived) {
             $newRequestReceived->status = 'PENDING';
@@ -44,7 +45,7 @@ class RequestController extends Controller
                             ->where('request_sents.profile_id','=',$profile->id)
                             ->orWhere('request_receiveds.profile_id','=',$profile->id)
                             ->orderBy('created_at','desc')
-                            ->get();
+                            ->paginate(5);
 
         return view('requests', compact('requestSents','requestReceiveds','allRequests','isLoggedIn','isProfileCreated','newRequestReceiveds'));
     }
@@ -59,17 +60,17 @@ class RequestController extends Controller
          * Setting status to MARRIED in the case where request is sent.
          */
         foreach($requestSents as $requestSent) {
-            if ($requestSent->Request_received->profile_id == $with_profile_id) {
+            if ($requestSent->Request_received->profile_id == $with_profile_id && $requestSent->Request_received->status == "INTERESTED") {
                 $requestSent->Request_received->status = "MARRIED";
                 $requestSent->Request_received->save();
-            } 
+            }
         }
 
         /**
          * Setting status to MARRIED in the case where request is received.
          */
         foreach($requestReceiveds as $requestReceived) {
-            if ($requestReceived->Request_sent->profile_id == $with_profile_id) {
+            if ($requestReceived->Request_sent->profile_id == $with_profile_id && $requestReceived->status == "INTERESTED") {
                 $requestReceived->status = "MARRIED";
                 $requestReceived->save();
             }
