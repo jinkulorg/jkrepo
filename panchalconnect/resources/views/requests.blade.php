@@ -50,7 +50,7 @@
 								if ($isLoggedIn == false) {
 									echo "<div class='alert alert-info'>";
 									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href='/login'>Login/Register</a>";
+									echo "Please <a href='/login'>Login/Register</a></b>";
 									echo "</div>";
 								} else if ($isProfileCreated == false) {
 									echo "<div class='alert alert-info'>";
@@ -331,7 +331,7 @@
 								if ($isLoggedIn == false) {
 									echo "<div class='alert alert-info'>";
 									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href='/login'>Login/Register</a>";
+									echo "Please <a href='/login'>Login/Register</a></b>";
 									echo "</div>";
 								} else if ($isProfileCreated == false) {
 									echo "<div class='alert alert-info'>";
@@ -485,7 +485,7 @@
 								if ($isLoggedIn == false) {
 									echo "<div class='alert alert-info'>";
 									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href='/login'>Login/Register</a>";
+									echo "Please <a href='/login'>Login/Register</a></b>";
 									echo "</div>";
 								} else if ($isProfileCreated == false) {
 									echo "<div class='alert alert-info'>";
@@ -649,7 +649,7 @@
 								if ($isLoggedIn == false) {
 									echo "<div class='alert alert-info'>";
 									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href='/login'>Login/Register</a>";
+									echo "Please <a href='/login'>Login/Register</a></b>";
 									echo "</div>";
 								} else if ($isProfileCreated == false) {
 									echo "<div class='alert alert-info'>";
