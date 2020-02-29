@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Profile;
 use App\User;
+use Exception;
 use Image; //Intervention Image
 use Illuminate\Support\Facades\Storage; //Laravel Filesystem
 
@@ -43,8 +44,13 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-        $profile_pic_path = $this->storeAndGetProfilePicPath($request,"");
+         $returnMap = $this->storeAndGetProfilePicPath($request,"");
 
+         $profile_pic_path = $returnMap["successpics"];
+         $imageStoreResultMessage = "";
+         if (sizeof($returnMap["failedpics"]) != 0) {
+             $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
+         }
         $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, $profile_pic_path);
         
         $homeController = new HomeController();
@@ -52,7 +58,17 @@ class ProfilesController extends Controller
         $allStates = $homeController->getAllStates();
         $allHobbies = $homeController->getAllHobbies();
 
-        return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        $successmsg = "Profile created successfully." . $imageStoreResultMessage;
+        $isReceived = false;
+        $isSent = false;
+        $isGuest = false;
+        $isSelf = true;
+        $noProfile = false;
+        $loginprofile = null;
+        $failuremsg = "";
+
+        // return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 
     /**
@@ -174,8 +190,12 @@ class ProfilesController extends Controller
 
         $profile_pic_path = $profile->profile_pic_path;
 
-        $profile_pic_path = $this->storeAndGetProfilePicPath($request, $profile_pic_path);
-
+        $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path);
+        $profile_pic_path = $returnMap["successpics"];
+        $imageStoreResultMessage = "";
+        if (sizeof($returnMap["failedpics"]) != 0) {
+            $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
+        }
         $this->saveProfileData($profile, $request, $profile->status, $profile->user_id, $profile_pic_path);
 
         $homeController = new HomeController();
@@ -183,7 +203,17 @@ class ProfilesController extends Controller
         $allStates = $homeController->getAllStates();
         $allHobbies = $homeController->getAllHobbies();
 
-        return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        $successmsg = "Profile updated successfully." . $imageStoreResultMessage;
+        $isReceived = false;
+        $isSent = false;
+        $isGuest = false;
+        $isSelf = true;
+        $noProfile = false;
+        $loginprofile = null;
+        $failuremsg = "";
+        
+        // return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 
     /**
@@ -319,6 +349,8 @@ class ProfilesController extends Controller
         $oldPics = [];
         $removePics = [];
         $newPics = [];
+        $failedImages = [];
+        $returnMap = [];
 
         $removeFilesList = $request->input('removeFilesList');
         $removeFiles = explode(",",$removeFilesList);
@@ -362,6 +394,7 @@ class ProfilesController extends Controller
             //filename to store
             $filenametostore = 'USER_' . Auth()->user()->id . '_'.uniqid() . '.' . $extension;
  
+            try {
             Storage::put('public/profile_images/'. $filenametostore, fopen($file, 'r+'));
             Storage::put('public/profile_images/thumbnail/'. $filenametostore, fopen($file, 'r+'));
             Storage::put('public/profile_images/mainimage/'. $filenametostore, fopen($file, 'r+'));
@@ -384,10 +417,17 @@ class ProfilesController extends Controller
             $img->save($thumbnailpath);
 
             $newPics["image".$fileIndex] = $filenametostore;
+            } catch (Exception $e) {
+                array_push($failedImages,$filename);
+            } catch (Error $e2) {
+                array_push($failedImages,$filename);
+            }
         }
         
         ksort($newPics);
-        return implode(',', array_values($newPics));
+        $returnMap["successpics"] = implode(',', array_values($newPics));
+        $returnMap["failedpics"] =  $failedImages;
+        return $returnMap;
     }
 
     public function removeOldProfilePics($profile_pic_path) {

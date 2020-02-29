@@ -120,6 +120,14 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <ul class="login_details1">
+                                        <li>
+                                            <label style="color: #c32143; margin: 10px">
+                                                Upload square images for best view (e.g, 1024 X 1024)
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    
                                 </div>
                                 <div class="col-sm-7">
                                 <table class="table_working_hours">
