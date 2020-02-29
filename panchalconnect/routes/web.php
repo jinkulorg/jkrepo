@@ -136,3 +136,6 @@ Route::resource('/payment','PaymentController');
 Route::post('/FPpaymentresponse',function(){
     return view('payment.FPpgResponse');
 });
+
+Route::Patch('/profile/activateProfileForFree/{id}','ProfilesController@activateProfileForFree')
+->name('profile.profileactive.activateForFree');

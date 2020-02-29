@@ -79,10 +79,17 @@ header("Expires: 0");
 				</h3>
 				<hr>
 				<h3 style="text-align: center; line-height: 2em">
+					@if(OFFER_FREE == "FREE")
+					<b>
+						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s> 
+						<br>Offer valid till {{OFFER_END_DATE}}
+					</b>
+					@else
 					<b>
 						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
 						<br>Offer valid till {{OFFER_END_DATE}}
 					</b>
+					@endif
 				</h3>
 			</div>
 		</div>
@@ -119,7 +126,17 @@ header("Expires: 0");
 		<?php
 		if (Auth::User() != null && Auth::User()->profile != null && !Auth::User()->profile->isActive()) {
 			?>
-			<h3><b><i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "/-</s> Rs. " . OFFER_AMOUNT . "/-" : "Rs. " . AMOUNT . "/-" ?> to activate your profile and get these benefits for one year</b></h3>
+			<h3>
+				@if(OFFER_FREE == "FREE")
+				<b>
+					<i class="fa fa-arrow-right" aria-hidden="true"></i> Its FREE for now to activate your profile and get these benefits for six months
+				</b>
+				@else
+				<b>
+					<i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "/-</s> Rs. " . OFFER_AMOUNT . "/-" : "Rs. " . AMOUNT . "/-" ?> to activate your profile and get these benefits for one year
+				</b>
+				@endif
+			</h3>
 			<br>
 			<form id="payment_form" method="post" action="/pgRedirect">
 				@csrf
@@ -167,10 +184,22 @@ header("Expires: 0");
 					</tbody>
 				</table>
 			</form>
+			<form id="activate_free_form" action="{{action('ProfilesController@activateProfileForFree',Auth::User()->profile->id)}}" method="post">
+                @csrf
+                <input type="hidden" name="_method" value="PATCH" />
+                <!-- <input type="submit" value="Activate" /> -->
+            </form>
+
 			<div class="buttons">
+			@if(OFFER_FREE == "FREE")
+				<div class="my-buttons">
+					<a href="#" class="my-buttons" style="text-align: center" onclick="activateFreeClicked()">Proceed to activate your profile</a>
+				</div>
+			@else
 				<div class="my-buttons">
 					<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "</s> Rs. " . OFFER_AMOUNT : "Rs. ". AMOUNT ?></a>
 				</div>
+			@endif
 			</div>
 		<?php
 		}
@@ -184,6 +213,9 @@ header("Expires: 0");
 		// 	return;
 		// }
 		document.getElementById("payment_form").submit();
+	}
+	function activateFreeClicked() {
+		document.getElementById("activate_free_form").submit();
 	}
 </script>
 @endsection

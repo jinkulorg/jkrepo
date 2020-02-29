@@ -120,7 +120,11 @@ class PaymentController extends Controller
                     $payment->END_DATE = date("Y/m/d");
                 }
             } else {
-                $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+                if ($params['TXNAMOUNT'] == 0) {
+                    $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
+                } else {
+                    $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
+                }
             }
         } else {
             $payment->START_DATE = date("Y/m/d");

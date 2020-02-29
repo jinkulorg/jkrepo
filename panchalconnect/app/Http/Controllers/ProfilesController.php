@@ -454,4 +454,36 @@ class ProfilesController extends Controller
             return false;
         }
     }
+
+    public function activateProfileForFree($id) {
+        $profile = Profile::find($id);
+        if ($profile == null) {
+            return view('/activate');
+        }
+
+        $profile->status = 'ACTIVE';
+        $profile->save();
+
+        $paymentController = new PaymentController();
+
+        $params['PROFILE_ID'] = $id;
+        $params['ORDERID'] = "Not Available";
+        $params['MID'] = "Not Available";
+        $params['TXNID'] = "Not Available";
+        $params['TXNAMOUNT'] = 0;
+        $params['PAYMENTMODE'] = "Not Available";
+        $params['CURRENCY'] = "Not Available";
+        $params['TXNDATE'] = date("Y-m-d");
+        $params['STATUS'] = "TXN_SUCCESS";
+        $params['RESPCODE'] = "Not Available";
+        $params['RESPMSG'] = "Not Available";
+        $params['GATEWAYNAME'] = "Not Available";
+        $params['BANKTXNID'] = "Not Available";
+        $params['BANKNAME'] = "Not Available";
+        $params['CHECKSUMHASH'] = "Not Available";
+        $params['SOURCE'] = "P";
+
+        $paymentController->storePaymentDetails($params);
+        return view('payment.activate');
+    }
 }
