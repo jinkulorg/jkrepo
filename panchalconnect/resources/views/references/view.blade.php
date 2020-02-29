@@ -26,10 +26,15 @@
         @else
         <table width=100%>
             <td>
-                <h3>{{ Auth::user()->name }} {{ Auth::user()->lastname }} References </h3>
+            <div class="basic_1">
+          <h3 class="profile_title" style="margin: 5px; padding: 5px;"><b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} References</b> </h3>
+        </div>
+
             </td>
-            <td align="right">
-                <h4><a class="btn_2" href="{{route('reference.create')}}">Add Reference</a></h4>
+            <td>
+            <div class="basic_1">
+                <h4 style="text-align: right;"><a class="btn_1" href="{{route('reference.create')}}"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Add Reference</a></h4>
+</div>
             </td>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -55,7 +60,7 @@
                         <td>{{$reference['pincode']}}</td>
                         <td>
                             <div class="my-buttons">
-                                <a class="my-buttons" href="{{action('ReferenceController@edit', $reference['id'])}}">Edit</a>
+                                </i><a class="my-buttons" href="{{action('ReferenceController@edit', $reference['id'])}}">Edit</a>
                             </div>
                         </td>
                         <td>

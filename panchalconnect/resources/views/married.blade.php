@@ -51,7 +51,7 @@
                     <form id="marriedForm" method="post" action="{{url('married')}}">
                         @csrf
                         <div class="form-group" style="width: 62%">
-                            <input type="text" name="marriage_date" class="form-control" placeholder="Enter your Marriage Date (DD-MMM-YYYY)" oninput="this.className = 'form-control'"/>
+                            <input id="datepicker-3" type="text" name="marriage_date" class="form-control" placeholder="Enter your Marriage Date (DD-MMM-YYYY) (Optional)" oninput="this.className = 'form-control'" readonly/>
                         </div>
                         <div class="form-group" style="width: 62%">
                             <input type="text" name="with_profile_id" class="form-control" <?php if ($with_profile_id != null) {

@@ -236,6 +236,7 @@
               $profileIdList = explode(",", $viewedProfiles);
               foreach ($profileIdList as $viewedProfileId) {
                 $viewedProfile = App\Profile::find($viewedProfileId);
+                if ($viewedProfile != null) {
                 if ($viewedProfile->profile_pic_path != null) {
                   $profile_pics = explode(",", $viewedProfile->profile_pic_path);
                 }
@@ -244,18 +245,19 @@
                 <ul class="profile_item">
                   <a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
                     <li class="profile_item-img">
-                      <img src="<?php if ($viewedProfile->profile_pic_path != null) {?>/storage/profile_images/thumbnail/{{$profile_pics[0]}} <?php } ?>" class="img-responsive" alt="" />
+                    <img src="<?php echo ($viewedProfile->profile_pic_path != null && sizeof($profile_pics) != 0) ? "/storage/profile_images/thumbnail/" . $profile_pics[0] : "/images/blank-profile-picture.png"; ?>" class="img-responsive" alt="" />
                     </li>
                     <li class="profile_item-desc">
                       <h4>{{$viewedProfile->id}}</h4>
                       <p>{{$viewedProfile->user->name}} {{$viewedProfile->user->lastname}}</p>
-                      <p>{{$viewedProfile->age()}} Yrs, {{$heights[0]}}Ft {{$heights[1]}}in</p>
+                      <p>{{$viewedProfile->age()}} Yrs, {{($viewedProfile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Ft {{($viewedProfile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} In</p>
                       <h5>View Full Profile</h5>
                     </li>
                     <div class="clearfix"> </div>
                   </a>
                 </ul>
         <?php
+                }
               }
             }
           }

@@ -43,6 +43,7 @@
 	<link href='//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 	<!----font-Awesome----->
 	<link href="/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!----font-Awesome----->
 
 	<!-- Styles -->
@@ -70,7 +71,15 @@
 				appendText: "(YYYY-MM-DD)",
 				dateFormat: "yy-mm-dd",
 				altField: "#datepicker-4",
-				altFormat: "DD, d MM, yy"
+				altFormat: "DD, d MM, yy",
+				changeMonth:true,
+				changeYear:true,
+				yearRange: 'c-60:c+2',
+				showAnim: "slideDown",
+				showOn:"button",
+                buttonImage: "/images/calender.png",
+			    buttonImageOnly: true,
+			    showMonthAfterYear: true
 			});
 		});
 	</script>

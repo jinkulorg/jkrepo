@@ -34,7 +34,7 @@
                                 <h4>About Myself</h4>
                             </div>
                             <hr>
-                            <h3 class="profile_title">Appearance</h3>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Appearance</b></div></h3>
                             <div class=" row">
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
@@ -45,39 +45,39 @@
                                                         <table>
                                                             <tr>
                                                                 <td colspan="4">
-                                                                    <img id="mainimage" src="#" width="300" height="250">
+                                                                    <img id="mainimage" src="/images/blank-profile-picture.png" width="300" height="250">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <img id="image1" src="#" width="73" height="63" onclick="showInMainImage('image1')">&nbsp;
+                                                                    <img id="image1" src="/images/blank-profile-picture.png" width="73" height="63" onclick="showInMainImage('image1')">&nbsp;
                                                                 </td>
                                                                 <td>
-                                                                    <img id="image2" src="#" width="73" height="63" onclick="showInMainImage('image2')">&nbsp;
+                                                                    <img id="image2" src="/images/blank-profile-picture.png" width="73" height="63" onclick="showInMainImage('image2')">&nbsp;
                                                                 </td>
                                                                 <td>
-                                                                    <img id="image3" src="#" width="73" height="63" onclick="showInMainImage('image3')">&nbsp;
+                                                                    <img id="image3" src="/images/blank-profile-picture.png" width="73" height="63" onclick="showInMainImage('image3')">&nbsp;
                                                                 </td>
                                                                 <td>
-                                                                    <img id="image4" src="#" width="73" height="63" onclick="showInMainImage('image4')">&nbsp;
+                                                                    <img id="image4" src="/images/blank-profile-picture.png" width="73" height="63" onclick="showInMainImage('image4')">&nbsp;
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage1" class="button_add button4" data-toggle="tooltip" title="Add first image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" title="Remove first image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage1" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add first image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove first image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage2" class="button_add button4" data-toggle="tooltip" title="Add second image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" title="Remove second image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage2" class="button_add button4" data-toggle="tooltip" data-placement="bottom"title="Add second image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove second image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage3" class="button_add button4" data-toggle="tooltip" title="Add third image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" title="Remove third image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage3" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add third image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove third image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage4" class="button_add button4" data-toggle="tooltip" title="Add fourth image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" title="Remove fourth image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage4" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add fourth image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove fourth image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -121,16 +121,16 @@
                                             <tr class="opened_1">
                                                 <td class="day_value">
                                                 <div id="divImage1" class="inputText_block1" style="display: none">
-                                                    <input class="optional invalid" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = ''" onchange="showImages(1)">
+                                                    <input class="optional valid" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = ''" onchange="showImages(1)">
                                                 </div>
                                                 <div id="divImage2" class="inputText_block1" style="display: none">
-                                                    <input class="optional invalid" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = ''" onchange="showImages(2)">
+                                                    <input class="optional valid" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = ''" onchange="showImages(2)">
                                                 </div>
                                                 <div id="divImage3" class="inputText_block1" style="display: none">
-                                                    <input class="optional invalid" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = ''" onchange="showImages(3)">
+                                                    <input class="optional valid" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = ''" onchange="showImages(3)">
                                                 </div>
                                                 <div id="divImage4" class="inputText_block1" style="display: none">
-                                                    <input class="optional invalid" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = ''" onchange="showImages(4)">
+                                                    <input class="optional valid" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = ''" onchange="showImages(4)">
                                                 </div>
                                             </td>
                                             </tr>
@@ -216,7 +216,7 @@
                             <div class="col-sm-12">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title">Describe Yourself</h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Describe Yourself</b></div></h3>
                                         <tr class="opened_1">
                                             <td>
                                                 <div class="container2">
@@ -233,7 +233,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-6">
-                                <h3 class="profile_title">Basic Details</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Basic Details</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -299,7 +299,7 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Subcast:</td>
+                                            <td class="day_label">Subcaste:</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
                                                     <input type="text" name="subcast" oninput="this.className = ''">
@@ -319,7 +319,7 @@
                             </div>
                             <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
                             <div class="col-sm-5">
-                                <h3 class="profile_title">Life Style</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -407,7 +407,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title">Astro Details</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Astro Details</b></div></h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
@@ -416,7 +416,7 @@
                                             <td class="day_label">Birth Date:</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date..." onchange="this.className = ''">
+                                                    <input type="text" name="birth_date" id="datepicker-3" placeholder="Click on calender to select date" onchange="this.className = ''" readonly>
                                                 </div>
                                             </td>
                                         </tr>
@@ -595,12 +595,14 @@
                                                     <select name="rashi" placeholder="Select Rashi..." onchange="this.className = ''">
                                                         <option selected disabled hidden value="">--Select Rashi--</option>
                                                         <option>Aries or Maish</option>
-                                                        <option>Taurus or Vrish </option>
+                                                        <option>Taurus or Vrishabh </option>
                                                         <option>Gemini or Mithun</option>
                                                         <option>Cancer or Kark</option>
-                                                        <option>Leo or Singh</option>
+                                                        <option>Leo or Sinh</option>
+                                                        <option>Vigro or Kanya</option>
                                                         <option>Libra or Tula</option>
-                                                        <option>Scorpio or Vrishchik</option>
+                                                        <option>Scorpio or Vruschik</option>
+                                                        <option>Sagittarius or Dhan</option>
                                                         <option>Capricorn or Makar</option>
                                                         <option>Aquarius or Kumbh</option>
                                                         <option>Pisces or Meen</option>
@@ -648,7 +650,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-5">
-                                <h3 class="profile_title">Education</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Education</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -685,7 +687,7 @@
                             <div class="col-sm-2" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;">
                             </div>
                             <div class="col-sm-5">
-                                <h3 class="profile_title">Career</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Career</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -697,7 +699,8 @@
                                                         <option>Job</option>
                                                         <option>Business</option>
                                                         <option>Home Maker</option>
-                                                        <option>Not Applicable</option>
+                                                        <option>Not Applicable (Studying)</option>
+                                                        <option>Not Applicable (Not Working)</option>
                                                     </select>
                                                 </div>
                                             </td>
@@ -767,7 +770,7 @@
                             <h4>Communication Details</h4>
                         </div>
                         <hr>
-                        <h3 class="profile_title">Contact Details</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Contact Details</b></div></h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <br>
@@ -803,7 +806,7 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title">Present Address</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Present Address</b></div></h3>
                         <br>
                         <div class="row">
                             <div class="col-sm-6">
@@ -878,7 +881,7 @@
                             </div>
                         </div>
                         <br>
-                        <h3 class="profile_title">Permanent Address</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Permanent Address</b></div></h3>
                         <div class="row">
                             <div class="col-sm-12">
                                 <input type="checkbox" name="sameAddress" class="radio_1" id="sameAddress" onclick="sameAddressAction()" /> <b><i> Same as Present Address</i></b> &nbsp;&nbsp;
@@ -976,7 +979,7 @@
                                 <table class="table_working_hours">
                                     <tbody>
                                         <br>
-                                        <h3 class="profile_title"> Father's Details </h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Father's Details</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Father's Name :</td>
                                             <td class="day_value">
@@ -1017,7 +1020,7 @@
                                 <table class="table_working_hours">
                                     <tbody>
                                         <br>
-                                        <h3 class="profile_title"> Mother' Details </h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Mother' Details</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Mother's Name :</td>
                                             <td class="day_value">
@@ -1059,7 +1062,7 @@
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title"> Brothers & Sister's Details </h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Brothers & Sisters</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Number of Brothers: </td>
                                             <td class="day_value">
@@ -1103,11 +1106,14 @@
 
                 </div>
                 <!------------------------Buttons Previous Next---------------------------------------->
+                <div id="processing" style="display: none; text-align: center; font-size: 30px">
+                    <h3><i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i> Creating profile</h3>
+                </div>
                 <div class="col-sm-12">
                     <div style="overflow:auto;">
                         <div style="float:right;">
-                            <button type="button" class="btn_1 submit" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                            <button type="button" class="btn_1 submit" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            <button type="button" class="btn_1 submit" id="prevBtn" onclick="nextPrev(-1)" style="display: inline-block">Previous</button>
+                            <button type="button" class="btn_1 submit" id="nextBtn" onclick="nextPrev(1)" style="display: inline-block">Next</button>
                         </div>
                     </div>
                 </div>
@@ -1379,9 +1385,9 @@
             img1 = document.getElementById("image1");
             oldImage1 = img1.src.substr(img1.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img1.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img1.src = "";
+            img1.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage1;
             } else {
@@ -1401,9 +1407,9 @@
             img2 = document.getElementById("image2");
             oldImage2 = img2.src.substr(img2.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img2.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img2.src = "";
+            img2.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage2;
             } else {
@@ -1422,9 +1428,9 @@
             img3 = document.getElementById("image3");
             oldImage3 = img3.src.substr(img3.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img3.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img3.src = "";
+            img3.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage3;
             } else {
@@ -1443,9 +1449,9 @@
             img4 = document.getElementById("image4");
             oldImage4 = img4.src.substr(img4.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img4.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img4.src = "";
+            img4.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage4;
             } else {

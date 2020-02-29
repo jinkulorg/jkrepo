@@ -80,7 +80,10 @@ function nextPrev(n) {
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
   // Exit the function if any field in the current tab is invalid:
- if (n == 1 && !validateForm()) return false;
+ if (n == 1 && !validateForm()) {
+    alert("To go to next page, please fill all the fields highlighted with red color.");
+    return false;
+ } 
   // Hide the current tab:
   x[currentTab].style.display = "none";
   // Increase or decrease the current tab by 1:
@@ -89,6 +92,9 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("processing").style.display = "block";
     document.getElementById("profileForm").submit();
     return false;
   }

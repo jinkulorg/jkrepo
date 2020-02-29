@@ -54,7 +54,7 @@
                                         } else if ($diff->format("%a") == 1) {
                                             $lastSeen = $diff->format("yesterday");
                                         } else {
-                                            $lastSeen = $diff->format("%a days");
+                                            $lastSeen = $diff->format("%a days ago");
                                         }
                                         ?>
                                         <li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($profile->user->last_login_date))}})</li>
@@ -78,7 +78,7 @@
                                             ?>
                                             
                                             <?php
-                                            if ($isGuest && $profile->status != "MARRIED") {
+                                            if ($isGuest || ($isGuest && $profile->status != "MARRIED")) {
                                             ?> <a href="/login" class="vertical">Login/Register</a>
                                             <?php
                                             } else if ($noProfile && $profile->status != "MARRIED") {
@@ -128,7 +128,7 @@
                                             @if($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentApproved($profile->id) || $requestSentController->isRequestReceivedApproved($profile->id)) && ($profile->status != "MARRIED" && Auth()->user()->Profile->status != "MARRIED"))
                                                 <ul class="login_details1">
                                                     <li>
-                                                        <label style="color: #c32143; margin: 10px">
+                                                        <label style="color: green; margin: 10px">
                                                             <i class='fa fa-check' aria-hidden='true'></i> Request Accepted
                                                         </label>
                                                     </li>
@@ -157,6 +157,14 @@
                                                         </label>
                                                     </li>
                                                 </ul>
+                                            @elseif($isGuest == false && $noProfile == false && ($isSent || $isReceived))
+                                                <ul class="login_details1">
+                                                    <li>
+                                                        <label style="color: #c32143; margin: 10px">
+                                                            <i class='fa fa-exclamation' aria-hidden='true'></i> Request Pending
+                                                        </label>
+                                                    </li>
+                                                </ul>
                                             @endif
                                         </div>
                                     </div>
@@ -165,6 +173,12 @@
                             </table>
                         </div>
                         <hr>
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+                          <span class="close">&times;</span>
+                          <img class="modal-content" id="img01">
+                          <div id="caption"></div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-5">
                                 <table class="table_working_hours">
@@ -174,6 +188,8 @@
                                                 <div class="img" id="profileImageDiv">
                                                     <div class="profile flexslider">
                                                         <ul class="slides">
+                                                            
+                                                                                                    
                                                             <?php
                                                             $totalPics = 0;
                                                             if ($profile->profile_pic_path != null) {
@@ -184,7 +200,7 @@
                                                                 foreach ($profile_pic_paths as $profile_pic_path) {
                                                             ?>
                                                                     <li data-thumb="/storage/profile_images/thumbnail/{{$profile_pic_path}}">
-                                                                        <img id="image{{$i}}" src="/storage/profile_images/{{$profile_pic_path}}" onclick="showInMainImage('image{{$i}}')" />&nbsp;
+                                                                        <img class="myImg" id="image{{$i}}" src="/storage/profile_images/mainimage/{{$profile_pic_path}}" onclick="showInMainImage('image{{$i}}')" />&nbsp;
                                                                     </li>
                                                                 <?php
                                                                     $i++;
@@ -192,8 +208,8 @@
                                                             }
                                                             for ($i = $totalPics + 1; $i <= 4; $i++) {
                                                                 ?>
-                                                                <li data-thumb="#">
-                                                                    <img id="image{{$i}}" src="#" onclick="showInMainImage('image{{$i}}')" />&nbsp;
+                                                                <li data-thumb="/images/blank-profile-picture.png">
+                                                                    <img class="myImg" id="image{{$i}}" src="/images/blank-profile-picture.png" onclick="showInMainImage('image{{$i}}')" />&nbsp;
                                                                 </li>
                                                             <?php
                                                             }
@@ -289,9 +305,9 @@
                                                 ?>
                                                 <div class="inputText_block1">
                                                     <div class="oneline">
-                                                        {{($profile->height != null) ? $heights[0] : ""}} Feet
+                                                        {{($profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Feet
 
-                                                        {{($profile->height != null) ? $heights[1] : "" }} Inches
+                                                        {{($profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} Inches
                                                     </div>
                                                 </div>
                                             </td>
@@ -355,7 +371,7 @@
                             <div class="col-sm-12">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title">&nbsp;About Me</h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>About Me</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_value">
                                                 <div class="container2">
@@ -372,7 +388,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-4">
-                                <h3 class="profile_title">&nbsp;Life Style</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -412,7 +428,7 @@
                             <div class="col-sm-2"></div>
                             <!-- <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 150px;"></div> -->
                             <div class="col-sm-6">
-                                <h3 class="profile_title">&nbsp;Education & Career</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Education & Career</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -489,7 +505,7 @@
                             </div>
                         </div>
                         <hr />
-                        <h3 class="profile_title">&nbsp;Astro Details</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Astro Details</b></div></h3>
                         <div class="row">
                             <div class="col-sm-4">
                                 <table class="table_working_hours">
@@ -498,7 +514,7 @@
                                             <td class="day_label">Birth Date:</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    {{$profile->birth_date}}
+                                                    {{date('d-M-Y',strtotime($profile->birth_date))}}
                                                 </div>
                                             </td>
                                         </tr>
@@ -591,7 +607,7 @@
                                 <h4>Communication Details</h4>
                             </div>
                             <hr> -->
-                        <h3 class="profile_title">&nbsp;Contact Details</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Contact Details</b></div></h3>
                         @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
@@ -674,7 +690,7 @@
                         </div>
                         @endif
                         <hr>
-                        <h3 class="profile_title">&nbsp;Present Address</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Present Address</b></div></h3>
                         @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
@@ -794,7 +810,7 @@
                         </div>
                         @endif
                         <hr>
-                        <h3 class="profile_title">&nbsp;Permanent Address</h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Permanent Address</b></div></h3>
                         @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
@@ -923,7 +939,7 @@
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title">&nbsp;Father's Details </h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Father's Details</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Name :</td>
                                             <td class="day_value">
@@ -972,7 +988,7 @@
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
-                                        <h3 class="profile_title">&nbsp;Mother' Details </h3>
+                                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Mother' Details</b></div></h3>
                                         <tr class="opened_1">
                                             <td class="day_label">Name :</td>
                                             <td class="day_value">
@@ -1064,7 +1080,7 @@
                         </div>
                         @endif
                         <hr>
-                        <h3 class="profile_title">&nbsp;Brothers & Sister's Details </h3>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Brothers & Sisters</b></div></h3>
                         <div class="row">
                             <div class="col-sm-4">
                                 <table class="table_working_hours">
@@ -1101,7 +1117,83 @@
 
                             </div>
                         </div>
-                        
+                        <hr>
+                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>References</b></div></h3>
+                        <?php
+                        $references = App\Reference::where('profile_id',$profile->id)->get();
+                        ?>
+                        @if (sizeof($references) == 0)
+                            No references added
+                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                                You can not see this details as you are already married.
+                            </b>
+                        </div>
+                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                                Already Married.
+                            </b>
+                        </div>
+                        @elseif(($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                            To see references, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
+                            And to send request, you must have an account created and active profile.
+                            </b>
+                        </div>
+                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                            && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                            To see references, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
+                            </b>
+                        </div>
+                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                            To see references, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
+                            </b>
+			            </div>
+                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        <div class="alert alert-info">
+                            <b>
+                            <i class='fa fa-info-circle' aria-hidden='true'></i> 
+                            To see references, you have received request from {{$profile->user->name}} but you have not taken action yet<br>
+                            </b>
+                        </div>
+                        @else
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table_working_hours">
+                                    <tbody>
+                                        <?php 
+                                        $i = 2;
+                                        foreach($references as $reference) {
+                                        if ($i%2 == 0) {
+                                            echo "<tr class='opened_1'>";
+                                        }
+                                            echo "<td class='day_value'>";
+                                                echo $reference['first_name'] . " " . $reference['last_name'] . " (" . $reference['city'] . ")";
+                                            echo "</td>";
+                                        if($i%2 != 0) {
+                                            echo "</tr>";
+                                        }
+                                        $i++; 
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                        @endif
                         @endif
                     </div>
                 </div>
@@ -1131,6 +1223,7 @@
                             $profileIdList = explode(",", $viewedProfiles);
                             foreach ($profileIdList as $viewedProfileId) {
                                 $viewedProfile = App\Profile::find($viewedProfileId);
+                                if ($viewedProfile != null) {
                                 if ($viewedProfile->profile_pic_path != null) {
                                     $profile_pics = explode(",", $viewedProfile->profile_pic_path);
                                 }
@@ -1139,18 +1232,19 @@
                                 <ul class="profile_item">
                                     <a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
                                         <li class="profile_item-img">
-                                            <img src="<?php if ($viewedProfile->profile_pic_path != null) { ?>/storage/profile_images/thumbnail/{{$profile_pics[0]}} <?php } ?>" class="img-responsive" alt="" />
+                                        <img src="<?php echo ($viewedProfile->profile_pic_path != null && sizeof($profile_pics) != 0) ? "/storage/profile_images/thumbnail/" . $profile_pics[0] : "/images/blank-profile-picture.png"; ?>" class="img-responsive" alt="" />
                                         </li>
                                         <li class="profile_item-desc">
                                             <h4>{{$viewedProfile->id}}</h4>
                                             <p>{{$viewedProfile->user->name}} {{$viewedProfile->user->lastname}}</p>
-                                            <p>{{$viewedProfile->age()}} Yrs, {{$heights[0]}}Ft {{$heights[1]}}in</p>
+                                            <p>{{$viewedProfile->age()}} Yrs, {{($viewedProfile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Ft {{($viewedProfile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} In</p>
                                             <h5>View Full Profile</h5>
                                         </li>
                                         <div class="clearfix"> </div>
                                     </a>
                                 </ul>
                 <?php
+                            }
                             }
                         }
                     }
@@ -1180,7 +1274,19 @@
     }
 
     function showInMainImage(image) {
-        alert(image + " clicked");
+        var img = document.getElementById(image);
+        
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        modal.style.display = "block";
+        modalImg.src = img.src.replace("mainimage/", "");;
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() { 
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
     }
 </script>
 @endsection

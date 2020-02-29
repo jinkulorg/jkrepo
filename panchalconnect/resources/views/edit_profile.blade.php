@@ -35,7 +35,9 @@
                                 <h4>About Myself</h4>
                             </div>
                             <hr>
-                            <h3 class="profile_title">Appearance</h3>
+                            <h3 class="profile_title">
+                                <div style="margin: 5px; padding: 5px;"><b>Appearance</b></div>
+                            </h3>
                             <div class="row">
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
@@ -57,12 +59,12 @@
                                                                         <?php
                                                                             } else {
                                                                                 ?>
-                                                                            <img id='mainimage' src='#' width='300' height='250'>
+                                                                            <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='250'>
                                                                         <?php
                                                                             }
                                                                         } else {
                                                                             ?>
-                                                                        <img id='mainimage' src='#' width='300' height='250'>
+                                                                        <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='250'>
                                                                     <?php
                                                                     }
                                                                     ?>
@@ -87,28 +89,28 @@
                                                                     for ($i = $totalPics + 1; $i <= 4; $i++) {
                                                                         ?>
                                                                     <td>
-                                                                        <img id="image{{$i}}" width="73" height="63" src="#" onclick="showInMainImage('image{{$i}}')" />&nbsp;
+                                                                        <img id="image{{$i}}" width="73" height="63" src="/images/blank-profile-picture.png" onclick="showInMainImage('image{{$i}}')" />&nbsp;
                                                                     </td>
                                                                 <?php
                                                                 }
                                                                 ?>
                                                             </tr>
                                                             <tr>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage1" class="button_add button4" data-toggle="tooltip" title="Add first image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" title="Remove first image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage1" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add first image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage1" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove first image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage2" class="button_add button4" data-toggle="tooltip" title="Add second image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" title="Remove second image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage2" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add second image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage2" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove second image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage3" class="button_add button4" data-toggle="tooltip" title="Add third image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" title="Remove third image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage3" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add third image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage3" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove third image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
-                                                                <td>
-                                                                    &nbsp;&nbsp;&nbsp;<label id="AddImage4" class="button_add button4" data-toggle="tooltip" title="Add fourth image">&nbsp;+&nbsp;</label>
-                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" title="Remove fourth image">&nbsp;x&nbsp;</label>
+                                                                <td style="text-align: center">
+                                                                    <label id="AddImage4" class="button_add button4" data-toggle="tooltip" data-placement="bottom" title="Add fourth image"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                                                    <label id="RemoveImage4" class="button_remove button4" data-toggle="tooltip" data-placement="bottom" title="Remove fourth image"><i class="fa fa-trash-o" aria-hidden="true"></i></label>
                                                                 </td>
                                                             </tr>
                                                             <input type="text" class="optional valid" name="removeFilesList" id="removeFilesList" value="" hidden>
@@ -153,16 +155,16 @@
                                             <tr class="opened_1">
                                                 <td class="day_value">
                                                     <div id="divImage1" class="inputText_block1" style="display: none">
-                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = ''" onchange="showImages(1)">
+                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "valid" : "valid" ?>" type="file" name="profile_pic_path1" id="profile_pic1" oninput="this.className = 'optional valid'" onchange="showImages(1)" accept="image/*">
                                                     </div>
                                                     <div id="divImage2" class="inputText_block1" style="display: none">
-                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = ''" onchange="showImages(2)">
+                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "valid" : "valid" ?>" type="file" name="profile_pic_path2" id="profile_pic2" oninput="this.className = 'optional valid'" onchange="showImages(2)" accept="image/*">
                                                     </div>
                                                     <div id="divImage3" class="inputText_block1" style="display: none">
-                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = ''" onchange="showImages(3)">
+                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "valid" : "valid" ?>" type="file" name="profile_pic_path3" id="profile_pic3" oninput="this.className = 'optional valid'" onchange="showImages(3)" accept="image/*">
                                                     </div>
                                                     <div id="divImage4" class="inputText_block1" style="display: none">
-                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "invalid" : "valid" ?>" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = ''" onchange="showImages(4)">
+                                                        <input class="optional <?php echo ($profile->profile_pic_path == null) ? "valid" : "valid" ?>" type="file" name="profile_pic_path4" id="profile_pic4" oninput="this.className = 'optional valid'" onchange="showImages(4)" accept="image/*">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -209,10 +211,10 @@
                                                     ?>
                                                             <div class="inputText_block1">
                                                             <div class="oneline">
-                                                                <input oninput="this.className = ''" type="text" name="heightfeet" id="heightfeet" value="<?php echo ($profile->height != null) ? $heights[0] : "" ?>" onblur="validateNumber('heightfeet')"> feet
+                                                                <input oninput="this.className = ''" type="text" name="heightfeet" id="heightfeet" value="<?php echo ($profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0" ?>" onblur="validateNumber('heightfeet')"> feet
                                                             </div>
                                                             <div class="oneline">
-                                                                <input oninput="this.className = ''" type="text" name="heightinches" id="heightinches" value="<?php echo ($profile->height != null) ? $heights[1] : "" ?>" onblur="validateNumber('heightinches')"> inches
+                                                                <input oninput="this.className = ''" type="text" name="heightinches" id="heightinches" value="<?php echo ($profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" ?>" onblur="validateNumber('heightinches')"> inches
                                                             </div>
                                                             </div>
                                                         </td>
@@ -243,7 +245,7 @@
                                 <div class="col-sm-12">
                                     <table class="table_working_hours">
                                         <tbody>
-                                            <h3 class="profile_title">Describe Yourself</h3>
+                                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Describe Yourself</b></div></h3>
                                             <tr class="opened_1">
                                                 <td class="day_value">
                                                     <div class="container2">
@@ -260,7 +262,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
-                                <h3 class="profile_title">Basic Details</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Basic Details</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -323,7 +325,7 @@
                                             </td>
                                         </tr>
                                         <tr class="opened_1">
-                                            <td class="day_label">Subcast:</td>
+                                            <td class="day_label">Subcaste:</td>
                                             <td class="day_value">
                                             <div class = "inputText_block1">
                                                 <input type="text" name="subcast" value="{{$profile->subcast}}" oninput="this.className = ''">
@@ -344,7 +346,7 @@
                                 </div>
                                 <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
                                 <div class="col-sm-5">
-                                <h3 class="profile_title">Life Style</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -402,17 +404,17 @@
                                 </div>
                             </div>
                             <hr/>
-                            <h3 class="profile_title">Astro Details</h3>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Astro Details</b></div></h3>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <table class="table_working_hours">
                                         <tbody>
                                             <tr class="opened_1">
                                                 <td class="day_label">Birth Date:</td>
-                                                <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date..." value="{{$profile->birth_date}}" onchange="this.className = ''">
-                                                </div>
+                                                <td class="day_label">
+                                                    <div class="inputText_block1">
+                                                        <input type="text" name="birth_date" id="datepicker-3" placeholder="Select Date..." value="{{$profile->birth_date}}" onchange="this.className = ''" readonly>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
@@ -582,17 +584,19 @@
                                                 <td class="day_label">Rashi:</td>
                                                 <td class="day_value">
                                                     <div class="select-block1">
-                                                        <select id="rashi" name="rashi" placeholder="Select Rashi...">
-                                                            <option value="Maish">Aries or Maish</option>
-                                                            <option value="Vrish">Taurus or Vrish</option>
-                                                            <option value="Mithun">Gemini or Mithun</option>
-                                                            <option value="Kark">Cancer or Kark</option>
-                                                            <option value="Singh">Leo or Singh</option>
-                                                            <option value="Tula">Libra or Tula</option>
-                                                            <option value="Vrishchik">Scorpio or Vrishchik</option>
-                                                            <option value="Makar">Capricorn or Makar</option>
-                                                            <option value="Kumbh">Aquarius or Kumbh</option>
-                                                            <option value="Meen">Pisces or Meen</option>
+                                                        <select id="rashi" name="rashi" placeholder="Select Rashi..." onchange="this.className = ''">
+                                                            <option value="Aries or Maish">Aries or Maish</option>
+                                                            <option value="Taurus or Vrishabh">Taurus or Vrishabh</option>
+                                                            <option value="Gemini or Mithun">Gemini or Mithun</option>
+                                                            <option value="Cancer or Kark">Cancer or Kark</option>
+                                                            <option value="Leo or Sinh">Leo or Sinh</option>
+                                                            <option value="Vigro or Kanya">Vigro or Kanya</option>
+                                                            <option value="Libra or Tula">Libra or Tula</option>
+                                                            <option value="Scorpio or Vruschik">Scorpio or Vruschik</option>
+                                                            <option value="Sagittarius or Dhan">Sagittarius or Dhan</option>
+                                                            <option value="Capricorn or Makar">Capricorn or Makar</option>
+                                                            <option value="Aquarius or Kumbh">Aquarius or Kumbh</option>
+                                                            <option value="Pisces or Meen">Pisces or Meen</option>
                                                         </select>
                                                     </div>
                                                 </td>
@@ -629,7 +633,7 @@
                             <hr>
                             <div class="row">
                             <div class="col-sm-5">
-                                <h3 class="profile_title">Education</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Education</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -663,7 +667,7 @@
                             </div>
                             <div class="col-sm-2" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
                             <div class="col-sm-5">
-                                <h3 class="profile_title">Career</h3>
+                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Career</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -674,7 +678,8 @@
                                                     <option value="Job">Job</option>
                                                     <option value="Business">Business</option>
                                                     <option value="Home Maker">Home Maker</option>
-                                                    <option value="Not Applicable">Not Applicable</option>
+                                                    <option value="Not Applicable (Studying)">Not Applicable (Studying)</option>
+                                                    <option value="Not Applicable (Not Working)">Not Applicable (Not Working)</option>
                                                 </select>
                                             </div>
                                             </td>
@@ -687,7 +692,7 @@
                                             </td>
                                             <td class="day_value">
                                             <div class = "inputText_block1" id="divAreaOfBusiness" style="display: <?php echo ($profile->occupation == 'Business') ? "block" : "none" ?>">
-                                                <input class="optional valid" type="text" name="area_of_business" id="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business" oninput="this.className = ''">
+                                                <input class="optional <?php echo ($profile->occupation == 'Business') ? "invalid" : "valid" ?>" type="text" name="area_of_business" id="area_of_business" value="{{$profile->area_of_business}}" id="area_of_business" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -700,7 +705,7 @@
                                             </td>
                                             <td class="day_value">
                                             <div class = "inputText_block1" id="divDesignation" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
-                                                <input class="optional valid" type="text" name="designation" id="designation" value="{{$profile->designation}}" id="designation" oninput="this.className = ''">
+                                                <input class="optional <?php echo ($profile->occupation == 'Job') ? "invalid" : "valid" ?>" type="text" name="designation" id="designation" value="{{$profile->designation}}" id="designation" oninput="this.className = ''">
                                             </div>
                                             </td>
                                         </tr>
@@ -712,7 +717,7 @@
                                             </td>
                                             <td class="day_value">
                                                 <div  class = "inputText_block1" id="divCompanyName" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
-                                                    <input type="text" name="company_name" value="{{$profile->company_name}}" oninput="this.className = ''">
+                                                    <input class="optional <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "invalid" : "valid" ?>" type="text" id="company_name" name="company_name" value="{{$profile->company_name}}" oninput="this.className = ''">
                                                 </div>
                                             </td>
                                         </tr>
@@ -725,7 +730,7 @@
                                             <td class="day_value">
                                                 <div class = "inputText_block1">
                                                     <div id="divAnnualIncome" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
-                                                        <input type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')">
+                                                        <input class="optional <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "invalid" : "valid" ?>" type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')">
                                                     </div>
                                                 </div>
                                             </td>
@@ -742,7 +747,7 @@
                                 <h4>Communication Details</h4>
                             </div>
                             <hr>
-                            <h3 class="profile_title">Contact Details</h3>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Contact Details</b></div></h3>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <br>
@@ -778,7 +783,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <h3 class="profile_title">Present Address</h3>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Present Address</b></div></h3>
                             <br>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -853,7 +858,7 @@
                                 </div>
                             </div>
                             <br>
-                            <h3 class="profile_title">Permanent Address</h3>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Permanent Address</b></div></h3>
                             <div class="row">
                                 <div class="col-sm-12">
                                 <table class="table_working_hours">
@@ -950,7 +955,7 @@
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
                                         <tbody>
-                                            <h3> Father's Details </h3>
+                                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Father's Details</b></div></h3>
                                             <tr class="opened_1">
                                                 <td class="day_label">Father's Name :</td>
                                                 <td class="day_value">
@@ -990,7 +995,7 @@
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
                                         <tbody>
-                                            <h3> Mother' Details </h3>
+                                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Mother' Details</b></h3>
                                             <tr class="opened_1">
                                                 <td class="day_label">Mother's Name :</td>
                                                 <td class="day_value">
@@ -1032,7 +1037,7 @@
                                 <div class="col-sm-6">
                                     <table class="table_working_hours">
                                         <tbody>
-                                            <h3> Brothers & Sister's Details </h3>
+                                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Brothers & Sisters</b></div></h3>
                                             <tr class="opened_1">
                                                 <td class="day_label">Number Of Brothers :</td>
                                                 <td class="day_value">
@@ -1074,11 +1079,14 @@
 
                     </div>
                     <!------------------------Buttons Previous Next---------------------------------------->
+                    <div id="processing" style="display: none; text-align: center; font-size: 30px">
+                        <h3><i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i> Updating profile</h3>
+                    </div>
                     <div class="col-sm-12">
                         <div style="overflow:auto;">
                             <div style="float:right;">
-                                <button type="button" class="btn_1 submit" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                <button type="button" class="btn_1 submit" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                <button type="button" class="btn_1 submit" id="prevBtn" onclick="nextPrev(-1)" style="display: inline-block">Previous</button>
+                                <button type="button" class="btn_1 submit" id="nextBtn" onclick="nextPrev(1)" style="display: inline-block">Next</button>
                             </div>
                         </div>
                     </div>
@@ -1161,6 +1169,18 @@ function showImages(identity) {
         makeAllFileInputValid();
         var files = fileInput.files;
         for (i = 0; i < files.length; i++) {
+            //enable the below code and test with our marriage images.
+            
+            if (files[i].size > 2000000) {
+                alert("Image size is greater than 2MB. Please upload image which is less than 2MB.");
+                return;
+            }
+
+                if(files[i].type.indexOf("image")==-1) {
+                    alert("You can upload only images.");
+                    return;
+                }
+
             var oFReader = new FileReader();
             oFReader.readAsDataURL(files[i]);
 
@@ -1286,7 +1306,7 @@ function sameAddressAction() {
             document.getElementById('permanent_country').readOnly  = true;
             document.getElementById('permanent_pincode').readOnly  = true;
             
-            document.getElementById('permanent_address').className = '';
+            document.getElementById('permanent_address').className = 'textinput3';
             document.getElementById('permanent_city').className = '';
             document.getElementById('permanent_taluka').className = '';
             document.getElementById('permanent_district').className = '';
@@ -1378,9 +1398,9 @@ function sameAddressAction() {
             img1 = document.getElementById("image1");
             oldImage1 = img1.src.substr(img1.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img1.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img1.src = "";
+            img1.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage1;
             } else {
@@ -1400,9 +1420,9 @@ function sameAddressAction() {
             img2 = document.getElementById("image2");
             oldImage2 = img2.src.substr(img2.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img2.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img2.src = "";
+            img2.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage2;
             } else {
@@ -1421,9 +1441,9 @@ function sameAddressAction() {
             img3 = document.getElementById("image3");
             oldImage3 = img3.src.substr(img3.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img3.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img3.src = "";
+            img3.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage3;
             } else {
@@ -1442,9 +1462,9 @@ function sameAddressAction() {
             img4 = document.getElementById("image4");
             oldImage4 = img4.src.substr(img4.src.lastIndexOf("/") + 1);
             if (mainImageElement.src == img4.src) {
-                mainImageElement.src = "";
+                mainImageElement.src = "/images/blank-profile-picture.png";
             }
-            img4.src = "";
+            img4.src = "/images/blank-profile-picture.png";
             if (removeFilesListInput.value == "") {
                 removeFilesListInput.value = oldImage4;
             } else {

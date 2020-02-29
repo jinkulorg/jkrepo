@@ -2,6 +2,9 @@
 header("Pragma: no-cache");
 header("Cache-Control: no-cache");
 header("Expires: 0");
+
+@include("/config/config_panchalconnect.php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 @extends('layouts.app')
@@ -19,7 +22,7 @@ header("Expires: 0");
 		@if(Auth::User()->profile == null)
 			<div class="alert alert-info">
 				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
-					Please <a href="{{route('profile.create')}}"> create</a> your profile<b></h3>
+					Please <a href="{{route('profile.create')}}"> create</a> your profile and then activate<b></h3>
 			</div>
 		@elseif(Auth::User()->profile->status == "RENEW")
 			 <div class="alert alert-info">
@@ -65,9 +68,27 @@ header("Expires: 0");
 					@endif    
 					<hr>
 				<?php
+			} else {
+		?>
+		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT != null) ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
+			<div style="font-size: 25px; ">
+				<h3 style="text-align: center">
+					<b style="text-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;">
+						<i class="fa fa-star" aria-hidden="true"></i> Short Term Offer <i class="fa fa-star" aria-hidden="true"></i>
+					</b>
+				</h3>
+				<hr>
+				<h3 style="text-align: center; line-height: 2em">
+					<b>
+						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
+						<br>Offer valid till {{OFFER_END_DATE}}
+					</b>
+				</h3>
+			</div>
+		</div>
+		<?php
 			}
 		?>
-
 		<div class="basic_1">
 			<div class="list-heading"><strong>Benefits on Activate Profile</strong></div>
 			<br>
@@ -98,7 +119,7 @@ header("Expires: 0");
 		<?php
 		if (Auth::User() != null && Auth::User()->profile != null && !Auth::User()->profile->isActive()) {
 			?>
-			<h3><b><i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only Rs. 351/- to activate your profile and get these benefits for one year</b></h3>
+			<h3><b><i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "/-</s> Rs. " . OFFER_AMOUNT . "/-" : "Rs. " . AMOUNT . "/-" ?> to activate your profile and get these benefits for one year</b></h3>
 			<br>
 			<form id="payment_form" method="post" action="/pgRedirect">
 				@csrf
@@ -133,7 +154,7 @@ header("Expires: 0");
 						</tr>
 						<tr>
 							<!-- <td><label>Amount</label></td> -->
-							<td><input title="TXN_AMOUNT" tabindex="10" type="text" name="TXN_AMOUNT" value="351" hidden>
+							<td><input title="TXN_AMOUNT" tabindex="10" type="text" name="TXN_AMOUNT" value="<?php echo (OFFER_AMOUNT != null) ? OFFER_AMOUNT : AMOUNT?>" hidden>
 							</td>
 						</tr>
 						<input id="SOURCE" name="SOURCE" value="P" hidden>
@@ -148,7 +169,7 @@ header("Expires: 0");
 			</form>
 			<div class="buttons">
 				<div class="my-buttons">
-					<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay Rs. 351</a>
+					<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "</s> Rs. " . OFFER_AMOUNT : "Rs. ". AMOUNT ?></a>
 				</div>
 			</div>
 		<?php

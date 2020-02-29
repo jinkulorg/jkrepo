@@ -360,13 +360,18 @@ class ProfilesController extends Controller
             $extension = $file->getClientOriginalExtension();
  
             //filename to store
-            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+            $filenametostore = 'USER_' . Auth()->user()->id . '_'.uniqid() . '.' . $extension;
  
             Storage::put('public/profile_images/'. $filenametostore, fopen($file, 'r+'));
             Storage::put('public/profile_images/thumbnail/'. $filenametostore, fopen($file, 'r+'));
+            Storage::put('public/profile_images/mainimage/'. $filenametostore, fopen($file, 'r+'));
  
-            //Resize image here
             $imagepath = public_path('storage/profile_images/'.$filenametostore);
+            $img = Image::make($imagepath);
+            $img->save($imagepath);
+            
+            //Resize image here
+            $imagepath = public_path('storage/profile_images/mainimage/'.$filenametostore);
             $img = Image::make($imagepath)->resize(400, 400, function($constraint) {
                 // $constraint->aspectRatio();
             });
@@ -390,6 +395,7 @@ class ProfilesController extends Controller
         foreach($files as $file) {
             Storage::delete('public/profile_images/'. $file);
             Storage::delete('public/profile_images/thumbnail/'. $file);
+            Storage::delete('public/profile_images/mainimage/'. $file);
         }
     }
     public function gotPaymentAndActivateProfile($id) {

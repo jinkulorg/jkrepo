@@ -89,7 +89,7 @@
 											} else if ($diff->format("%a") == 1) {
 												$lastSeen = $diff->format("yesterday");
 											} else {
-												$lastSeen = $diff->format("%a days");
+												$lastSeen = $diff->format("%a days ago");
 											}
 
 											if ($user->profile->height != null) {
@@ -100,16 +100,16 @@
 
 											<div class="jobs-item with-thumb">
 												<div class="thumb_top">
-													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 													<div class="jobs_right">
 														<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 														<ul class="top-btns" style="color: #c32143">
-															<li>{{$request->created_at}}</li>
+															<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
 														</ul>
 														<ul class="login_details1">
 															<li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($user->last_login_date))}})</li>
 														</ul>
-														<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null) ? $heights[0] : ""}} Feet {{($user->profile->height != null) ? $heights[1] : "" }} Inches |
+														<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Feet {{($user->profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} Inches |
 															<span class="m_1">Subcaste</span> : {{$user->profile->subcast}} |
 															<span class="m_1">Education</span> : {{$user->profile->education}} |
 															<span class="m_1">Occupation</span> : {{$user->profile->occupation}}<br>
@@ -137,7 +137,7 @@
 														@elseif (strtoupper($profileStatus) == "MARRIED")
 														Rejected (You are married)
 														@elseif (strtoupper($request->status) == 'INTERESTED')
-														Accepted - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
+														<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 														@else
 														Rejected - (Your marriage is reverted back)
 														@endif
@@ -177,7 +177,7 @@
 														<input type="hidden" name="_method" value="PATCH" />
 														<div class="thumb_but">
 															If not married?
-															<input class="btn_2" type="submit" name="NotMarried" value="click here" />
+															<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
 														</div>
 													</form>
 													@endif
@@ -210,7 +210,7 @@
 													} else if ($diff->format("%a") == 1) {
 														$lastSeen = $diff->format("yesterday");
 													} else {
-														$lastSeen = $diff->format("%a days");
+														$lastSeen = $diff->format("%a days ago");
 													}
 
 													if ($user->profile->height != null) {
@@ -226,16 +226,16 @@
 
 											<div class="jobs-item with-thumb">
 												<div class="thumb_top">
-													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 													<div class="jobs_right">
 														<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 														<ul class="top-btns" style="color: #c32143">
-															<li>{{$request->created_at}}</li>
+															<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
 														</ul>
 														<ul class="login_details1">
 															<li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($user->last_login_date))}})</li>
 														</ul>
-														<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null) ? $heights[0] : ""}} Feet {{($user->profile->height != null) ? $heights[1] : "" }} Inches |
+														<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Feet {{($user->profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} Inches |
 															<span class="m_1">Subcaste</span> : {{$user->profile->subcast}} |
 															<span class="m_1">Education</span> : {{$user->profile->education}} |
 															<span class="m_1">Occupation</span> : {{$user->profile->occupation}}<br>
@@ -264,7 +264,7 @@
 														@elseif (strtoupper($profileStatus) == "MARRIED")
 														Rejected (You are married)
 														@elseif (strtoupper($request->status) == 'INTERESTED')
-														Accepted - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
+														<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 														@else
 														Rejected - (Your marriage is reverted back)
 														@endif
@@ -306,7 +306,7 @@
 														<input type="hidden" name="_method" value="PATCH" />
 														<div class="thumb_but">
 															If not married?
-															<input class="btn_2" type="submit" name="NotMarried" value="click here" />
+															<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
 														</div>
 													</form>
 													@endif
@@ -372,7 +372,7 @@
 										} else if ($diff->format("%a") == 1) {
 											$lastSeen = $diff->format("yesterday");
 										} else {
-											$lastSeen = $diff->format("%a days");
+											$lastSeen = $diff->format("%a days ago");
 										}
 
 										if ($user->profile->height != null) {
@@ -383,16 +383,16 @@
 
 										<div class="jobs-item with-thumb">
 											<div class="thumb_top">
-												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 												<div class="jobs_right">
 													<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 													<ul class="top-btns" style="color: #c32143">
-														<li>{{$requestsent->created_at}}</li>
+														<li>{{date('d-M-Y', strtotime($requestsent->created_at))}} {{date('h:i:s A', strtotime($requestsent->created_at))}}</li>
 													</ul>
 													<ul class="login_details1">
 														<li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($user->last_login_date))}})</li>
 													</ul>
-													<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null) ? $heights[0] : ""}} Feet {{($user->profile->height != null) ? $heights[1] : "" }} Inches |
+													<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Feet {{($user->profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} Inches |
 														<span class="m_1">Subcaste</span> : {{$user->profile->subcast}} |
 														<span class="m_1">Education</span> : {{$user->profile->education}} |
 														<span class="m_1">Occupation</span> : {{$user->profile->occupation}}<br>
@@ -421,7 +421,7 @@
 													@elseif (strtoupper($profileStatus) == "MARRIED")
 													Rejected (You are married)
 													@elseif (strtoupper($requestsent->Request_received->status) == 'INTERESTED')
-													Accepted - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
+													<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 													@else
 													Rejected - (Your marriage is reverted back)
 													@endif
@@ -461,7 +461,7 @@
 													<input type="hidden" name="_method" value="PATCH" />
 													<div class="thumb_but">
 														If not married?
-														<input class="btn_2" type="submit" name="NotMarried" value="click here" />
+														<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
 													</div>
 												</form>
 												@endif
@@ -527,7 +527,7 @@
 										} else if ($diff->format("%a") == 1) {
 											$lastSeen = $diff->format("yesterday");
 										} else {
-											$lastSeen = $diff->format("%a days");
+											$lastSeen = $diff->format("%a days ago");
 										}
 
 										if ($user->profile->height != null) {
@@ -543,16 +543,16 @@
 										?>
 										<div class="jobs-item with-thumb">
 											<div class="thumb_top">
-												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 												<div class="jobs_right">
 													<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 													<ul class="top-btns" style="color: #c32143">
-														<li>{{$requestReceived->created_at}}</li>
+														<li>{{date('d-M-Y', strtotime($requestReceived->created_at))}} {{date('h:i:s A', strtotime($requestReceived->created_at))}}</li>
 													</ul>
 													<ul class="login_details1">
 														<li>last seen {{$lastSeen}} ({{date("d-M-Y", strtotime($user->last_login_date))}})</li>
 													</ul>
-													<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null) ? $heights[0] : ""}} Feet {{($user->profile->height != null) ? $heights[1] : "" }} Inches |
+													<p class="description">{{$user->profile->age()}} years, {{($user->profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Feet {{($user->profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} Inches |
 														<span class="m_1">Subcaste</span> : {{$user->profile->subcast}} |
 														<span class="m_1">Education</span> : {{$user->profile->education}} |
 														<span class="m_1">Occupation</span> : {{$user->profile->occupation}}<br>
@@ -581,7 +581,7 @@
 													@elseif (strtoupper($profileStatus) == "MARRIED")
 													Rejected (You are married)
 													@elseif (strtoupper($requestReceived->status) == 'INTERESTED')
-													Accepted - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
+													<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 													@else
 													Rejected - (Your marriage is reverted back)
 													@endif
@@ -623,7 +623,7 @@
 													<input type="hidden" name="_method" value="PATCH" />
 													<div class="thumb_but">
 														If not married?
-														<input class="btn_2" type="submit" name="NotMarried" value="click here" />
+														<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
 													</div>
 												</form>
 												@endif

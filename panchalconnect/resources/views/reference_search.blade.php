@@ -18,10 +18,14 @@
     <div class="col-md-9 search_left">
       <table width=100%>
         <td>
-          <h3>{{ Auth::user()->name }} {{ Auth::user()->lastname }} References </h3>
+        <div class="basic_1">
+          <h3 class="profile_title" style="margin: 5px; padding: 5px;"><b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} References </b></h3>
+        </div>
         </td>
-        <td align="right">
-          <h4><a href="/reference">Manage your References</a></h4>
+        <td>
+          <div class="basic_1">
+          <h4 style="text-align: right;"><a class="btn_2" href="/reference">Manage your References</a></h4>
+</div>
         </td>
       </table>
       <div class="table-responsive">
@@ -58,7 +62,7 @@
       <br>
       <form method="get" action="/reference_search">
         @csrf
-        <input type="submit" value="Find Profiles With Mutual Reference" />
+        <input class="btn_1" type="submit" value="Find Profiles With Mutual Reference" />
       </form>
       <br>
       <p>
@@ -93,6 +97,7 @@
               $profileIdList = explode(",", $viewedProfiles);
               foreach ($profileIdList as $viewedProfileId) {
                 $viewedProfile = App\Profile::find($viewedProfileId);
+                if ($viewedProfile != null) {
                 if ($viewedProfile->profile_pic_path != null) {
                   $profile_pics = explode(",", $viewedProfile->profile_pic_path);
                 }
@@ -101,18 +106,19 @@
                 <ul class="profile_item">
                   <a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
                     <li class="profile_item-img">
-                    <img src="<?php if ($viewedProfile->profile_pic_path != null) {?>/storage/profile_images/thumbnail/{{$profile_pics[0]}} <?php } ?>" class="img-responsive" alt="" />
+                      <img src="<?php echo ($viewedProfile->profile_pic_path != null && sizeof($profile_pics) != 0) ? "/storage/profile_images/thumbnail/" . $profile_pics[0] : "/images/blank-profile-picture.png"; ?>" class="img-responsive" alt="" />
                     </li>
                     <li class="profile_item-desc">
                       <h4>{{$viewedProfile->id}}</h4>
                       <p>{{$viewedProfile->user->name}} {{$viewedProfile->user->lastname}}</p>
-                      <p>{{$viewedProfile->age()}} Yrs, {{$heights[0]}}Ft {{$heights[1]}}in</p>
+                      <p>{{$viewedProfile->age()}} Yrs, {{($viewedProfile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Ft {{($viewedProfile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} In</p>
                       <h5>View Full Profile</h5>
                     </li>
                     <div class="clearfix"> </div>
                   </a>
                 </ul>
         <?php
+                }
               }
             }
           }

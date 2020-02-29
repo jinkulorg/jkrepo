@@ -40,9 +40,13 @@
                     Annual Income: {{$profile->annual_income}} -->
             <?php
             $profile_pic_paths = [];
-            $profile_pic_paths[0] = "#";
+            $profile_pic_paths[0] = "/images/blank-profile-picture.png";
+            $profile_pic = "/images/blank-profile-picture.png";
             if ($profile->profile_pic_path != null) {
                 $profile_pic_paths = explode(",", $profile->profile_pic_path);
+                if ($profile_pic_paths != null || sizeof($profile_pic_paths) != 0) {
+                    $profile_pic = "/storage/profile_images/mainimage/" . $profile_pic_paths[0];
+                }
             }
 
             $description = $profile->self_description;
@@ -66,7 +70,7 @@
             } else if ($diff->format("%a") == 1) {
                 $lastSeen = $diff->format("yesterday");
             } else {
-                $lastSeen = $diff->format("%a days");
+                $lastSeen = $diff->format("%a days ago");
             }
 
             if (Auth()->user() != null && Auth()->user()->Profile != null) {
@@ -78,7 +82,7 @@
                 <h2>{{$profile->id}} | {{$profile->user->name}} {{$profile->user->lastname}}</h2>
                 <div class="row">
                     <div class="col-sm-3 profile_left-top">
-                        <img src="/storage/profile_images/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" />
+                        <img src="{{$profile_pic}}" class="img-responsive" alt="" width="400" height="400"/>
 
                     </div>
                     <div class="col-sm-3">
@@ -94,7 +98,7 @@
                             <tbody>
                                 <tr class="opened_1">
                                     <td class="day_label1">Age / Height:</td>
-                                    <td class="day_value">{{$profile->age()}} Yrs, {{$heights[0]}}ft {{$heights[1]}}in</td>
+                                    <td class="day_value">{{$profile->age()}} Yrs, {{($profile->height != null) ? $heights[0] : "0"}} Ft {{($profile->height != null) ? $heights[1] : "0" }} In</td>
                                 </tr>
                                 <tr class="opened">
                                     <td class="day_label1">Sub Caste:</td>
@@ -231,6 +235,7 @@
                             $profileIdList = explode(",", $viewedProfiles);
                             foreach ($profileIdList as $viewedProfileId) {
                                 $viewedProfile = App\Profile::find($viewedProfileId);
+                                if ($viewedProfile != null) {
                                 if ($viewedProfile->profile_pic_path != null) {
                                     $profile_pics = explode(",", $viewedProfile->profile_pic_path);
                                 }
@@ -239,18 +244,19 @@
                                 <ul class="profile_item">
                                     <a href="{{action('ProfilesController@show',$viewedProfile->id)}}">
                                         <li class="profile_item-img">
-                                            <img src="<?php if ($viewedProfile->profile_pic_path != null) { ?>/storage/profile_images/thumbnail/{{$profile_pics[0]}} <?php } ?>" class="img-responsive" alt="" />
+                                            <img src="<?php echo ($viewedProfile->profile_pic_path != null && sizeof($profile_pics) != 0) ? "/storage/profile_images/thumbnail/" . $profile_pics[0] : "/images/blank-profile-picture.png"; ?>" class="img-responsive" alt="" />
                                         </li>
                                         <li class="profile_item-desc">
                                             <h4>{{$viewedProfile->id}}</h4>
                                             <p>{{$viewedProfile->user->name}} {{$viewedProfile->user->lastname}}</p>
-                                            <p>{{$viewedProfile->age()}} Yrs, {{$heights[0]}}Ft {{$heights[1]}}in</p>
+                                            <p>{{$viewedProfile->age()}} Yrs, {{($viewedProfile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0"}} Ft {{($viewedProfile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" }} In</p>
                                             <h5>View Full Profile</h5>
                                         </li>
                                         <div class="clearfix"> </div>
                                     </a>
                                 </ul>
                 <?php
+                            }
                             }
                         }
                     }
