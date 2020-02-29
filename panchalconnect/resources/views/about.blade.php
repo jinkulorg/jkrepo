@@ -11,10 +11,12 @@
      </ul>
    </div>
    <div class="about">
-   	  	<img src="" class="img-responsive" alt=""/>
-        <h1>About us</h1>
+         <img src="" class="img-responsive" alt=""/>
+         <div class="basic_3">
+          <h4>About us</h4>
+        </div>
         <br>
-        <p align="justify"> <b>Panchal Connect</b> is the platform made for the people especially for Panchal community. <br><br>
+        <p align="justify"> <b>"Panchal Connect"</b> is the platform made for the people especially for Panchal community. <br><br>
 In Panchal community, there would be many boys and girls who are looking for their life partner. 
 There are also many relatives who are looking for boy or girl for someone in their family. 
 We are here to help those people in their search and they could find the appropriate girl or boy in their own community using our application. 
@@ -43,11 +45,10 @@ that is required in using this. And we assure you that we will constantly monito
 Our primary values are to help people in various ways, so we are starting with this matrimonial application but we will also be 
 looking forward to other ways where we can help in our community other than this matrimonial application in future.
 <br><br><br>
-Our Team,
+Our development team,
 <br><br>
 <ul>
-<li>--> Kuldeep Panchal - (Founder of Panchal Connect)</li><br>
-<li>--> Jinkal Panchal - (Co-Founder of Panchal Connect)</li>
+<li><div class="thumb" style="color: #c32143">Kuldeep Panchal & Jinkal Panchal</div></li><br>
 </ul>
  </p>
    	  <div class="clearfix"> </div>

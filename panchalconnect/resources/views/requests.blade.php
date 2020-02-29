@@ -100,9 +100,9 @@
 
 											<div class="jobs-item with-thumb">
 												<div class="thumb_top">
-													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+													<div class="thumb"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 													<div class="jobs_right">
-														<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
+														<h6 class="title"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 														<ul class="top-btns" style="color: #c32143">
 															<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
 														</ul>
@@ -226,9 +226,9 @@
 
 											<div class="jobs-item with-thumb">
 												<div class="thumb_top">
-													<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+													<div class="thumb"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 													<div class="jobs_right">
-														<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
+														<h6 class="title"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 														<ul class="top-btns" style="color: #c32143">
 															<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
 														</ul>
@@ -383,9 +383,9 @@
 
 										<div class="jobs-item with-thumb">
 											<div class="thumb_top">
-												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+												<div class="thumb"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 												<div class="jobs_right">
-													<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
+													<h6 class="title"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><b style="color: gray">Request Sent to</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 													<ul class="top-btns" style="color: #c32143">
 														<li>{{date('d-M-Y', strtotime($requestsent->created_at))}} {{date('h:i:s A', strtotime($requestsent->created_at))}}</li>
 													</ul>
@@ -543,9 +543,9 @@
 										?>
 										<div class="jobs-item with-thumb">
 											<div class="thumb_top">
-												<div class="thumb"><a href="view_profile.html"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
+												<div class="thumb"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><img src="/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}" class="img-responsive" alt="" /></a></div>
 												<div class="jobs_right">
-													<h6 class="title"><a href="view_profile.html"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
+													<h6 class="title"><a href="{{action('ProfilesController@show',$user->profile->id)}}"><b style="color: gray">Request received from</b> <b style="color: #c32143">{{$user->name}} {{$user->lastname}} ({{$user->profile->id}})</b></a></h6>
 													<ul class="top-btns" style="color: #c32143">
 														<li>{{date('d-M-Y', strtotime($requestReceived->created_at))}} {{date('h:i:s A', strtotime($requestReceived->created_at))}}</li>
 													</ul>

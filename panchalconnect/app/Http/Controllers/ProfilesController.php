@@ -29,9 +29,13 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        $homeController = new HomeController();
-        $allHobbies = $homeController->getAllHobbies();
-        return view('create_profile', compact('allHobbies'));
+        if (Auth()->user() != null && strtoupper(Auth()->user()->lastname) != "PANCHAL" && strtoupper(Auth()->user()->lastname) != "LUHAR" && strtoupper(Auth()->user()->lastname) != "SUTHAR" && strtoupper(Auth()->user()->lastname) != "MISTRY" && strtoupper(Auth()->user()->lastname) != "GAJJAR") {
+            return view('restrict_create_profile');
+        } else {
+            $homeController = new HomeController();
+            $allHobbies = $homeController->getAllHobbies();
+            return view('create_profile', compact('allHobbies'));
+        }
     }
 
     /**

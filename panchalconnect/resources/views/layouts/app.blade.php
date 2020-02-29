@@ -232,7 +232,7 @@
 			
 			<div class="clearfix"> </div>
 			<div class="copy">
-				<p>Copyright © 2019 Panchal Connect . All Rights Reserved | Design by <a href="http://Jinkul.com/" target="_blank">Jinkul</a> </p>
+				<p>Copyright © {{date('Y')}} Panchal Connect . All Rights Reserved | Design by <a href="http://kuldeeppanchal.com/" target="_blank">Jinkul</a> </p>
 			</div>
 		</div>
 	</div>
