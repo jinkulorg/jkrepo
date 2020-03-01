@@ -55,16 +55,16 @@
                                                                         $totalPics = sizeof($profile_pic_paths);
                                                                         if ($totalPics != 0) {
                                                                             ?>
-                                                                            <img id='mainimage' src='/storage/profile_images/thumbnail/{{$profile_pic_paths[0]}}' width='300' height='250'>
+                                                                            <img id='mainimage' src='/storage/profile_images/mainimage/{{$profile_pic_paths[0]}}' width='300' height='305'>
                                                                         <?php
                                                                             } else {
                                                                                 ?>
-                                                                            <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='250'>
+                                                                            <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='300'>
                                                                         <?php
                                                                             }
                                                                         } else {
                                                                             ?>
-                                                                        <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='250'>
+                                                                        <img id='mainimage' src='/images/blank-profile-picture.png' width='300' height='300'>
                                                                     <?php
                                                                     }
                                                                     ?>
@@ -123,7 +123,7 @@
                                     <ul class="login_details1">
                                         <li>
                                             <label style="color: #c32143; margin: 10px">
-                                                Upload square images for best view (e.g, 1024 X 1024)
+                                                Upload square images for best view (e.g, 2611 X 2611).<br>Use croppola to crop images.
                                             </label>
                                         </li>
                                     </ul>
