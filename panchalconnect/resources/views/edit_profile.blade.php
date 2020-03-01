@@ -1213,7 +1213,8 @@ function makeAllFileInputValid() {
 function showInMainImage(image) {
         var imageFrom = document.getElementById(image);
         var mainImageElement = document.getElementById('mainimage');
-        mainImageElement.src = imageFrom.src;
+        imagesrc = imageFrom.src;
+        mainImageElement.src = imagesrc.replace("thumbnail", "mainimage");
     }
 
 function ShowHideDivProfileCreatedBy() {
@@ -1405,7 +1406,8 @@ function sameAddressAction() {
             rmfileElem1.value = "";
             img1 = document.getElementById("image1");
             oldImage1 = img1.src.substr(img1.src.lastIndexOf("/") + 1);
-            if (mainImageElement.src == img1.src) {
+            img1src = img1.src;
+            if (mainImageElement.src == img1src.replace("thumbnail", "mainimage")) {
                 mainImageElement.src = "/images/blank-profile-picture.png";
             }
             img1.src = "/images/blank-profile-picture.png";
@@ -1427,7 +1429,8 @@ function sameAddressAction() {
             rmfileElem2.value = "";
             img2 = document.getElementById("image2");
             oldImage2 = img2.src.substr(img2.src.lastIndexOf("/") + 1);
-            if (mainImageElement.src == img2.src) {
+            img2src = img2.src;
+            if (mainImageElement.src == img2src.replace("thumbnail", "mainimage")) {
                 mainImageElement.src = "/images/blank-profile-picture.png";
             }
             img2.src = "/images/blank-profile-picture.png";
@@ -1448,7 +1451,8 @@ function sameAddressAction() {
             rmfileElem3.value = "";
             img3 = document.getElementById("image3");
             oldImage3 = img3.src.substr(img3.src.lastIndexOf("/") + 1);
-            if (mainImageElement.src == img3.src) {
+            img3src = img3.src;
+            if (mainImageElement.src == img3src.replace("thumbnail", "mainimage")) {
                 mainImageElement.src = "/images/blank-profile-picture.png";
             }
             img3.src = "/images/blank-profile-picture.png";
@@ -1469,7 +1473,8 @@ function sameAddressAction() {
             rmfileElem4.value = "";
             img4 = document.getElementById("image4");
             oldImage4 = img4.src.substr(img4.src.lastIndexOf("/") + 1);
-            if (mainImageElement.src == img4.src) {
+            img4src = img4.src;
+            if (mainImageElement.src == img4src.replace("thumbnail", "mainimage")) {
                 mainImageElement.src = "/images/blank-profile-picture.png";
             }
             img4.src = "/images/blank-profile-picture.png";
