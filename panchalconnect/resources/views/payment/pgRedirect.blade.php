@@ -7,6 +7,7 @@ header("Expires: 0");
 // require_once("/config/encdec_paytm.php");
 @include("/config/config_paytm.php");
 @include("/config/encdec_paytm.php");
+@include("/config/config_panchalconnect.php");
 $checkSum = "";
 $paramList = array();
 
@@ -26,9 +27,9 @@ $paramList["CHANNEL_ID"] = $CHANNEL_ID;
 $paramList["TXN_AMOUNT"] = $TXN_AMOUNT;
 $paramList["WEBSITE"] = PAYTM_MERCHANT_WEBSITE;
 if ($SOURCE == "P") {
-	$paramList["CALLBACK_URL"] = "http://localhost:8000/paymentresponse";
+	$paramList["CALLBACK_URL"] = CALLBACK_URL_P;
 } else if ($SOURCE == "FP") {
-	$paramList["CALLBACK_URL"] = "http://localhost:8000/FPpaymentresponse";
+	$paramList["CALLBACK_URL"] = CALLBACK_URL_FP;
 }
 
 /*

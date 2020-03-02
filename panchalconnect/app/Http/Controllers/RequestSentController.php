@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Request_sent;
-
+use App\Profile;
 class RequestSentController extends Controller
 {
     /**
@@ -40,8 +40,24 @@ class RequestSentController extends Controller
             'profile_id' => Auth()->User()->Profile->id
         ]);
         $request_sent->save();
+
+        $requestReceivedController = new RequestReceivedController();
+        $successmsg = $requestReceivedController->saveRequestReceived($request->get('profileid'), $request_sent->id);
         
-        return redirect()->action('RequestReceivedController@store',['request',$request,'requestsentid'=>$request_sent->id]);
+        // return redirect()->action('RequestReceivedController@store',['request',$request,'requestsentid'=>$request_sent->id]);
+
+        $profile = Profile::find($request->get('profileid'));
+        $isSent = true;
+        $isGuest = false;
+        $isSelf = false;
+        $noProfile = false;
+        $isReceived = false;
+        $failuremsg = "";
+
+        $homeController = new HomeController();
+        $allHobbies = $homeController->getAllHobbies();
+
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 
     /**

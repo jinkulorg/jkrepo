@@ -1,5 +1,11 @@
 <?php
 
+define('CALLBACK_URL_P',"http://localhost:8000/paymentresponse");
+// define('CALLBACK_URL_P',"http://panchalconnect.com/paymentresponse");
+
+define('CALLBACK_URL_FP',"http://localhost:8000/FPpaymentresponse");
+// define('CALLBACK_URL_FP',"http://panchalconnect.com/FPpaymentresponse");
+
 define('AMOUNT',351);
 
 define('OFFER_FREE',"FREE");

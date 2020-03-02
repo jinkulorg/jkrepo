@@ -21,16 +21,16 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'http://localhost:8000/paymentresponse',
         'http://localhost:8000/paymentresponse?*',
-        'http://panchalconnect/paymentresponse',
-        'http://panchalconnect/paymentresponse?*',
-        'https://panchalconnect/paymentresponse',
-        'https://panchalconnect/paymentresponse?*',
+        'http://panchalconnect.com/paymentresponse',
+        'http://panchalconnect.com/paymentresponse?*',
+        'https://panchalconnect.com/paymentresponse',
+        'https://panchalconnect.com/paymentresponse?*',
         'http://localhost:8000/FPpaymentresponse',
         'http://localhost:8000/FPpaymentresponse?*',
-        'http://panchalconnect/FPpaymentresponse',
-        'http://panchalconnect/FPpaymentresponse?*',
-        'https://panchalconnect/FPpaymentresponse',
-        'https://panchalconnect/FPpaymentresponse?*',
+        'http://panchalconnect.com/FPpaymentresponse',
+        'http://panchalconnect.com/FPpaymentresponse?*',
+        'https://panchalconnect.com/FPpaymentresponse',
+        'https://panchalconnect.com/FPpaymentresponse?*',
     ];
 }
 

@@ -60,6 +60,17 @@ class RequestReceivedController extends Controller
         return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 
+    public function saveRequestReceived($profileid, $requestsentid) {
+        $request_received = new Request_received([
+            'request_sent_id' => $requestsentid,
+            'profile_id' => $profileid,
+            'status'=> 'NEW'
+        ]);
+        
+        $request_received->save();
+        return "You have successfully sent interest to " . $request_received->profile->user->name . " " . $request_received->profile->user->lastname;
+    }
+
     /**
      * Display the specified resource.
      *
