@@ -51,7 +51,7 @@
 				<label class="gender_1" >Search By Id: </label>
 					<div class="inline-block">
 				  		<div class="age_box1" >
-				  			<input class="transparent" type="text" name="profileid" size="15" placeholder="Enter Profile ID">
+				  			<input class="transparent" type="text" name="profileid" size="15" placeholder="Enter Profile ID" required>
 						</div>
 					</div>
 			</div>
@@ -153,6 +153,9 @@
 		<ul id="flexiselDemo3">
 		<?php
 		foreach($featuredProfiles as $featuredProfile) { 
+			if ($featuredProfile->profile->status != "ACTIVE") {
+				continue;
+			}
 			$profile_pic_paths = explode(",",$featuredProfile->profile->profile_pic_path);
 			$profile_pic_path = ($featuredProfile->profile->profile_pic_path == null || $profile_pic_paths == null || sizeof($profile_pic_paths) == 0) ? "/images/blank-profile-picture.png" : "/storage/profile_images/mainimage/" . $profile_pic_paths[0];
 			?>
