@@ -61,29 +61,31 @@ class MarriedController extends Controller
         $profile->status = "MARRIED";
         $profile->save();
 
-        if ($with_profile_id != null) {
-            /**
-             * Setting status in the Profile table for the person with whom the logged in person is married
-             */
-            $withProfile = Profile::find($with_profile_id);
-            $withProfile->status = "MARRIED";
-            $withProfile->save();
+        // if ($with_profile_id != null) {
+        //     /**
+        //      * Setting status in the Profile table for the person with whom the logged in person is married
+        //      */
+        //     $withProfile = Profile::find($with_profile_id);
+        //     $withProfile->status = "MARRIED";
+        //     $withProfile->save();
 
-            /**
-             * Setting status in the request_received table
-             */
-            $reqController = new RequestController();
-            $result = $reqController->gotMarried($with_profile_id);
-            $reqController = null;
-            if ($result == true) {
-                $success = 'You had successfully confirmed that you are married with ' . $withProfile->User->name . ' ' . $withProfile->User->lastname;
-            } else {
-                $success = 'Failed to update the status in Request data';
-            }
-        } else {
+        //     /**
+        //      * Setting status in the request_received table
+        //      */
+        //     $reqController = new RequestController();
+        //     $result = $reqController->gotMarried($with_profile_id);
+        //     $reqController = null;
+        //     if ($result == true) {
+        //         $success = 'You had successfully confirmed that you are married with ' . $withProfile->User->name . ' ' . $withProfile->User->lastname;
+        //     } else {
+        //         $success = 'Failed to update the status in Request data';
+        //     }
+        // } else {
 
-            $success = 'You had successfully confirmed that you are married.';
-        }
+        //     $success = 'You had successfully confirmed that you are married.';
+        // }
+
+        $success = 'You had successfully confirmed that you are married.';
 
         return view('married_confirmed', compact('success'));
     }

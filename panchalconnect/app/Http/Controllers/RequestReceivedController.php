@@ -105,32 +105,32 @@ class RequestReceivedController extends Controller
         $request = Request_received::find($id);
         $user = $request->Request_sent->profile->user;
 
-        $input = Input::get('SenderMarried');
-        if (isset($input)) {
-            $with_profile_id = $request->profile_id;
-            $user = $request->Profile->User;
-            $with_person_name = $user->name . " " . $user->lastname;
-            return view('married',compact('with_profile_id','with_person_name'));
-        }
+        // $input = Input::get('SenderMarried');
+        // if (isset($input)) {
+        //     $with_profile_id = $request->profile_id;
+        //     $user = $request->Profile->User;
+        //     $with_person_name = $user->name . " " . $user->lastname;
+        //     return view('married',compact('with_profile_id','with_person_name'));
+        // }
 
-        $input = Input::get('ReceiverMarried');
-        if (isset($input)) {
-            $with_profile_id = $request->Request_sent->profile_id;
-            $user = $request->Request_sent->Profile->User;
-            $with_person_name = $user->name . " " . $user->lastname;
-            return view('married',compact('with_profile_id','with_person_name'));
-        }
+        // $input = Input::get('ReceiverMarried');
+        // if (isset($input)) {
+        //     $with_profile_id = $request->Request_sent->profile_id;
+        //     $user = $request->Request_sent->Profile->User;
+        //     $with_person_name = $user->name . " " . $user->lastname;
+        //     return view('married',compact('with_profile_id','with_person_name'));
+        // }
 
-        $input = Input::get('SenderMarriedNever');
+        $input = Input::get('SenderDisconnect');
         if (isset($input)) {
             $request->status = "NOT MARRY BY SENDER";
-            $msg = "You decided not to marry " . $request->profile->user->name . " " . $request->profile->user->lastname;
+            $msg = "You decided to disconnect with " . $request->profile->user->name . " " . $request->profile->user->lastname;
         }
 
-        $input = Input::get('ReceiverMarriedNever');
+        $input = Input::get('ReceiverDisconnect');
         if (isset($input)) {
             $request->status = "NOT MARRY BY RECEIVER";
-            $msg = "You decided not to marry " . $user->name . " " . $user->lastname;
+            $msg = "You decided to disconnect with " . $user->name . " " . $user->lastname;
         }
 
         $input = Input::get('Interested');
@@ -144,40 +144,43 @@ class RequestReceivedController extends Controller
             $request->status = "NOT INTERESTED";
             $msg = "You have successfully sent not interested to " . $user->name . " " . $user->lastname;
         }
+        
+        /**
+         * The below code was to revert marriage back. In case when needed you can use similar code.
+         */
+        // $input = Input::get('NotMarried');
+        // if (isset($input)) {
+        //     $request->status = "DISCONNECTED";
+        //     //change status from both profiles
 
-        $input = Input::get('NotMarried');
-        if (isset($input)) {
-            $request->status = "DISCONNECTED";
-            //change status from both profiles
-
-            $paymentController = new PaymentController();
-            if ($paymentController->isPaymentReceivedFor($request->profile->id)) {
-                $request->profile->status = "ACTIVE";
-            } else {
-                $request->profile->status = "INACTIVE";
-            }
-            $request->profile->save();
+        //     $paymentController = new PaymentController();
+        //     if ($paymentController->isPaymentReceivedFor($request->profile->id)) {
+        //         $request->profile->status = "ACTIVE";
+        //     } else {
+        //         $request->profile->status = "INACTIVE";
+        //     }
+        //     $request->profile->save();
             
-            if ($paymentController->isPaymentReceivedFor($user->profile->id)) {
-                $user->profile->status = "ACTIVE";
-            } else {
-                $user->profile->status = "INACTIVE";
-            }
-            $user->profile->save();
+        //     if ($paymentController->isPaymentReceivedFor($user->profile->id)) {
+        //         $user->profile->status = "ACTIVE";
+        //     } else {
+        //         $user->profile->status = "INACTIVE";
+        //     }
+        //     $user->profile->save();
 
-            //remove marrieds table entry 
-            $married = $request->profile->married;
-            if ($married != null) {
-                $married->delete();
-            }
+        //     //remove marrieds table entry 
+        //     $married = $request->profile->married;
+        //     if ($married != null) {
+        //         $married->delete();
+        //     }
 
-            $married = $user->profile->married;
-            if ($married != null) {
-                $married->delete();
-            }
+        //     $married = $user->profile->married;
+        //     if ($married != null) {
+        //         $married->delete();
+        //     }
 
-            $msg = "Your marriage is reverted back";
-        }
+        //     $msg = "Your marriage is reverted back";
+        // }
 
         $request->save();
 

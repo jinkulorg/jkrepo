@@ -127,9 +127,9 @@
 														@elseif (strtoupper($request->status) == 'NOT INTERESTED')
 														Rejected ({{$user->name}} sent not interested to you)
 														@elseif (strtoupper($request->status) == 'NOT MARRY BY SENDER')
-														Rejected (You decided not to marry {{$user->name}})
+														Rejected (You disconnected {{$user->name}})
 														@elseif (strtoupper($request->status) == 'NOT MARRY BY RECEIVER')
-														Rejected ({{$user->name}} decided not to marry you)
+														Rejected ({{$user->name}} disconnected you)
 														@elseif (strtoupper($request->status) == 'MARRIED')
 														Congratulations! You are married with {{$user->name}}
 														@elseif ($user->profile->status == "MARRIED")
@@ -139,7 +139,7 @@
 														@elseif (strtoupper($request->status) == 'INTERESTED')
 														<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 														@else
-														Rejected - (Your marriage is reverted back)
+														Rejected
 														@endif
 													</div>
 
@@ -153,34 +153,16 @@
 													</form>
 													@endif
 
-													<!-- @if ($user->profile->status == "MARRIED" && strtoupper($request->status) != 'MARRIED')
-													<div class="thumb_but" style="color: #c32143">
-														<b>{{$user->name}} got married.</b>
-													</div>
-													@endif -->
-
 													@if (strtoupper($request->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED" && $user->profile->status != "MARRIED")
 													<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
 														@csrf
 														<input type="hidden" name="_method" value="PATCH" />
 														<div class="thumb_but">
-															Got married with @if($user->profile->gender == "M") him @else her @endif?
-															<input class="btn_2" type="submit" name="SenderMarried" value="Yes" />
-															<input class="btn_2" type="submit" name="SenderMarriedNever" value="Never" />
+															<input class="btn_2" type="submit" name="SenderDisconnect" value="Disconnect" />
 														</div>
 													</form>
 													@endif
 
-													@if (strtoupper($request->status) == 'MARRIED')
-													<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
-														@csrf
-														<input type="hidden" name="_method" value="PATCH" />
-														<div class="thumb_but">
-															If not married?
-															<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
-														</div>
-													</form>
-													@endif
 													<div class="clearfix"> </div>
 
 												</div>
@@ -254,9 +236,9 @@
 														@elseif (strtoupper($request->status) == 'NOT INTERESTED')
 														Rejected (You sent not interested to {{$user->name}})
 														@elseif (strtoupper($request->status) == 'NOT MARRY BY SENDER')
-														Rejected ({{$user->name}} decided not to marry you)
+														Rejected ({{$user->name}} disconnected you)
 														@elseif (strtoupper($request->status) == 'NOT MARRY BY RECEIVER')
-														Rejected (You decided not to marry {{$user->name}})
+														Rejected (You disconnected {{$user->name}})
 														@elseif (strtoupper($request->status) == 'MARRIED')
 														Congratulations! You are married with {{$user->name}}
 														@elseif ($user->profile->status == "MARRIED")
@@ -266,7 +248,7 @@
 														@elseif (strtoupper($request->status) == 'INTERESTED')
 														<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 														@else
-														Rejected - (Your marriage is reverted back)
+														Rejected
 														@endif
 
 													</div>
@@ -282,31 +264,12 @@
 													</form>
 													@endif
 
-													<!-- @if ($user->profile->status == "MARRIED" && strtoupper($request->status) != 'MARRIED')
-													<div class="thumb_but" style="color: #c32143">
-														<b>{{$user->name}} got married.</b>
-													</div>
-													@endif -->
-
 													@if (strtoupper($request->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED" && $user->profile->status != "MARRIED")
 													<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
 														@csrf
 														<input type="hidden" name="_method" value="PATCH" />
 														<div class="thumb_but">
-															Got married with @if($user->profile->gender == "M") him @else her @endif?
-															<input class="btn_2" type="submit" name="ReceiverMarried" value="Yes" />
-															<input class="btn_2" type="submit" name="ReceiverMarriedNever" value="Never" />
-														</div>
-													</form>
-													@endif
-
-													@if (strtoupper($request->status) == 'MARRIED')
-													<form action="{{action('RequestReceivedController@update',$request->id)}}" method="post">
-														@csrf
-														<input type="hidden" name="_method" value="PATCH" />
-														<div class="thumb_but">
-															If not married?
-															<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
+															<input class="btn_2" type="submit" name="ReceiverDisconnect" value="Disconnect" />
 														</div>
 													</form>
 													@endif
@@ -411,9 +374,9 @@
 													@elseif (strtoupper($requestsent->Request_received->status) == 'NOT INTERESTED')
 													Rejected ({{$user->name}} sent not interested to you)
 													@elseif (strtoupper($requestsent->Request_received->status) == 'NOT MARRY BY SENDER')
-													Rejected (You decided not to marry {{$user->name}})
+													Rejected (You disconnected {{$user->name}})
 													@elseif (strtoupper($requestsent->Request_received->status) == 'NOT MARRY BY RECEIVER')
-													Rejected ({{$user->name}} decided not to marry you)
+													Rejected ({{$user->name}} disconnected you)
 													@elseif (strtoupper($requestsent->Request_received->status) == 'MARRIED')
 													Congratulations! You are married with {{$user->name}}
 													@elseif ($user->profile->status == "MARRIED")
@@ -423,7 +386,7 @@
 													@elseif (strtoupper($requestsent->Request_received->status) == 'INTERESTED')
 													<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 													@else
-													Rejected - (Your marriage is reverted back)
+													Rejected
 													@endif
 												</div>
 
@@ -437,31 +400,14 @@
 												</form>
 												@endif
 
-												<!-- @if ($user->profile->status == "MARRIED" && strtoupper($requestsent->Request_received->status) != 'MARRIED')
-													<div class="thumb_but" style="color: #c32143">
-														<b>{{$user->name}} got married.</b>
-													</div>
-												@endif -->
-
 												@if (strtoupper($requestsent->Request_received->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED" && $user->profile->status != "MARRIED")
 												<form action="{{action('RequestReceivedController@update',$requestsent->Request_received->id)}}" method="post">
 													@csrf
 													<input type="hidden" name="_method" value="PATCH" />
 													<div class="thumb_but">
-														Got married with @if($user->profile->gender == "M") him @else her @endif?
-														<input class="btn_2" type="submit" name="SenderMarried" value="Yes" />
-														<input class="btn_2" type="submit" name="Not_Interested" value="Never" />
-													</div>
-												</form>
-												@endif
-
-												@if (strtoupper($requestsent->Request_received->status) == 'MARRIED')
-												<form action="{{action('RequestReceivedController@update',$requestsent->Request_received->id)}}" method="post">
-													@csrf
-													<input type="hidden" name="_method" value="PATCH" />
-													<div class="thumb_but">
-														If not married?
-														<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
+														<!-- Got married with @if($user->profile->gender == "M") him @else her @endif? -->
+														<!-- <input class="btn_2" type="submit" name="SenderMarried" value="Yes" /> -->
+														<input class="btn_2" type="submit" name="SenderDisconnect" value="Disconnect" />
 													</div>
 												</form>
 												@endif
@@ -571,9 +517,9 @@
 													@elseif (strtoupper($requestReceived->status) == 'NOT INTERESTED')
 													Rejected (You sent not interested to {{$user->name}})
 													@elseif (strtoupper($requestReceived->status) == 'NOT MARRY BY SENDER')
-													Rejected ({{$user->name}} decided not to marry you)
+													Rejected ({{$user->name}} disconnected you)
 													@elseif (strtoupper($requestReceived->status) == 'NOT MARRY BY RECEIVER')
-													Rejected (You decided not to marry {{$user->name}})
+													Rejected (You disconnected {{$user->name}})
 													@elseif (strtoupper($requestReceived->status) == 'MARRIED')
 													Congratulations! You are married with {{$user->name}}
 													@elseif ($user->profile->status == "MARRIED")
@@ -583,7 +529,7 @@
 													@elseif (strtoupper($requestReceived->status) == 'INTERESTED')
 													<label style="color: green;">Accepted</label> - <a href="{{action('ProfilesController@show',$user->profile->id)}}" class="read-more">View @if($user->profile->gender == "M") his @else her @endif contact details</a>
 													@else
-													Rejected - (Your marriage is reverted back)
+													Rejected
 													@endif
 												</div>
 
@@ -599,31 +545,12 @@
 												</form>
 												@endif
 
-												<!-- @if ($user->profile->status == "MARRIED" && strtoupper($requestReceived->status) != 'MARRIED')
-													<div class="thumb_but" style="color: #c32143">
-														<b>{{$user->name}} got married.</b>
-													</div>
-												@endif -->
-
 												@if (strtoupper($requestReceived->status) == 'INTERESTED' && strtoupper($profileStatus) != "MARRIED" && $user->profile->status != "MARRIED")
 												<form action="{{action('RequestReceivedController@update',$requestReceived->id)}}" method="post">
 													@csrf
 													<input type="hidden" name="_method" value="PATCH" />
 													<div class="thumb_but">
-														Got married with @if($user->profile->gender == "M") him @else her @endif?
-														<input class="btn_2" type="submit" name="ReceiverMarried" value="Yes" />
-														<input class="btn_2" type="submit" name="Not_Interested" value="Never" />
-													</div>
-												</form>
-												@endif
-
-												@if (strtoupper($requestReceived->status) == 'MARRIED')
-												<form action="{{action('RequestReceivedController@update',$requestReceived->id)}}" method="post">
-													@csrf
-													<input type="hidden" name="_method" value="PATCH" />
-													<div class="thumb_but">
-														If not married?
-														<input class="btn_2" type="submit" name="NotMarried" value="Revert" />
+														<input class="btn_2" type="submit" name="ReceiverDisconnect" value="Disconnect" />
 													</div>
 												</form>
 												@endif
