@@ -120,6 +120,7 @@
 											<li><a href="/activate">Activate Profile</a></li>
 											<li><a href="/featuredprofile">Promote Profile</a></li>
 											<li><a href="/married">Got Married</a></li>
+											<li><a href="/affiliate">Affiliate Program</a></li>
 											<li> <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}

@@ -139,3 +139,8 @@ Route::post('/FPpaymentresponse',function(){
 
 Route::Patch('/profile/activateProfileForFree/{id}','ProfilesController@activateProfileForFree')
 ->name('profile.profileactive.activateForFree');
+
+/**
+ * Affiliate Program
+ */
+Route::get('/affiliate','AffiliateController@index');
