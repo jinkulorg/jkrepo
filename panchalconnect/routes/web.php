@@ -48,6 +48,7 @@ Route::resource('/reference','ReferenceController');
 Route::post('/sendemail', 'HomeController@mail');
 Route::resource('/married','MarriedController');
 Route::resource('/featuredprofile','FeaturedProfileController');
+Route::resource('/account','AccountController');
 
 /**
  * Routes for Admin access

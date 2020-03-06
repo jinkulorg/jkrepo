@@ -115,6 +115,7 @@
 											<li><a href="/login">Login</a></li>
 											<li><a href="/register">Register</a></li>
 										@else
+											<li><a href="/account">My Account</a></li>
 											<li><a href="<?php echo (Auth::User()->profile != null) ? action('ProfilesController@show',Auth::User()->profile->id) : '#'?>">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
 											<li><a href="/activate">Activate Profile</a></li>
