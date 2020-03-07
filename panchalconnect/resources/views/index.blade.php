@@ -39,14 +39,16 @@
 			@endguest
 		</div>
 	</div>
-	<div class="profile_search">
-		<div class="container wrap_1">
-		<div class="row">
-		<div class="col-md-3 search_left">
+	<div class="profile_search" >
+		<div class="container wrap_1"  style="margin-top: -15px; margin-bottom: -15px">
+		<div class="row" style="margin-top: 0px; margin-bottom: 0px">
 
+		<div class="col-md-3 search_left" style="margin-top: 20px; margin-bottom: 0px">
 		<form method="post" id="profile_search_form" onsubmit="setAction()">
 			@CSRF
-			<div class="search_top" >
+			
+			<!-- <div class="search_top" > -->
+			<div style="margin-top: 10px; margin-bottom: 10px">
 				<input type="hidden" name="_method" value="GET" />
 				<label class="gender_1" >Search By Id: </label>
 					<div class="inline-block">
@@ -54,21 +56,26 @@
 				  			<input class="transparent" type="text" name="profileid" size="15" placeholder="Enter Profile ID" required>
 						</div>
 					</div>
-			</div>
-					<div class="age_box2" style="text-align: right; padding: 0px 30px 0px 0px">
-				  <input id="submit-btn" class="hvr-wobble-vertical" type="submit" value="Search">
 				</div>
+			<!-- </div> -->
+			<div style="margin-top: 10px; margin-bottom: 10px">
+					<div class="age_box2">
+				  <input id="submit-btn" class="hvr-wobble-vertical" type="submit" value="Search">
+				</div></div>
       	</form>
-			  
 		</div>
-		<div class="col-md-1" style="border-left: 1px solid rgb(245, 239, 239); height: 95px; text-align: right; box:sizing: border-box"></div>
-		<div class="col-md-8 match_right">
+
+		<!-- <div class="col-md-1" style="border-left: 1px solid rgb(245, 239, 239); height: 95px; text-align: right; box:sizing: border-box"></div> -->
+		<div class="col-md-1" style="text-align: center; color: white; margin-right: 0px; margin-top: 50px; margin-bottom: 50px">- OR -</div>
+		
+		<div class="col-md-8 match_right"  style="margin-top: 0px; margin-bottom: 0px">
 		<form action="/basicsearch" method="get" >
 			@csrf
-				<div class="search_top">
-					<div class="inline-block" style="margin: 0px 0px 0px -85px">
+				<!-- <div class="search_top age_box1" style="text-align: center"> -->
+				<div style="margin-top: 10px; margin-bottom: 10px">
+					<div class="inline-block">
 						<label class="gender_1" >I am looking for :</label>
-						<div class="age_box1" style="max-width: 100%; display: inline-block;">
+						<div class="" style="max-width: 100%; display: inline-block;">
 							<select name="gender">
 								<option value="">--Select Gender--</option>
 								<option value="">Male & Female</option>
@@ -79,7 +86,7 @@
 					</div>
 					<div class="inline-block">
 						<label class="gender_1">Located In :</label>
-						<div class="age_box1" style="max-width: 100%; display: inline-block;">
+						<div class="" style="max-width: 100%; display: inline-block;">
 							<select name="present_state">
 								<option value="">--Select Location--</option>
 								<option value="">Any place</option>
@@ -92,10 +99,12 @@
 								?>
 							</select>
 						</div>
-					</div>
+					</div></div>
+				<!-- </div> -->
+				<div style="margin-top: 10px; margin-bottom: 10px">
 					<div class="inline-block">
 						<label class="gender_1">Interested In :</label>
-						<div class="age_box1" style="max-width: 100%; display: inline-block;">
+						<div class="" style="max-width: 100%; display: inline-block;">
 							<select name="hobby">
 								<option value="">--Select Interest--</option>
 								<option value="">Anything</option>
@@ -109,14 +118,14 @@
 							</select>
 						</div>
 					</div>
-				</div>
-				<div class="inline-block" style="margin: 0px 0px 0px -85px">
-					<div class="age_box2" style="max-width: 220px;">
+				<div class="inline-block " >
+					<div class="" style="max-width: 220px;">
 						<label class="gender_1">Age :</label>
-						<input name="ageGreaterThan" id="ageGreaterThan" class="transparent" placeholder="From:" style="width: 34%;" type="text" value="18" onblur="validateNumber('ageGreaterThan')">&nbsp;-&nbsp;
-						<input name="ageLessThan" id="ageLessThan" class="transparent" placeholder="To:" style="width: 34%;" type="text" value="40" onblur="validateNumber('ageLessThan')">
+						<input name="ageGreaterThan" id="ageGreaterThan" class="transparent" placeholder="From:" style="max-width: 34%;" type="text" value="18" onblur="validateNumber('ageGreaterThan')">&nbsp;-&nbsp;
+						<input name="ageLessThan" id="ageLessThan" class="transparent" placeholder="To:" style="max-width: 34%;" type="text" value="40" onblur="validateNumber('ageLessThan')">
 					</div>
-				</div>
+				</div></div>
+				<div style="margin-top: 10px; margin-bottom: 10px">
 				<div class="inline-block">
 					<label class="gender_1">Status :</label>
 					<div class="age_box1" style="max-width: 100%; display: inline-block;">
@@ -130,9 +139,9 @@
 						</select>
 					</div>
 				</div>
-				<div class="submit inline-block">
+				<div class="submit inline-block age_box1">
 					<input id="submit-btn" class="hvr-wobble-vertical" type="submit" value="Find Matches">
-				</div>
+				</div></div>
 			</form>
 		</div>
 		</div>
