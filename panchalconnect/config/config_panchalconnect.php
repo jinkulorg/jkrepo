@@ -1,5 +1,8 @@
 <?php
 
+define('PROMOTE_ENABLED',false);
+define('AFFILIATE_ENABLED',false);
+
 define('CALLBACK_URL_P',"http://localhost:8000/paymentresponse");
 // define('CALLBACK_URL_P',"http://panchalconnect.com/paymentresponse");
 

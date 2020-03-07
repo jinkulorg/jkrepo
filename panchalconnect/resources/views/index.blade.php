@@ -150,6 +150,7 @@
 		</div>
 	</div>
 </div>
+@if(PROMOTE_ENABLED == true)
 <div class="grid_1">
 	<div class="container">
 		<h1>Featured Profiles</h1>
@@ -193,6 +194,7 @@
 		</ul>
 	</div>
 </div>
+@endif
 <div class="grid_1">
 	<div class="container">
 		<hr>
