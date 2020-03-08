@@ -36,7 +36,7 @@ class FeaturedProfileController extends Controller
     public function store(Request $request)
     {
         $plan = $request->input('plan');
-        $this->storeFeaturedProfile($plan);
+        $this->storeFeaturedProfile($plan, Auth()->User()->Profile->id);
         return redirect()->route('featuredprofile.index')->with('success', 'Your request to promote profile is submitted succesfully.');
     }
 
@@ -85,7 +85,7 @@ class FeaturedProfileController extends Controller
         //
     }
 
-    public function storeFeaturedProfile($plan) {
+    public function storeFeaturedProfile($plan, $profileId) {
 
         if ($plan == null) {
             return false;
@@ -102,7 +102,7 @@ class FeaturedProfileController extends Controller
         }
 
         $featuredProfile = new FeaturedProfile([
-            'profile_id' => Auth()->User()->Profile->id,
+            'profile_id' => $profileId,
             'plan' => $plan,
             'start_date' => date("Y/m/d"),
             'end_date' => $enddate,

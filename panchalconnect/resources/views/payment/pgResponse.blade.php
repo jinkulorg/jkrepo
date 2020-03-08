@@ -49,10 +49,12 @@ header("Expires: 0");
 				}
 				$params['SOURCE'] = "P";
 				$paymentController = new App\Http\Controllers\PaymentController();
-				$txnid = $params['TXNID'];
-				$samepayments = App\Payment::all()->where('TXNID','=',$txnid);
-				if ($samepayments == null || sizeof($samepayments) == 0) {
-					$paymentController->storePaymentDetails($params);
+				if ((array_key_exists('TXNID', $_POST))) {
+					$txnid = $params['TXNID'];
+					$samepayments = App\Payment::all()->where('TXNID','=',$txnid);
+					if ($samepayments == null || sizeof($samepayments) == 0) {
+						$paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+					}
 				}
 			}
 

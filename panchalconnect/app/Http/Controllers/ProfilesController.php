@@ -462,7 +462,7 @@ class ProfilesController extends Controller
     public function activateProfileForFree($id) {
         $profile = Profile::find($id);
         if ($profile == null) {
-            return view('/activate');
+            return back();
         }
 
         $profile->status = 'ACTIVE';
@@ -487,7 +487,67 @@ class ProfilesController extends Controller
         $params['CHECKSUMHASH'] = "Not Available";
         $params['SOURCE'] = "P";
 
-        $paymentController->storePaymentDetails($params);
-        return view('payment.activate');
+        $paymentController->storePaymentDetails($params, $id);
+
+        // return view('payment.activate');
+        $msg = 'Profile ' . $id . ' is acivated successfully';
+        return back()->with('success', $msg);
+    }
+
+    public function promoteProfileForFree(Request $request, $id) {
+        $profile = Profile::find($id);
+        if ($profile == null) {
+            return back();
+        }
+
+        if ($profile->status != 'ACTIVE') {
+            return back()->with('failure','Profile is not active');
+        }
+
+        $plan = $request->get('plan');
+
+        if ($plan == "") {
+            return back()->with('failure','Please select plan');
+        }
+
+        $featuredProfileController = new FeaturedProfileController();
+        $result = $featuredProfileController->storeFeaturedProfile($plan, $id);
+
+        if ($result == false) {
+            return back()->with('failure','Error in creating Featured Profile data');
+        }
+
+        $paymentController = new PaymentController();
+
+        $params['PROFILE_ID'] = $id;
+        $params['ORDERID'] = "Not Available";
+        $params['MID'] = "Not Available";
+        $params['TXNID'] = "Not Available";
+
+        if ($plan == "plan1") {
+            $params['TXNAMOUNT'] = PLAN1_AMOUNT;
+        } else if ($plan == "plan2") {
+            $params['TXNAMOUNT'] = PLAN2_AMOUNT;
+        } else if ($plan == "plan3") {
+            $params['TXNAMOUNT'] = PLAN3_AMOUNT;
+        } else {
+            $params['TXNAMOUNT'] = "0";
+        }
+        
+        $params['PAYMENTMODE'] = "Not Available";
+        $params['CURRENCY'] = "Not Available";
+        $params['TXNDATE'] = date("Y-m-d");
+        $params['STATUS'] = "TXN_SUCCESS";
+        $params['RESPCODE'] = "Not Available";
+        $params['RESPMSG'] = "Not Available";
+        $params['GATEWAYNAME'] = "Not Available";
+        $params['BANKTXNID'] = "Not Available";
+        $params['BANKNAME'] = "Not Available";
+        $params['CHECKSUMHASH'] = "Not Available";
+        $params['SOURCE'] = "FP";
+
+        $paymentController->storePaymentDetails($params, $id);
+        $msg = 'Profile ' . $id . ' is promoted successfully with plan ' . $plan;
+        return back()->with('success', $msg);
     }
 }

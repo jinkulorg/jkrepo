@@ -47,10 +47,13 @@ header("Expires: 0");
                 }
                 $params['SOURCE'] = "FP";
                 $paymentController = new App\Http\Controllers\PaymentController();
-                $txnid = $params['TXNID'];
-				$samepayments = App\Payment::all()->where('TXNID','=',$txnid);
-				if ($samepayments == null || sizeof($samepayments) == 0) {
-                    $paymentController->storePaymentDetails($params);
+
+                if ((array_key_exists('TXNID', $_POST))) {
+                    $txnid = $params['TXNID'];
+                    $samepayments = App\Payment::all()->where('TXNID','=',$txnid);
+                    if ($samepayments == null || sizeof($samepayments) == 0) {
+                        $paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+                    }
                 }
             }
 
@@ -61,15 +64,15 @@ header("Expires: 0");
                 $plan = null;
                 
                 if ((array_key_exists('TXNAMOUNT', $params))) {
-                    if ($params['TXNAMOUNT'] == 100) {
+                    if ($params['TXNAMOUNT'] == PLAN1_AMOUNT) {
                         $plan = "plan1";
                         $planName = "SILVER";
                         $enddate = date('Y/m/d', strtotime("+1 months", strtotime(date("Y/m/d"))));
-                    } else if ($params['TXNAMOUNT'] == 500) {
+                    } else if ($params['TXNAMOUNT'] == PLAN2_AMOUNT) {
                         $plan = "plan2";
                         $planName = "GOLD";
                         $enddate = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
-                    } else if ($params['TXNAMOUNT'] == 1000) {
+                    } else if ($params['TXNAMOUNT'] == PLAN3_AMOUNT) {
                         $plan = "plan3";
                         $planName = "PLATINUM";
                         $enddate = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
@@ -79,7 +82,7 @@ header("Expires: 0");
                 }
                 $isSuccess = "true";
                 if ($samepayments == null || sizeof($samepayments) == 0) {
-                    $isSuccess = $featuredProfileController->storeFeaturedProfile($plan);
+                    $isSuccess = $featuredProfileController->storeFeaturedProfile($plan, Auth()->User()->Profile->id);
                 }
 
                 if ($isSuccess) {

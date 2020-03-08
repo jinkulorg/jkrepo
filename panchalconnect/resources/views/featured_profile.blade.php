@@ -45,17 +45,17 @@
                     <?php
                         $amountPaid = $paymentDetails->TXNAMOUNT;
                         $planName = "";
-                        if ($amountPaid == 100) {
+                        if ($amountPaid == PLAN1_AMOUNT) {
                             $planName = "SILVER";
-                        } else if ($amountPaid == 500) {
+                        } else if ($amountPaid == PLAN2_AMOUNT) {
                             $planName = "GOLD";
-                        } else if ($amountPaid == 1000) {
+                        } else if ($amountPaid == PLAN3_AMOUNT) {
                             $planName = "PLATINUM";
                         }
                     ?>
 			    	 <div class="alert alert-success">
 			    		<h3><b><i class='fa fa-check' aria-hidden='true'></i> Thank you for promoting your profile!</b> <br><br>
-			    			Your profile is promoted succesfully for {{$planName}} plan and your profile is visilbe on home page under featured profiles.</h3><br><br>
+			    			Your profile is promoted succesfully for <?php echo ($planName == "") ? "free": $planName . "  plan"; ?> and your profile is visilbe on home page under featured profiles.</h3><br><br>
 			    		<div class="row">
 			    			<div class="col-sm-2" style="line-height: 2em">
 			    				<b>Status:</b><br>
@@ -77,7 +77,7 @@
 			    	<div class="alert alert-danger">
         	    	    <ul>
         	    	        <li>
-			    				<b><i class='fa fa-times' aria-hidden='true'></i> It seems that your profile is active but payment information is not available.</b><br><br>
+			    				<b><i class='fa fa-times' aria-hidden='true'></i> It seems that your profile is promoted but payment information is not available.</b><br><br>
 			    			</li>
         	    	    </ul>
         	    	</div>
@@ -101,37 +101,37 @@
                 <div class="row">
                     <ul>
                         <!-- <div class="col-sm-1"></div> -->
-                        <a href="#" onclick="planSelected('plan1')">
+                        <a  onclick="planSelected('plan1')">
                             <div class="col-sm-4">
                                 <div id="plan1div" class="offer">
                                     <div class="offer-subheading">Silver Plan</div>
                                     <hr>
                                     <li>Promote for 1 Month<br>
-                                        Price Rs. 100/-
+                                        Price Rs. {{PLAN1_AMOUNT}}/-
                                     </li>
                                 </div>
                             </div>
                         </a>
                         <!-- <div class="col-sm-1"></div> -->
-                        <a href="#" onclick="planSelected('plan2')">
+                        <a onclick="planSelected('plan2')">
                             <div class="col-sm-4">
                                 <div id="plan2div" class="offer">
                                     <div class="offer-subheading">Gold Plan</div>
                                     <hr>
                                     <li>Promote for 6 Months<br>
-                                        Price Rs. 500/-
+                                        Price Rs. {{PLAN2_AMOUNT}}/-
                                     </li>
                                 </div>
                             </div>
                         </a>
                         <!-- <div class="col-sm-1"></div> -->
-                        <a href="#" onclick="planSelected('plan3')">
+                        <a onclick="planSelected('plan3')">
                             <div class="col-sm-4">
                                 <div id="plan3div" class="offer">
                                     <div class="offer-subheading">Platinum Plan</div>
                                     <hr>
                                     <li>Promote for 12 Months<br>
-                                        Price Rs. 1000/-
+                                        Price Rs. {{PLAN3_AMOUNT}}/-
                                     </li>
                                 </div>
                             </div>
@@ -224,20 +224,20 @@
             plan1div.className = "offer offer-active";
             plan2div.className = "offer";
             plan3div.className = "offer";
-            submitButton.innerHTML = "Proceed to pay Rs. 100";
-            amount.value = "100";
+            submitButton.innerHTML = "Proceed to pay Rs. <?php echo PLAN1_AMOUNT ?>";
+            amount.value = <?php echo PLAN1_AMOUNT ?>;
         } else if (plan == "plan2") {
             plan2div.className = "offer offer-active";
             plan1div.className = "offer";
             plan3div.className = "offer";
-            submitButton.innerHTML = "Proceed to pay Rs. 500";
-            amount.value = "500";
+            submitButton.innerHTML = "Proceed to pay Rs. <?php echo PLAN2_AMOUNT ?>";
+            amount.value = <?php echo PLAN2_AMOUNT ?>;
         } else if (plan == "plan3") {
             plan3div.className = "offer offer-active";
             plan1div.className = "offer";
             plan2div.className = "offer";
-            submitButton.innerHTML = "Proceed to pay Rs. 1000";
-            amount.value = "1000";
+            submitButton.innerHTML = "Proceed to pay Rs. <?php echo PLAN3_AMOUNT ?>";
+            amount.value = <?php echo PLAN3_AMOUNT ?>;
         }
     }
 

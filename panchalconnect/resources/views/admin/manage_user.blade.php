@@ -29,6 +29,7 @@
                 <th>Email verified at</th>
                 <th>Type</th>
                 <th>Remember token</th>
+                <th>Referred By</th>
                 <th>Created at</th>
                 <th>Updated at</th>
                 <th>Edit</th>
@@ -45,6 +46,7 @@
                 <td>{{$user->email_verified_at}}</td>
                 <td>{{$user->type}}</td>
                 <td>{{$user->remember_token}}</td>
+                <td>{{$user->referred_by}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->updated_at}}</td>
                 <td><a href="{{action('AdminController@editUser', $user->id)}}">Edit</a></td>
@@ -61,6 +63,11 @@
             @endforeach
         </table>
     </div>
+    <?php
+    if (sizeof($users) > 1) {
+        echo $users->links();
+    }
+    ?>
     <div class="clearfix"> </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

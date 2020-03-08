@@ -29,8 +29,6 @@
                 <th>Status</th>
                 <th>Created at</th>
                 <th>Updated at</th>
-                <th>Approve</th>
-                <th>Reject</th>
                 <th>Delete</th>
             </tr>
             <?php $i = 1; ?>
@@ -46,20 +44,6 @@
                 <td>{{$featuredprofile->created_at}}</td>
                 <td>{{$featuredprofile->updated_at}}</td>
                 <td>
-                    <form action="{{action('AdminController@approveFeaturedProfile',$featuredprofile->id)}}" class="approve_form" method="post">
-                        @csrf
-                        <input type="hidden" name="_method" value="PATCH" />
-                        <input type="submit" value="Approve" />
-                    </form>
-                </td>
-                <td>
-                    <form action="{{action('AdminController@rejectFeaturedProfile',$featuredprofile->id)}}" class="reject_form" method="post">
-                        @csrf
-                        <input type="hidden" name="_method" value="PATCH" />
-                        <input type="submit" value="Reject" />
-                    </form>
-                </td>
-                <td>
                     <form method="post" class="delete_form" action="{{action('AdminController@destroyFeaturedProfile',$featuredprofile->id)}}">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE" />
@@ -71,7 +55,7 @@
             @endforeach
         </table>
     </div>
-
+    {{$featuredprofiles->links()}}
     <div class="clearfix"> </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -80,26 +64,6 @@
     $(document).ready(function() {
         $('.delete_form').on('submit', function() {
             if (confirm('Are you sure you want to delete it?')) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $('.approve_form').on('submit', function() {
-            if (confirm('Are you sure you want to approve profile promotion?')) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $('.reject_form').on('submit', function() {
-            if (confirm('Are you sure you want to reject profile promotion?')) {
                 return true;
             } else {
                 return false;

@@ -4,11 +4,14 @@
 <head>
 	<!-- <title>Marital an Wedding Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title> -->
 	<title>{{ config('app.name', 'Laravel') }}</title>
-
+	<!-- add icon link -->
+	<link rel = "icon" href = "/images/pclogo.png" type = "image/x-icon">
+		
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-
+	<meta name="GENERATOR" content="Evrsoft First Page">
+	
 	<!-- Scripts -->
 	<script type="application/x-javascript">
 		addEventListener("load", function() {
@@ -19,6 +22,7 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+	
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script>
@@ -41,6 +45,7 @@
 	<link href='//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 	<!----font-Awesome----->
 	<link href="/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!----font-Awesome----->
 
 	<!-- Styles -->
@@ -48,6 +53,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 	<!-- Custom Theme files -->
+	<link href="/css/style2.css" rel='stylesheet' type='text/css' />
 	<link href="/css/style.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="/css/multiformstyle.css" />
 
@@ -56,6 +62,10 @@
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
+	<!-- FlexSlider -->
+	<script defer src="/js/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
 	<!-- Javascript -->
 	<script>
 		$(function() {
@@ -63,10 +73,19 @@
 				appendText: "(YYYY-MM-DD)",
 				dateFormat: "yy-mm-dd",
 				altField: "#datepicker-4",
-				altFormat: "DD, d MM, yy"
+				altFormat: "DD, d MM, yy",
+				changeMonth:true,
+				changeYear:true,
+				yearRange: 'c-60:c+2',
+				showAnim: "slideDown",
+				showOn:"button",
+                buttonImage: "/images/calender.png",
+			    buttonImageOnly: true,
+			    showMonthAfterYear: true
 			});
 		});
 	</script>
+	<link href="/css/bell-notification.css" rel="stylesheet">
 
 </head>
 
@@ -157,6 +176,7 @@
 	<div class="container" style="background-color: brown">
 		<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 			<ul class="nav navbar-nav nav_1">
+				<li><a href="/admin">Dashboard</a></li>
 				<li><a href="/manageuser">Manage User</a></li>
 				<li><a href="/manageprofile">Manage Profile</a> </li>
 				<li class="last"><a href="/managefeaturedprofile">Manage Featured Profile</a> </li>

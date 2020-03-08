@@ -99,13 +99,21 @@ Route::delete('/admin/featuredprofile/{id}','AdminController@destroyFeaturedProf
 ->middleware('is_admin')
 ->name('admin.profile.destroyFeaturedProfile');
 
-Route::Patch('/admin/featuredprofileapprove/{id}','AdminController@approveFeaturedProfile')
-->middleware('is_admin')
-->name('admin.profileapprove.approve');
+// Route::Patch('/admin/featuredprofileapprove/{id}','AdminController@approveFeaturedProfile')
+// ->middleware('is_admin')
+// ->name('admin.profileapprove.approve');
 
-Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeaturedProfile')
+// Route::Patch('/admin/featuredprofilereject/{id}','AdminController@rejectFeaturedProfile')
+// ->middleware('is_admin')
+// ->name('admin.profilereject.reject');
+
+Route::get('/admin/getuser','AdminController@getUser')
 ->middleware('is_admin')
-->name('admin.profilereject.reject');
+->name('admin.getuser');
+
+Route::get('/admin/getprofile','AdminController@getProfile')
+->middleware('is_admin')
+->name('admin.getprofile');
 
 /**
  * Routes for Search
@@ -140,6 +148,9 @@ Route::post('/FPpaymentresponse',function(){
 
 Route::Patch('/profile/activateProfileForFree/{id}','ProfilesController@activateProfileForFree')
 ->name('profile.profileactive.activateForFree');
+
+Route::Patch('/profile/promoteProfileForFree/{id}','ProfilesController@promoteProfileForFree')
+->name('profile.profileactive.promoteForFree');
 
 /**
  * Affiliate Program

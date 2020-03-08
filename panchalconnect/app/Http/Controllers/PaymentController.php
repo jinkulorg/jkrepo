@@ -84,13 +84,13 @@ class PaymentController extends Controller
         //
     }
 
-    public function storePaymentDetails($params) {
+    public function storePaymentDetails($params, $profileid) {
         $source = (array_key_exists('SOURCE', $params)) ? $params['SOURCE'] : "P";
         $amountPaid = (array_key_exists('TXNAMOUNT', $params)) ? $params['TXNAMOUNT'] : null;
 
         $payment = new Payment();
       
-        $payment->PROFILE_ID = Auth()->User()->Profile->id;
+        $payment->PROFILE_ID = $profileid;
         $payment->ORDERID = (array_key_exists('ORDERID', $params)) ? $params['ORDERID'] : null;
         $payment->MID = (array_key_exists('MID', $params)) ? $params['MID'] : null;
         $payment->TXNID = (array_key_exists('TXNID', $params)) ? $params['TXNID'] : null;
@@ -110,17 +110,23 @@ class PaymentController extends Controller
         if ((array_key_exists('STATUS', $params)) && $params['STATUS'] == "TXN_SUCCESS") {
             $payment->START_DATE = date("Y/m/d");
             if ($source == "FP") {
-                if ($amountPaid == "100") {
+                if ($amountPaid == PLAN1_AMOUNT) {
                     $payment->END_DATE = date('Y/m/d', strtotime("+1 months", strtotime(date("Y/m/d"))));
-                } else if ($amountPaid == "500") {
+                } else if ($amountPaid == PLAN2_AMOUNT) {
                     $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
-                } else if ($amountPaid == "1000") {
+                } else if ($amountPaid == PLAN3_AMOUNT) {
                     $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
                 } else {
                     $payment->END_DATE = date("Y/m/d");
                 }
+
+                if ($params['ORDERID'] == "Not Available") {
+                    // checking for free
+                    $payment->TXNAMOUNT = 0;
+                }
             } else {
-                if ($params['TXNAMOUNT'] == 0) {
+                if ($params['ORDERID'] == "Not Available") {
+                    // checking for free
                     $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
                 } else {
                     $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
@@ -164,8 +170,28 @@ class PaymentController extends Controller
         return null;
     }
 
+    public function getPaymentDetailsForActivateProfileFor($profileid) {
+        $activePayments = Profile::find($profileid)->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','P');
+        foreach($activePayments as $payment) {
+            if ($payment->STATUS == "TXN_SUCCESS") {
+                return $payment; 
+            }
+        }
+        return null;
+    }
+
     public function getPaymentDetailsForPromoteProfile() {
         $activePayments = Auth()->User()->Profile->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','FP');
+        foreach($activePayments as $payment) {
+            if ($payment->STATUS == "TXN_SUCCESS") {
+                return $payment; 
+            }
+        }
+        return null;
+    }
+
+    public function getPaymentDetailsForPromoteProfileFor($profileid) {
+        $activePayments = Profile::find($profileid)->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','FP');
         foreach($activePayments as $payment) {
             if ($payment->STATUS == "TXN_SUCCESS") {
                 return $payment; 
