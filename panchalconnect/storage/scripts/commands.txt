@@ -10,3 +10,9 @@ To get the Cron job running, follow below steps:
     shell> crontab -e
 3. Below should be the content of the file: (Note: change the path accordingly)
 * * * * * cd /opt/lampp/htdocs/laravelapp/trunk/panchalconnect && php artisan schedule:run >> /dev/null 2>&1
+
+4. If you want to revert all the changes permanently on git hub, use below command: (Note: Take backup of .env and config files before revert)
+git reset --hard
+
+5. To update the repository using git use below command:
+git pull
