@@ -119,7 +119,7 @@ class AdminController extends Controller
 
         $paymentController = new PaymentController();
         $payment = $paymentController->getPaymentDetailsForActivateProfileFor($id);
-        $payment->END_DATE = date("Y/m/d");
+        $payment->END_DATE = date('Y/m/d', strtotime("-1 days", strtotime(date("Y/m/d"))));
         $payment->save();
 
         return redirect()->route('manageprofile')->with('success','Profile ' . $id . ' is now In-Active.');
