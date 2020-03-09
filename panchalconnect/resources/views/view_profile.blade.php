@@ -86,6 +86,7 @@
                                                 Create your profile to send request <a href="{{route('profile.create')}}" class="vertical">Create</a>
                                                 <?php
                                             } else if ($isSelf && $profile->status != "MARRIED") {
+                                                $paymentController = new App\Http\Controllers\PaymentController();
                                             ?>
                                                 @if(!$profile->isActive())
                                                     @if($profile->status == "RENEW")
@@ -94,11 +95,11 @@
                                                         <a href="/activate" class="vertical">Activate Profile</a>
                                                     @endif
                                                 @endif
-                                                @if($profile->isActive())
+                                                @if($profile->isActive() && PROMOTE_ENABLED == true && $paymentController->getPaymentDetailsForPromoteProfile() == null)
                                                     <a href="/featuredprofile" class="vertical">Promote Profile</a>
                                                 @endif
                                             <?php
-                                            } else if(Auth()->user()->Profile->isActive() == false && Auth()->user()->Profile->status != "MARRIED" && $profile->status != "MARRIED") {
+                                            } else if($noProfile == false && Auth()->user()->Profile->isActive() == false && Auth()->user()->Profile->status != "MARRIED" && $profile->status != "MARRIED") {
                                                 echo "Want to send request? <a href='/activate' class='vertical'>Activate your Profile</a>";
                                             } else if ($isSent && $profile->status != "MARRIED" && Auth()->user()->Profile->status != "MARRIED") {
                                             ?>
@@ -111,7 +112,7 @@
                                             } else {
                                                 // Checking if logged in user is not married and searched user is also not married. 
                                                 // If any one of them is married, Send request button will not be displayed.
-                                                if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
+                                                if ($noProfile == false && (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id)))) {
                                                 ?>
                                                     <a href="#" onclick="sendInterestClicked()" class="vertical">Send Interest</a>
                                                     <form id="sendInterestForm" method="post" action="{{url('requestsent')}}">
@@ -479,7 +480,7 @@
                                                 </div>
                                             </td>
                                             <td class="day_value">
-                                                <div class="inputText_block1" style="display: <?php echo ($profile->occupation == 'Job') ? "block" : "none" ?>">
+                                                <div class="inputText_block1">
                                                     <div id="divCompanyName" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
                                                         {{$profile->company_name}}
                                                     </div>

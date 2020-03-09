@@ -11,7 +11,6 @@
             </ul>
         </div>
         <hr>
-        @auth
         <div class="basic_3" style="text-align: center">
             <h4>Welcome to our Affiliate Program</h4>
         </div>
@@ -19,6 +18,12 @@
             <li>Earn money on Panchal Connect</li>
         </ul>
         <br>
+        @if(AFFILIATE_ENABLED == false)
+        <ul class="login_details1" style="text-align: center">
+            <li>Affiliate program is not available for now. Please check later. One of the reason might be because of the free offer available.</li>
+        </ul>
+        @else
+        @auth
         <p>
             Earning money on Panchal Connect requires you to refer people who will register on panchal connect.
             Once they register, they have to create their profile and most important is to activate their profile only then you will earn commission on your refferals.
@@ -83,5 +88,6 @@
         <div class="clearfix"> </div>
         <hr>
         @endauth
+        @endif
     </div>
     @endsection

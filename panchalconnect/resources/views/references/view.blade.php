@@ -65,9 +65,10 @@
                         </td>
                         <td>
                             <div class="my-buttons">
-                                <a class="my-buttons" onclick="onDelete()" href="#">Delete</a>
+                                <?php $refid = $reference['id']; ?>
+                                <a class="my-buttons" href="#" onclick="onDelete({{$refid}})">Delete</a>
                             </div>
-                            <form id="delete_form" method="post" class="delete_form" action="{{action('ReferenceController@destroy',$reference['id'])}}">
+                            <form id="delete_form" method="post" class="delete_form" action="#">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <div class="my-buttons">
@@ -86,7 +87,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
-function onDelete() {
+function onDelete(refid) {
+    document.getElementById('delete_form').action = 'reference/' + refid;
     if (confirm('Are you sure you want to delete it?')) {
         document.getElementById("delete_form").submit();
     } else {

@@ -14,6 +14,8 @@
       Please <a href='/login'>Login/Register</a> to use this feature
     @elseif (Auth()->user()->Profile == null)
       Please <a class='vertical' href=" . route('profile.create') . ">create</a> your profile to use this feature
+    @elseif (Auth()->user()->Profile->status != 'ACTIVE')
+      Please <a class='vertical' href="/activate">activate</a> your profile to use this feature
     @else
     <div class="col-md-9 search_left">
       <table width=100%>

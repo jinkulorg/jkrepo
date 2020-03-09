@@ -1,13 +1,13 @@
 <?php
 
-define('PROMOTE_ENABLED',false);
+define('PROMOTE_ENABLED',true);
 define('AFFILIATE_ENABLED',false);
 
 define('CALLBACK_URL_P',"http://localhost:8000/paymentresponse");
-// define('CALLBACK_URL_P',"http://panchalconnect.com/paymentresponse");
+// define('CALLBACK_URL_P',"https://panchalconnect.com/paymentresponse");
 
 define('CALLBACK_URL_FP',"http://localhost:8000/FPpaymentresponse");
-// define('CALLBACK_URL_FP',"http://panchalconnect.com/FPpaymentresponse");
+// define('CALLBACK_URL_FP',"https://panchalconnect.com/FPpaymentresponse");
 
 define('AMOUNT',351);
 

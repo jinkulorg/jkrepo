@@ -334,7 +334,7 @@ class ProfilesController extends Controller
                 return;
             }
 
-            if (sizeof($profileIdList) >= 5) {
+            if (sizeof($profileIdList) >= 10) {
                 //removing the last profile id
                 $pastViewedProfiles = substr($pastViewedProfiles,0,strripos($pastViewedProfiles,","));
             } 

@@ -121,15 +121,15 @@
                                     <td class="day_value closed"><span>{{$profile->education}}</span></td>
                                 </tr>
                                 <tr class="opened">
-                                    <td class="day_label1">Designation:</td>
-                                    <td class="day_value">{{$profile->designation}}</td>
+                                    <td class="day_label1">Occupation:</td>
+                                    <td class="day_value">{{$profile->occupation}}</td>
                                 </tr>
                                 <?php
                                 if ((Auth()->user() != null && Auth()->user()->Profile != null) && sizeof($mutualReferences) != 0) {
                                     ?>
                                     <tr class="opened">
-                                        <td class="day_label1">Mutual References:</td>
-                                        <td class="day_value">{{implode(',', array_values($mutualReferences))}}</td>
+                                        <td class="day_label1" style="color: #c32143"><b>Mutual References:</b></td>
+                                        <td class="day_value" style="color: #c32143">{{implode(',', array_values($mutualReferences))}}</td>
                                     </tr>
                                 <?php
                                 }
@@ -216,7 +216,7 @@
                 <form method="post" id="profile_search_form" onsubmit="setAction()">
                     @CSRF
                     <input type="hidden" name="_method" value="GET" />
-                    Search By Id: <input type="text" class="m_1" name="profileid" size="30" placeholder="Enter Profile ID">
+                    Search By Id: <input type="text" class="m_1" name="profileid" size="30" placeholder="Enter Profile ID" required>
                     <input type="submit" value="Go">
                 </form>
             </div>
