@@ -209,13 +209,14 @@
 				<h3 style="text-align: center; line-height: 2em">
 					@if(OFFER_FREE == "FREE")
 					<b>
-						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s> 
-						<br>Offer valid till {{OFFER_END_DATE}}
+						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
+						<br>Free to use panchal connect for six months
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
 					</b>
 					@else
 					<b>
 						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
-						<br>Offer valid till {{OFFER_END_DATE}}
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
 					</b>
 					@endif
 				</h3>

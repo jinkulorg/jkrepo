@@ -81,13 +81,14 @@ header("Expires: 0");
 				<h3 style="text-align: center; line-height: 2em">
 					@if(OFFER_FREE == "FREE")
 					<b>
-						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s> 
-						<br>Offer valid till {{OFFER_END_DATE}}
+						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
+						<br>Free to use panchal connect for six months 
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
 					</b>
 					@else
 					<b>
 						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
-						<br>Offer valid till {{OFFER_END_DATE}}
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
 					</b>
 					@endif
 				</h3>
@@ -112,9 +113,11 @@ header("Expires: 0");
 				<div class="listitem">
 					<li><i class="fa fa-check" aria-hidden="true"></i> You can respond as interested or not interested to someone's request sent to you. If you respond as intersted then your contact details will be visible to the sender.</li>
 				</div>
+				@if(PROMOTE_ENABLED)
 				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> You can promote profile to get your profile on the first page which is highlighted under featured profiles.</li>
+					<li><i class="fa fa-check" aria-hidden="true"></i> You can promote profile to get your profile on the first page which is highlighted under featured profiles based on the promotion plan subscribed.</li>
 				</div>
+				@endif
 				<div class="listitem">
 					<li><i class="fa fa-check" aria-hidden="true"></i> You can search for such profiles whose references are in common with yours.</li>
 				</div>

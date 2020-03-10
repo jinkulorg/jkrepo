@@ -20,22 +20,22 @@
       If you face any kind of difficulty in using the application, you may contact us. 
       You may either contact us directly using telephone details given below or complete the contact us form, we will contact you within 24 hours.</p>
       <address class="addr row">
-        <dl class="grid_4">
+        <!-- <dl class="grid_4">
             <dt>Address :<br><br><br></dt>
             <dd>
                Aali, Power house road, <br> India, Gujarat, Anand, <br> Khambhat - 388620.
             </dd>
-        </dl>
+        </dl> -->
         <dl class="grid_4">
-            <dt>Telephones :</dt>
+            <dt>Contact:</dt>
             <dd>
-               +91 7202083110 (M)
+               +91 9426155564 (M)
             </dd>
         </dl>
-        <dl class="grid_4">
-            <dt>E-mail :</dt>
+        <dl class="grid_4" style="width: auto">
+            <dt>E-mail:</dt>
             <dd>
-              kul.d.panchal@gmail.com
+              kuldeep@panchalconnect.com
             </dd>
         </dl>
       </address>
