@@ -94,12 +94,16 @@ class AdminController extends Controller
 
         $paymentController = new PaymentController();
         $payment = $paymentController->getPaymentDetailsForActivateProfileFor($id);
-        $payment->END_DATE = date("Y/m/d");
-        $payment->save();
+        if ($payment != null) {
+            $payment->END_DATE = date("Y/m/d");
+            $payment->save();
+        }
 
         $payment = $paymentController->getPaymentDetailsForPromoteProfileFor($id);
-        $payment->END_DATE = date("Y/m/d");
-        $payment->save();
+        if ($payment != null) {
+            $payment->END_DATE = date("Y/m/d");
+            $payment->save();
+        }
 
         $profileController = new ProfilesController();
         $profileController->removeOldProfilePics($profile->profile_pic_path);
