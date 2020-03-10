@@ -216,7 +216,7 @@
                 <form method="post" id="profile_search_form" onsubmit="setAction()">
                     @CSRF
                     <input type="hidden" name="_method" value="GET" />
-                    Search By Id: <input type="text" class="m_1" name="profileid" size="30" placeholder="Enter Profile ID" required>
+                    Search By Id: <input type="text" class="m_1" name="profilesearchid" size="30" placeholder="Enter Profile ID" required>
                     <input type="submit" value="Go">
                 </form>
             </div>
@@ -273,7 +273,7 @@
 <script type="text/javascript">
     function setAction() {
         var your_form = document.getElementById('profile_search_form');
-        your_form.action = "/profile/" + document.getElementsByName("profileid")[0].value;
+        your_form.action = "/profile/" + document.getElementsByName("profilesearchid")[0].value;
     }
 
     function sendInterestClicked($profileId) {
