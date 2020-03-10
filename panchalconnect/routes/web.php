@@ -35,10 +35,10 @@ Route::get('/feedback',function(){
     return view('feedback');
 });
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/profile','ProfilesController');
+Route::resource('/profile','ProfilesController')->middleware('verified');
 Route::resource('/requestsent','RequestSentController');
 Route::resource('/requestreceived','RequestReceivedController');
 Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertRequestReceived');
@@ -155,4 +155,4 @@ Route::Patch('/profile/promoteProfileForFree/{id}','ProfilesController@promotePr
 /**
  * Affiliate Program
  */
-Route::get('/affiliate','AffiliateController@index');
+Route::get('/affiliate','AffiliateController@index')->middleware('verified');
