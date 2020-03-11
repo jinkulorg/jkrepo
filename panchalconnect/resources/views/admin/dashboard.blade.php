@@ -124,7 +124,7 @@
           <td></td>
         </tr>
         <tr>
-          <td>Total Amount Received from Activate Profile</td>
+          <td>Total income from Activate Profile</td>
           <td style="text-align: right">{{$totalAmountReceivedForActivation}}</td>
         </tr>
         <tr>
@@ -132,7 +132,7 @@
           <td></td>
         </tr>
         <tr>
-          <td>Total Amount Received from Promote Profile</td>
+          <td>Total income from Promote Profile</td>
           <td style="text-align: right">{{$totalAmountReceivedForPromotion}}</td>
         </tr>
         <tr>
@@ -140,7 +140,7 @@
           <td></td>
         </tr>
         <tr>
-          <td><b>Total Amount Received</b></td>
+          <td><b>Total Revenue</b></td>
           <td style="text-align: right"><b>{{$totalAmountReceived}}</b></td>
         </tr>
         <tr>

@@ -245,14 +245,24 @@
 	<!-- ============================  Navigation End ============================ -->
 	<br>
 	<div class="container" style="background-color: brown">
-		<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-			<ul class="nav navbar-nav nav_1">
-				<li><a href="/admin">Dashboard</a></li>
-				<li><a href="/manageuser">Manage User</a></li>
-				<li><a href="/manageprofile">Manage Profile</a> </li>
-				<li class="last"><a href="/managefeaturedprofile">Manage Featured Profile</a> </li>
-			</ul>
-		</div>
+		<nav class="navbar nav_bottom" role="navigation">
+			<div class="navbar-header nav_2">
+				<button style="margin-left: 10px; margin-top: 0px" type="button" class="btn_1 dropdown-toggle" data-toggle="collapse" data-target="#bs-megadropdown-tabs-admin" >Admin Menu
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs-admin">
+				<ul class="nav navbar-nav nav_1">
+					<li><a href="/admin">Dashboard</a></li>
+					<li><a href="/manageuser">Manage User</a></li>
+					<li><a href="/manageprofile">Manage Profile</a> </li>
+					<li class="last"><a href="/managefeaturedprofile">Manage Featured Profile</a> </li>
+				</ul>
+			</div>
+		</nav>
 	</div>
 	<main class="py-4">
 		@yield('content')
