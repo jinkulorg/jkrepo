@@ -22,7 +22,7 @@
 			@if($newRequestReceiveds != null && $newRequestReceiveds->count() != 0)
 			<div class="alert alert-info">
 				<b><i class='fa fa-info-circle' aria-hidden='true'></i>
-					{{sizeof($newRequestReceiveds)}} new request received. Please check<b>
+					{{sizeof($newRequestReceiveds)}} new request received. Please check</b>
 			</div>
 			@endif
 

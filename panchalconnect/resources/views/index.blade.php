@@ -3,6 +3,16 @@
 @section('content')
 <div class="banner">
 	<div class="container">
+		@guest
+		@else
+			@if (Auth::user()->email_verified_at == null)
+			<div class="alert alert-danger">
+				<b><i class='fa fa-info-circle' aria-hidden='true'></i>
+					Thank you for registering! Before proceeding, please verify your email address to create your profile.</b><br>
+					Please check your email for a verification link. If you did not receive the email, <a href="/email/resend">click here to request another.</a>
+			</div>
+			@endif
+		@endguest
 		<div class="banner_info">
 			<h3>
 				@guest
