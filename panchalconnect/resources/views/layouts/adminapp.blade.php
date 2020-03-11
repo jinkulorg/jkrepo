@@ -274,7 +274,7 @@
 		<div class="container">
 			<div class="clearfix"> </div>
 			<div class="copy">
-				<p>Copyright © 2019 Panchal Connect . All Rights Reserved | Design by <a href="http://Jinkul.com/" target="_blank">Jinkul</a> </p>
+				<p>Copyright © 2019 Panchal Connect . All Rights Reserved | Design by <a href="http://Jinkul.com/" target="_blank">Jinkal Panchal</a> </p>
 			</div>
 		</div>
 	</div>
