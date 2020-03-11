@@ -35,6 +35,6 @@ class SendMailable extends Mailable
      */
     public function build()
     {
-        return $this->subject('Panchal Connect - ' . $this->name)->from('kuldeep@panchalconnect.com')->view('email.sendemail');
+        return $this->subject('Panchal Connect - ' . $this->name)->from('jinkal@panchalconnect.com')->view('email.sendemail');
     }
 }

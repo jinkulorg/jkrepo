@@ -35,7 +35,7 @@
         <dl class="grid_4" style="width: auto">
             <dt>E-mail:</dt>
             <dd>
-              kuldeep@panchalconnect.com
+              jinkal@panchalconnect.com
             </dd>
         </dl>
       </address>
