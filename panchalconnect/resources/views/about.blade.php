@@ -45,10 +45,10 @@ that is required in using this. And we assure you that we will constantly monito
 Our primary values are to help people in various ways, so we are starting with this matrimonial application but we will also be 
 looking forward to other ways where we can help in our community other than this matrimonial application in future.
 <br><br><br>
-Developed and designed by,
+Our development team,
 <br><br>
 <ul>
-<li><div class="thumb" style="color: #c32143">Jinkal Panchal</div></li><br>
+<li><div class="thumb" style="color: #c32143">Kuldeep Panchal & Jinkal Panchal</div></li><br>
 </ul>
  </p>
    	  <div class="clearfix"> </div>

@@ -290,7 +290,7 @@
 			
 			<div class="clearfix"> </div>
 			<div class="copy">
-				<p>Copyright © {{date('Y')}} Panchal Connect . All Rights Reserved | Design by <a target="_blank">Jinkul</a> </p>
+				<p>Copyright © {{date('Y')}} Panchal Connect . All Rights Reserved | Developed and Design by <a target="_blank">Jinkul</a> </p>
 			</div>
 		</div>
 	</div>
