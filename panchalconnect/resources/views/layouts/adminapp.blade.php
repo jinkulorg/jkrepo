@@ -220,7 +220,7 @@
 									}
 								?>
 								<li class="dropdown">
-		              				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<span class="caret"></span></a>
+		              				<a href="#" class="dropdown-toggle">Search<span class="caret"></span></a>
 		              				<ul class="dropdown-menu" role="menu">
 										<li><a href="/advanced_search_open">Advanced Search</a> </li>
 										<li><a href="/reference_search_open">Reference Based Search</a> </li>

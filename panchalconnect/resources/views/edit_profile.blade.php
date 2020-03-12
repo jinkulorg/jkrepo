@@ -352,7 +352,7 @@
                                     </tbody>
                                 </table>
                                 </div>
-                                <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
+                                <div class="col-sm-1">&nbsp;</div>
                                 <div class="col-sm-5">
                                 <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                                 <table class="table_working_hours">
@@ -670,10 +670,15 @@
                                             </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <hr>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-2" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
+                            <div class="col-sm-2"></div>
                             <div class="col-sm-5">
                                 <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Career</b></div></h3>
                                 <table class="table_working_hours">
@@ -741,6 +746,11 @@
                                                         <input class="optional <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "invalid" : "valid" ?>" type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')">
                                                     </div>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <hr>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -996,10 +1006,15 @@
                                                 </div>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <hr>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>    
-                                <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
+                                <div class="col-sm-1"></div>
                                 <div class="col-sm-5">
                                     <table class="table_working_hours">
                                         <tbody>
@@ -1036,11 +1051,15 @@
                                                 </div>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <hr>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <table class="table_working_hours">

@@ -75,8 +75,25 @@
       	</form>
 		</div>
 
-		<!-- <div class="col-md-1" style="border-left: 1px solid rgb(245, 239, 239); height: 95px; text-align: right; box:sizing: border-box"></div> -->
-		<div class="col-md-1" style="text-align: center; color: white; margin-right: 0px; margin-top: 50px; margin-bottom: 50px">- OR -</div>
+		<div class="col-md-1">
+			<div class="collapse navbar-collapse">
+				<div  style="border-left: 1px solid rgb(245, 239, 239); height: 120px; text-align: right; box:sizing: border-box"></div>
+			</div>
+			<!-- <div class="collapse navbar-collapse" style="text-align: center; color: white; margin-right: -10px; margin-top: 50px; margin-bottom: 50px">
+				- OR -
+			</div> -->
+		<div class="navbar-header nav_2">
+			<!-- <button style="margin-left: 10px; margin-top: 0px" type="button" class="btn_1 dropdown-toggle" data-toggle="collapse" >OR
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button> -->
+			<div style="text-align: center; color: white;">
+				<hr>
+			</div>
+		</div>
+		</div>
 		
 		<div class="col-md-8 match_right"  style="margin-top: 0px; margin-bottom: 0px">
 		<form action="/basicsearch" method="get" >

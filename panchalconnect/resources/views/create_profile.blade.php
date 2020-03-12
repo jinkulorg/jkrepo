@@ -228,7 +228,7 @@
                                             <td>
                                                 <div class="container2">
                                                     <div class="comment">
-                                                        <textarea class="textinput" cols="130" rows="5" name="self_description" oninput="this.className = ''" placeholder="Write here some more about you"></textarea>
+                                                        <textarea class="textinput" cols="130" rows="5" name="self_description" oninput="this.className = 'textinput'" placeholder="Write here some more about you"></textarea>
                                                     </div>
                                                 </div>
                                             </td>
@@ -324,9 +324,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
+                            <div class="col-sm-1" >&nbsp;</div>
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                             <div class="col-sm-5">
-                                <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Life Style</b></div></h3>
                                 <table class="table_working_hours">
                                     <tbody>
                                         <tr class="opened_1">
@@ -414,8 +414,8 @@
                             </div>
                         </div>
                         <hr>
-                        <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Astro Details</b></div></h3>
                         <div class="row">
+                            <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Astro Details</b></div></h3>
                             <div class="col-sm-6">
                                 <table class="table_working_hours">
                                     <tbody>
@@ -691,7 +691,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-2" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;">
+                            <div class="col-sm-2">
                             </div>
                             <div class="col-sm-5">
                                 <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Career</b></div></h3>
@@ -1022,7 +1022,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-1" style="border-left: 1px solid rgb(245, 239, 239); height: 200px;"></div>
+                            <div class="col-sm-1" ></div>
                             <div class="col-sm-5">
                                 <table class="table_working_hours">
                                     <tbody>
