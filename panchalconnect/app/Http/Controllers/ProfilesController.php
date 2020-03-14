@@ -48,7 +48,7 @@ class ProfilesController extends Controller
     {
         $profile = new Profile;
 
-         $returnMap = $this->storeAndGetProfilePicPath($request,"");
+         $returnMap = $this->storeAndGetProfilePicPath($request,"",Auth()->user()->id);
 
          $profile_pic_path = $returnMap["successpics"];
          $imageStoreResultMessage = "";
@@ -194,7 +194,7 @@ class ProfilesController extends Controller
 
         $profile_pic_path = $profile->profile_pic_path;
 
-        $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path);
+        $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path, $profile->user_id);
         $profile_pic_path = $returnMap["successpics"];
         $imageStoreResultMessage = "";
         if (sizeof($returnMap["failedpics"]) != 0) {
@@ -348,7 +348,7 @@ class ProfilesController extends Controller
         $viewerProfile->save();
     }
 
-    public function storeAndGetProfilePicPath($request, $oldProfilePicPath) {
+    public function storeAndGetProfilePicPath($request, $oldProfilePicPath, $userid) {
 
         $oldPics = [];
         $removePics = [];
@@ -396,7 +396,7 @@ class ProfilesController extends Controller
             $extension = $file->getClientOriginalExtension();
  
             //filename to store
-            $filenametostore = 'USER_' . Auth()->user()->id . '_'.uniqid() . '.' . $extension;
+            $filenametostore = 'USER_' . $userid . '_'.uniqid() . '.' . $extension;
  
             try {
             Storage::put('public/profile_images/'. $filenametostore, fopen($file, 'r+'));
