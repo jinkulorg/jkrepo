@@ -96,7 +96,9 @@
                                                     @endif
                                                 @endif
                                                 @if($profile->isActive() && PROMOTE_ENABLED == true && $paymentController->getPaymentDetailsForPromoteProfile() == null)
-                                                    <a href="/featuredprofile" class="vertical">Promote Profile</a>
+                                                    @if (PROMOTE_PAYMENT_ENABLED == true)
+                                                        <a href="/featuredprofile" class="vertical">Promote Profile</a>
+                                                    @endif
                                                 @endif
                                             <?php
                                             } else if($noProfile == false && Auth()->user()->Profile->isActive() == false && Auth()->user()->Profile->status != "MARRIED" && $profile->status != "MARRIED") {

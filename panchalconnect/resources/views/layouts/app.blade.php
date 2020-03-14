@@ -119,8 +119,8 @@
 											<li><a href="<?php echo (Auth::User()->profile != null) ? action('ProfilesController@show',Auth::User()->profile->id) : '#'?>">My Profile</a></li>
 											<li><a href="/reference">My References</a></li>
 											<li><a href="/activate">Activate Profile</a></li>
-											@if(PROMOTE_ENABLED == true)
-											<li><a href="/featuredprofile">Promote Profile</a></li>
+											@if(PROMOTE_ENABLED == true && PROMOTE_PAYMENT_ENABLED == true)
+												<li><a href="/featuredprofile">Promote Profile</a></li>
 											@endif
 											<li><a href="/married">Got Married</a></li>
 											@if(AFFILIATE_ENABLED == true)
