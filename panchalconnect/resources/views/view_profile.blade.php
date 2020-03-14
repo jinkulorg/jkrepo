@@ -128,6 +128,7 @@
                                             }
                                             ?>
                                             <br>
+                                            @if(Auth()->user()->isAdmin() == false)
                                             @if($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentApproved($profile->id) || $requestSentController->isRequestReceivedApproved($profile->id)) && ($profile->status != "MARRIED" && Auth()->user()->Profile->status != "MARRIED"))
                                                 <ul class="login_details1">
                                                     <li>
@@ -168,6 +169,7 @@
                                                         </label>
                                                     </li>
                                                 </ul>
+                                            @endif
                                             @endif
                                         </div>
                                     </div>

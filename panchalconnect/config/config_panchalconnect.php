@@ -1,6 +1,7 @@
 <?php
 
 define('PROMOTE_ENABLED',true);
+define('PROMOTE_PAYMENT_ENABLED',false);
 define('AFFILIATE_ENABLED',false);
 
 define('CALLBACK_URL_P',"http://localhost:8000/paymentresponse");
