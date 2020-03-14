@@ -432,8 +432,7 @@
                                             <tr class="opened_1">
                                             <td class="day_label">Birth Time:</td>
                                             <td class="day_value">
-                                            <div class = "select-block1timepicker">
-                                                <div class="oneline">
+                                            <div class = "select-block1">
                                                 <select id="hour" name = "hour" > 
                                                         <option value="1">01</option>
                                                         <option value="2">02</option>
@@ -448,8 +447,6 @@
                                                         <option value="11">11</option>
                                                         <option value="12">12</option>
                                                     </select>
-                                                </div>
-                                                <div class="oneline">
                                                     <select id="minute" name = "minute" > 
                                                         <option value="0">00</option>
                                                         <option value="1">01</option>
@@ -512,8 +509,6 @@
                                                         <option value="58">58</option>
                                                         <option value="59">59</option>
                                                     </select>
-                                                    </div>
-                                                    <div class="oneline">
                                                     <select id="second" name = "second" > 
                                                         <option value="0">00</option>
                                                         <option value="1">01</option>
@@ -576,13 +571,10 @@
                                                         <option value="58">58</option>
                                                         <option value="59">59</option>
                                                     </select>
-                                                    </div>
-                                                    <div class="oneline">
                                                     <select id="format" name ="format">
                                                         <option value="AM">AM</option>
                                                         <option value="PM">PM</option>
                                                     </select>
-                                                </div>
                                             </div>
                                             </td>
                                             </tr>

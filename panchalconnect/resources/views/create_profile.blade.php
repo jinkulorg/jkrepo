@@ -434,8 +434,7 @@
                                         <tr class="opened_1">
                                             <td class="day_label">Birth Time:</td>
                                             <td class="day_value">
-                                                <div class="select-block1timepicker">
-                                                <div class="oneline">
+                                                <div class="select-block1">
                                                     <select name="hour" onchange="this.className = ''">
                                                         <option selected disabled hidden value="">Hours</option>
                                                         <option>01</option>
@@ -451,8 +450,6 @@
                                                         <option>11</option>
                                                         <option>12</option>
                                                     </select>
-                                                    </div>
-                                                    <div class="oneline">
                                                     <select name="minute" onchange="this.className = ''">
                                                         <option selected disabled hidden value="">Minutes</option>
                                                         <option>00</option>
@@ -516,8 +513,6 @@
                                                         <option>58</option>
                                                         <option>59</option>
                                                     </select>
-                                                    </div>
-                                                    <div class="oneline">
                                                     <select name="second" onchange="this.className = ''">
                                                         <option selected disabled hidden value="">Seconds</option>
                                                         <option>00</option>
@@ -581,14 +576,11 @@
                                                         <option>58</option>
                                                         <option>59</option>
                                                     </select>
-                                                    </div>
-                                                    <div class="oneline">
                                                     <select class="last" name="format" onchange="this.className = 'last '">
                                                         <option selected disabled hidden value="">AM/PM</option>
                                                         <option>AM</option>
                                                         <option>PM</option>
                                                     </select>
-                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
