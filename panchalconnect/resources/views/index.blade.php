@@ -164,31 +164,59 @@
 		<ul id="flexiselDemo3">
 		<?php
 		foreach($featuredProfiles as $featuredProfile) { 
+			if ($featuredProfile == null) {
+				continue;
+			}
+			if ($featuredProfile->profile == null) {
+				continue;
+			}
 			if ($featuredProfile->profile->status != "ACTIVE") {
 				continue;
 			}
 			$profile_pic_paths = explode(",",$featuredProfile->profile->profile_pic_path);
 			$profile_pic_path = ($featuredProfile->profile->profile_pic_path == null || $profile_pic_paths == null || sizeof($profile_pic_paths) == 0) ? "/images/blank-profile-picture.png" : "/storage/profile_images/mainimage/" . $profile_pic_paths[0];
 			?>
-			<li><div class="col_1"><a href="{{action('ProfilesController@show',$featuredProfile->profile_id)}}">
-			<img src="{{$profile_pic_path}}" alt="" class="hover-animation image-zoom-in img-responsive"/>
-			 <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
-				<div class="center-middle">
-				<?php 
-					if ($featuredProfile->Profile->gender == 'M') 
-					{ 
-				?>	
-				About Him
-				<?php 
-					} else { 
-				?>
-				About Her
-				<?php
-					}
-				?>
+			<li>
+				<div class="col_1">
+					<a href="{{action('ProfilesController@show',$featuredProfile->profile_id)}}">
+						<img src="{{$profile_pic_path}}" alt="" class="hover-animation image-zoom-in img-responsive"/>
+						 <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
+							<div class="center-middle">
+							<?php 
+								if ($featuredProfile->Profile->gender == 'M') 
+								{ 
+							?>	
+							About Him
+							<?php 
+								} else { 
+							?>
+							About Her
+							<?php
+								}
+							?>
+							</div>
+						 </div>
+						 <h3>
+							 <span class="m_3">Profile ID : {{$featuredProfile->profile_id}}</span>
+							 <br>{{$featuredProfile->Profile->user->name}} {{$featuredProfile->Profile->user->lastname}} - {{$featuredProfile->Profile->present_country}}
+							 @if($featuredProfile->Profile->occupation != null && $featuredProfile->Profile->occupation == 'Business')
+							 <br>{{$featuredProfile->Profile->occupation}} in {{$featuredProfile->Profile->company_name}} ({{$featuredProfile->Profile->area_of_business}})
+							 @endif
+							 @if($featuredProfile->Profile->occupation != null && $featuredProfile->Profile->occupation == 'Job')
+							 <br>{{$featuredProfile->Profile->designation}} in {{$featuredProfile->Profile->company_name}}
+							 @endif
+							 @if($featuredProfile->Profile->occupation != null && $featuredProfile->Profile->occupation != 'Job' && $featuredProfile->Profile->occupation != 'Business')
+							 @if($featuredProfile->Profile->occupation == "Not Applicable (Studying)")
+							 <br>Currently Studying
+							 @elseif($featuredProfile->Profile->occupation == "Not Applicable (Not Working)")
+							 <br>Not Working
+							 @else
+							 <br>{{$featuredProfile->Profile->occupation}}
+							 @endif
+							 @endif
+						</h3>
+					</a>
 				</div>
-			 </div>
-			 <h3><span class="m_3">Profile ID : {{$featuredProfile->profile_id}}</span><br>{{$featuredProfile->Profile->user->name}} {{$featuredProfile->Profile->user->lastname}} - {{$featuredProfile->Profile->present_country}}<br>{{$featuredProfile->Profile->designation}}</h3></a></div>
 		  </li>
 		<?php }
 		?>
