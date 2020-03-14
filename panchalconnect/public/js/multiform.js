@@ -88,6 +88,9 @@ function nextPrev(n) {
   x[currentTab].style.display = "none";
   // Increase or decrease the current tab by 1:
 
+  document.body.scrollTop = 200; // For Safari
+  document.documentElement.scrollTop = 200; // For Chrome, Firefox, IE and Opera
+
   currentTab = currentTab + n;
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
