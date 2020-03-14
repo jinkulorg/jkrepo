@@ -95,7 +95,7 @@
                                                         <a href="/activate" class="vertical">Activate Profile</a>
                                                     @endif
                                                 @endif
-                                                @if($profile->isActive() && PROMOTE_ENABLED == true && $paymentController->getPaymentDetailsForPromoteProfile() == null)
+                                                @if($profile->isActive() && PROMOTE_ENABLED == true && $paymentController->getPaymentDetailsForPromoteProfileFor($profile->id) == null)
                                                     @if (PROMOTE_PAYMENT_ENABLED == true)
                                                         <a href="/featuredprofile" class="vertical">Promote Profile</a>
                                                     @endif
@@ -611,7 +611,7 @@
                             </div>
                             <hr> -->
                         <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Contact Details</b></div></h3>
-                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -619,14 +619,14 @@
                             </b>
                         </div>
                        
-                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 Already Married.
                             </b>
                         </div>
-                        @elseif(($isGuest || $noProfile) || ($isSelf == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        @elseif((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -634,7 +634,7 @@
                             And to send request, you must have an account created and active profile.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
@@ -642,14 +642,14 @@
                             To see contact details, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                             To see contact details, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
 			            </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -694,21 +694,21 @@
                         @endif
                         <hr>
                         <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Present Address</b></div></h3>
-                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 You can not see this details as you are already married.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 Already Married.
                             </b>
                         </div>
-                        @elseif(($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        @elseif((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -716,7 +716,7 @@
                             And to send request, you must have an account created and active profile.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
@@ -724,14 +724,14 @@
                             To see present address, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                             To see present address, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
 			            </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -814,21 +814,21 @@
                         @endif
                         <hr>
                         <h3 class="profile_title"><div style="margin: 5px; padding: 5px;"><b>Permanent Address</b></div></h3>
-                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 You can not see this details as you are already married.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 Already Married.
                             </b>
                         </div>
-                        @elseif(($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        @elseif((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -836,7 +836,7 @@
                             And to send request, you must have an account created and active profile.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
@@ -844,14 +844,14 @@
                             To see permanent address, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                             To see permanent address, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
 			            </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -967,13 +967,13 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id)
-                                        || ($isSelf == false && $profile->status == "MARRIED")
-                                        || (($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id)
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
+                                        || ((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false)))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false)))
                                         @else
                                         <tr class="opened_1">
                                             <td class="day_label">Contact Number :</td>
@@ -1016,13 +1016,13 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id)
-                                        || ($isSelf == false && $profile->status == "MARRIED")
-                                        || (($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id)
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
+                                        || ((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
-                                        || ($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false)))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                                        || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false)))
                                         @else
                                         <tr class="opened_1">
                                             <td class="day_label">Contact Number :</td>
@@ -1037,21 +1037,21 @@
                                 </table>
                             </div>
                         </div>
-                        @if($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        @if(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 You can not see this details as you are already married.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 Already Married.
                             </b>
                         </div>
-                        @elseif(($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        @elseif((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -1059,7 +1059,7 @@
                             And to send request, you must have an account created and active profile.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
@@ -1067,14 +1067,14 @@
                             To see parent's contact, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                             To see parent's contact, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
 			            </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -1127,21 +1127,21 @@
                         ?>
                         @if (sizeof($references) == 0)
                             No references added
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && $marriedController->isMarried(Auth()->user()->Profile->id))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 You can not see this details as you are already married.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $profile->status == "MARRIED")
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $profile->status == "MARRIED")
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                                 Already Married.
                             </b>
                         </div>
-                        @elseif(($isGuest || $noProfile) || ($isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
+                        @elseif((Auth()->user()->isAdmin() == false && ($isGuest || $noProfile)) || (Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && (Auth()->user() == null || Auth()->user()->Profile == null || Auth()->user()->Profile->isActive() == false)))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -1149,7 +1149,7 @@
                             And to send request, you must have an account created and active profile.
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) == false && $requestSentController->isRequestSentApproved($profile->id) == false 
                             && $requestSentController->isRequestReceivedFrom($profile->id) == false && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
@@ -1157,14 +1157,14 @@
                             To see references, send request to {{$profile->user->name}} and it must be accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
                         </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestSentTo($profile->id) && $requestSentController->isRequestSentApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 
                             To see references, you have sent request to {{$profile->user->name}} but it is not yet accepted by @if($profile->gender == "M") him. @else her. @endif<br>
                             </b>
 			            </div>
-                        @elseif($isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
+                        @elseif(Auth()->user()->isAdmin() == false && $isSelf == false && $isGuest == false && $noProfile == false && ($requestSentController->isRequestReceivedFrom($profile->id) && $requestSentController->isRequestReceivedApproved($profile->id) == false))
                         <div class="alert alert-info">
                             <b>
                             <i class='fa fa-info-circle' aria-hidden='true'></i> 

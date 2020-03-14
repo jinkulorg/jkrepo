@@ -139,7 +139,7 @@
                                                 </td>
                                                 <td class="day_value">
                                                     <div class="inputText_block1">
-                                                        <h3><b>{{Auth::user()->name}} {{Auth::user()->lastname}}</b></h3>
+                                                        <h3><b>{{$profile->user->name}} {{$profile->user->lastname}}</b></h3>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -781,7 +781,7 @@
                                                 </td>
                                                 <td class="day_value">
                                                     <div class="inputText_block1">
-                                                        <h3><b>{{Auth::user()->email}}</b></h3>
+                                                        <h3><b>{{$profile->user->email}}</b></h3>
                                                     </div>
                                                 </td>
                                             </tr>
