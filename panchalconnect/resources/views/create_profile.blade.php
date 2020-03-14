@@ -196,8 +196,8 @@
                                             <tr class="opened_1">
                                                 <td class="day_label">Weight:</td>
                                                 <td class="day_value">
-                                                    <div class="inputText_block1">
-                                                        <input type="text" name="weight" id="weight" oninput="this.className = ''" onblur="validateNumber('weight')">
+                                                    <div class="inputText_block1" style="width: 120px">
+                                                        <input type="text" name="weight" id="weight" oninput="this.className = ''" onblur="validateNumber('weight')"> Kgs
                                                     </div>
                                                 </td>
                                             </tr>
@@ -228,7 +228,10 @@
                                             <td>
                                                 <div class="container2">
                                                     <div class="comment">
-                                                        <textarea class="textinput" cols="130" rows="5" name="self_description" oninput="this.className = 'textinput'" placeholder="Write here some more about you"></textarea>
+                                                        <textarea class="textinput" cols="130" rows="5" maxlength="250" name="self_description" oninput="this.className = 'textinput'" placeholder="Write here some more about you"></textarea>
+                                                    </div>
+                                                    <div style="text-align: right">
+                                                        You can write upto 250 characters
                                                     </div>
                                                 </div>
                                             </td>
@@ -285,23 +288,24 @@
                                                         <option>Sports</option>
                                                         <option>Programming</option>
                                                         <option>Dancing</option>
+                                                        <option>Singing</option>
                                                         <option>Reading</option>
                                                         <option>Writing</option>
-                                                        <?php
-                                                        $seededHobbies = array("Music", "Cooking", "Sports", "Programming", "Dancing", "Reading", "Writing");
-                                                        foreach ($allHobbies as $allHobby) {
-                                                            if (in_array($allHobby->hobby, $seededHobbies) == false) {
-                                                                ?>
-                                                                <option>{{$allHobby->hobby}}</option>
-                                                        <?php
-                                                            }
-                                                        }
-                                                        ?>
+                                                        <option>Photography</option>
+                                                        <option>Painting</option>
+                                                        <option>Sewing</option>
+                                                        <option>Gardening</option>
+                                                        <option>Exercise</option>
+                                                        <option>Hiking</option>
+                                                        <option>Crochet</option>
+                                                        <option>Stamp Collecting</option>
+                                                        <option>Playing Games</option>
+                                                        <option>Shopping</option>
                                                         <option>Others</option>
                                                     </select>
                                                 </div>
                                                 <div id="divHobby" class="inputText_block1" style="display: none">
-                                                    <input class="optional valid" type="text" name="hobby_others" id="hobby_others" oninput="this.className = ''">
+                                                    <input class="optional valid" type="text" name="hobby_others" maxlength="250" id="hobby_others" oninput="this.className = ''">
                                                 </div>
                                             </td>
                                         </tr>
@@ -577,7 +581,6 @@
                                                         <option>AM</option>
                                                         <option>PM</option>
                                                     </select>
-
                                                 </div>
                                             </td>
                                         </tr>
@@ -824,7 +827,7 @@
                                             <td class="day_value">
                                                 <div class="container3">
                                                     <div class="comment3">
-                                                        <textarea class="textinput3" name="present_address" id="present_address" oninput="this.className = 'textinput3'"></textarea>
+                                                        <textarea class="textinput3" maxlength="250" name="present_address" id="present_address" oninput="this.className = 'textinput3'"></textarea>
                                                     </div>
                                                 </div>
                                             </td>
@@ -907,7 +910,7 @@
                                             <td class="day_value">
                                                 <div class="container3">
                                                     <div class="comment3">
-                                                        <textarea class="textinput3" name="permanent_address" id="permanent_address" oninput="this.className = 'textinput3'"></textarea>
+                                                        <textarea class="textinput3" maxlength="250" name="permanent_address" id="permanent_address" oninput="this.className = 'textinput3'"></textarea>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1007,7 +1010,7 @@
                                             <td class="day_label">Father's Annual Income :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="father_annual_income" id="father_annual_income" oninput="this.className = ''" onblur="validateNumber('father_annual_income')">
+                                                    <input class="optional valid" type="text" name="father_annual_income" id="father_annual_income" oninput="this.className = ''" onblur="validateNumber('father_annual_income')">
                                                 </div>
                                             </td>
                                         </tr>
@@ -1048,7 +1051,7 @@
                                             <td class="day_label">Mother's Annual Income :</td>
                                             <td class="day_value">
                                                 <div class="inputText_block1">
-                                                    <input type="text" name="mother_annual_income" id="mother_annual_income" oninput="this.className = ''" onblur="validateNumber('mother_annual_income')">
+                                                    <input class="optional valid" type="text" name="mother_annual_income" id="mother_annual_income" oninput="this.className = ''" onblur="validateNumber('mother_annual_income')">
                                                 </div>
                                             </td>
                                         </tr>
@@ -1327,6 +1330,7 @@
         var inputValue = document.getElementById(input).value;
         if (isNaN(inputValue)) {
             alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            document.getElementById(input).value = "";
             setTimeout(function() {
                 document.getElementById(input).focus();
             }, 10);
@@ -1340,6 +1344,7 @@
         for (i = 0; i < contactChars.length; i++) {
             if (isNaN(contactChars[i]) && contactChars[i] != ' ' && contactChars[i] != '-' && contactChars[i] != '+') {
                 alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
+                document.getElementById(input).value = "";
                 setTimeout(function() {
                     document.getElementById(input).focus();
                 }, 10);

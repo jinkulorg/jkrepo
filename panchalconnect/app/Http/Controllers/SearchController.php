@@ -93,9 +93,9 @@ class SearchController extends Controller
 
         $filteredProfiles = Profile::search([
             'gender' => $request->get('gender'),
-            'present_state' => $request->get('present_state'),
-            'hobby' => $request->get('hobby'),
-            'marital_status' => $request->get('marital_status'),
+            // 'present_state' => $request->get('present_state'),
+            // 'hobby' => $request->get('hobby'),
+            // 'marital_status' => $request->get('marital_status'),
             'status' => 'ACTIVE'
         ], [])
         ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))

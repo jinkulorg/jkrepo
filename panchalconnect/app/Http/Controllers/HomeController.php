@@ -39,11 +39,7 @@ class HomeController extends Controller
 
         $featuredProfiles = $this->getFeaturedProfiles();
 
-        $allStates = $this->getAllStates();
-
-        $allHobbies = $this->getAllHobbies();
-
-        return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        return view('index',compact('featuredProfiles'));
     }
 
     public function mail(Request $request) {
