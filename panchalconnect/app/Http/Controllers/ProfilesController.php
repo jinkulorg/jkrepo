@@ -392,6 +392,13 @@ class ProfilesController extends Controller
             //get filename without extension
             $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
 
+            $size = $request->file($inputFileName)->getSize();
+
+            if ($size > 2000000) {
+                array_push($failedImages,$filename);
+                continue;
+            }
+
             //get file extension
             $extension = $file->getClientOriginalExtension();
  
