@@ -576,14 +576,14 @@
                                                         <option value="PM">PM</option>
                                                     </select>
                                             </div>
+                                            
                                             </td>
                                             </tr>
-                                            <tr class="opened_1">
-                                                <td class="day_label">Birth Place:</td>
-                                                <td class="day_value">
-                                                <div class = "inputText_block1">
-                                                    <input type="text" name="birth_place" value="{{$profile->birth_place}}" oninput="this.className = ''">
-                                                </div>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div style="margin-bottom: 10px; color:#999; font-size:0.85em;">
+                                                        Select any birth time if not available, but specify in self description
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -592,6 +592,14 @@
                                 <div class="col-sm-6">
                                     <table class="table_working_hours">
                                         <tbody>
+                                            <tr class="opened_1">
+                                                <td class="day_label">Birth Place:</td>
+                                                <td class="day_value">
+                                                <div class = "inputText_block1">
+                                                    <input type="text" name="birth_place" value="{{$profile->birth_place}}" oninput="this.className = ''">
+                                                </div>
+                                                </td>
+                                            </tr>
                                             <tr class="opened_1">
                                                 <td class="day_label">Rashi:</td>
                                                 <td class="day_value">
@@ -628,6 +636,13 @@
                                                     <div class="form_radios">
                                                         <input type="radio"  name="shani" value="1" <?php if ($profile->shani == '1') { echo "checked"; } else { echo ""; } ?>> Yes &nbsp;&nbsp;
                                                         <input type="radio"  name="shani" value="0" <?php if ($profile->shani == '0') { echo "checked"; } else { echo ""; } ?>> No
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div style="color:#999; font-size:0.85em;">
+                                                        Select Any option for Mangal/Shani if not available. But specify in self description
                                                     </div>
                                                 </td>
                                             </tr>
@@ -747,7 +762,7 @@
                                             <td class="day_value">
                                                 <div class = "inputText_block1">
                                                     <div id="divAnnualIncome" style="display: <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "block" : "none" ?>">
-                                                        <input class="optional <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "invalid" : "valid" ?>" type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')">
+                                                        <input class="optional <?php echo ($profile->occupation == "Job" || $profile->occupation == "Business") ? "invalid" : "valid" ?>" type="text" name="annual_income" id="annual_income" value="{{$profile->annual_income}}" oninput="this.className = ''" onblur="validateNumber('annual_income')"> (Rs.)
                                                     </div>
                                                 </div>
                                             </td>
@@ -995,18 +1010,24 @@
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Father's Annual Income :</td>
+                                                <td class="day_label" style="vertical-align: text-top;">Father's Annual Income :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" class="optional valid" name="father_annual_income" id="father_annual_income" value="{{$profile->father_annual_income}}" oninput="this.className = ''" onblur="validateNumber('father_annual_income')">
+                                                    <input type="text" class="optional valid" name="father_annual_income" id="father_annual_income" value="{{$profile->father_annual_income}}" oninput="this.className = ''" onblur="validateNumber('father_annual_income')"> (Rs.)
+                                                </div>
+                                                <div style="color:#999; font-size:0.85em;">
+                                                    Give 0 if not available
                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Father's Contact Number :</td>
+                                                <td class="day_label" style="vertical-align: text-top;">Father's Contact Number :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
                                                     <input type="text" name="father_contact_no" id="father_contact_no" value="{{$profile->father_contact_no}}" oninput="this.className = ''" onblur="validateContactNumber('father_contact_no')">
+                                                </div>
+                                                <div style="color:#999; font-size:0.85em;">
+                                                    Give 0 if not available
                                                 </div>
                                                 </td>
                                             </tr>
@@ -1040,18 +1061,24 @@
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Mother's Annual Income :</td>
+                                                <td class="day_label" style="vertical-align: text-top;">Mother's Annual Income :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
-                                                    <input type="text" class="optional valid" name="mother_annual_income" id="mother_annual_income" value="{{$profile->mother_annual_income}}" oninput="this.className = ''" onblur="validateNumber('mother_annual_income')">
+                                                    <input type="text" class="optional valid" name="mother_annual_income" id="mother_annual_income" value="{{$profile->mother_annual_income}}" oninput="this.className = ''" onblur="validateNumber('mother_annual_income')"> (Rs.)
+                                                </div>
+                                                <div style="color:#999; font-size:0.85em;">
+                                                    Give 0 if not available
                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr class="opened_1">
-                                                <td class="day_label">Mother's Contact Number :</td>
+                                                <td class="day_label" style="vertical-align: text-top;">Mother's Contact Number :</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1">
                                                     <input type="text" name="mother_contact_no" id="mother_contact_no" value="{{$profile->mother_contact_no}}" oninput="this.className = ''" onblur="validateContactNumber('mother_contact_no')">
+                                                </div>
+                                                <div style="color:#999; font-size:0.85em;">
+                                                    Give 0 if not available
                                                 </div>
                                                 </td>
                                             </tr>
@@ -1375,16 +1402,24 @@ function sameAddressAction() {
 
     function validateContactNumber(input) {
         var inputValue = document.getElementById(input).value;
-        contactChars = Array.from(inputValue);
+        var size = inputValue.length;
+        if (size < 4) {
+            alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
+            document.getElementById(input).value = "";
+        } else {
+            contactChars = Array.from(inputValue);
 
-        for (i=0 ; i < contactChars.length ; i++) {
-            if (isNaN(contactChars[i]) && contactChars[i] != ' ' && contactChars[i] != '-' && contactChars[i] != '+') {
-                alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
-                document.getElementById(input).value = "";
-                setTimeout(function () {document.getElementById(input).focus();}, 10);
-                break;
-            } 
+            for (i=0 ; i < contactChars.length ; i++) {
+                if (isNaN(contactChars[i]) && contactChars[i] != ' ' && contactChars[i] != '-' && contactChars[i] != '+') {
+                    alert("Invalid value: " + inputValue + ", Please enter valid contact number.");
+                    document.getElementById(input).value = "";
+                    setTimeout(function () {document.getElementById(input).focus();}, 10);
+                    break;
+                } 
+            }
         }
+        
+        
     }
 
     
