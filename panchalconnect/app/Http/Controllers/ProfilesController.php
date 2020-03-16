@@ -29,7 +29,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        if (Auth()->user() != null && strtoupper(Auth()->user()->lastname) != "PANCHAL" && strtoupper(Auth()->user()->lastname) != "LUHAR" && strtoupper(Auth()->user()->lastname) != "SUTHAR" && strtoupper(Auth()->user()->lastname) != "MISTRY" && strtoupper(Auth()->user()->lastname) != "GAJJAR") {
+        if (Auth()->user() != null && strtoupper(Auth()->user()->lastname) != "PANCHAL" && strtoupper(Auth()->user()->lastname) != "LUHAR" && strtoupper(Auth()->user()->lastname) != "SUTHAR" && strtoupper(Auth()->user()->lastname) != "MISTRY" && strtoupper(Auth()->user()->lastname) != "GAJJAR" && strtoupper(Auth()->user()->lastname) != "VISHWAKARMA") {
             return view('restrict_create_profile');
         } else {
             $homeController = new HomeController();
@@ -47,22 +47,21 @@ class ProfilesController extends Controller
     public function store(Request $request)
     {
         $profile = new Profile;
+        //  $returnMap = $this->storeAndGetProfilePicPath($request,"",Auth()->user()->id);
 
-         $returnMap = $this->storeAndGetProfilePicPath($request,"",Auth()->user()->id);
-
-         $profile_pic_path = $returnMap["successpics"];
-         $imageStoreResultMessage = "";
-         if (sizeof($returnMap["failedpics"]) != 0) {
-             $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
-         }
-        $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, $profile_pic_path);
+        //  $profile_pic_path = $returnMap["successpics"];
+        //  $imageStoreResultMessage = "";
+        //  if (sizeof($returnMap["failedpics"]) != 0) {
+        //      $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
+        //  }
+        $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, null);
         
         $homeController = new HomeController();
         $featuredProfiles = $homeController->getFeaturedProfiles();
         $allStates = $homeController->getAllStates();
         $allHobbies = $homeController->getAllHobbies();
 
-        $successmsg = "Profile created successfully." . $imageStoreResultMessage;
+        $successmsg = "Profile created successfully.";
         $isReceived = false;
         $isSent = false;
         $isGuest = false;
@@ -192,22 +191,22 @@ class ProfilesController extends Controller
     {
         $profile = Profile::find($id);
 
-        $profile_pic_path = $profile->profile_pic_path;
+        // $profile_pic_path = $profile->profile_pic_path;
 
-        $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path, $profile->user_id);
-        $profile_pic_path = $returnMap["successpics"];
-        $imageStoreResultMessage = "";
-        if (sizeof($returnMap["failedpics"]) != 0) {
-            $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
-        }
-        $this->saveProfileData($profile, $request, $profile->status, $profile->user_id, $profile_pic_path);
+        // $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path, $profile->user_id);
+        // $profile_pic_path = $returnMap["successpics"];
+        // $imageStoreResultMessage = "";
+        // if (sizeof($returnMap["failedpics"]) != 0) {
+        //     $imageStoreResultMessage = " But Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
+        // }
+        $this->saveProfileData($profile, $request, $profile->status, $profile->user_id, $profile->profile_pic_path);
 
         $homeController = new HomeController();
         $featuredProfiles = $homeController->getFeaturedProfiles();
         $allStates = $homeController->getAllStates();
         $allHobbies = $homeController->getAllHobbies();
 
-        $successmsg = "Profile updated successfully." . $imageStoreResultMessage;
+        $successmsg = "Profile updated successfully.";
         $isReceived = false;
         $isSent = false;
         $isGuest = false;
@@ -365,7 +364,7 @@ class ProfilesController extends Controller
         $viewerProfile->save();
     }
 
-    public function storeAndGetProfilePicPath($request, $oldProfilePicPath, $userid) {
+    public function storeAndGetProfilePicPath($request, $oldProfilePicPath, $profileid) {
 
         $oldPics = [];
         $removePics = [];
@@ -420,7 +419,7 @@ class ProfilesController extends Controller
             $extension = $file->getClientOriginalExtension();
  
             //filename to store
-            $filenametostore = 'USER_' . $userid . '_'.uniqid() . '.' . $extension;
+            $filenametostore = 'PROFILE_' . $profileid . '_'.uniqid() . '.' . $extension;
  
             try {
             Storage::put('public/profile_images/'. $filenametostore, fopen($file, 'r+'));
@@ -573,5 +572,51 @@ class ProfilesController extends Controller
         $paymentController->storePaymentDetails($params, $id);
         $msg = 'Profile ' . $id . ' is promoted successfully with plan ' . $plan;
         return back()->with('success', $msg);
+    }
+    public function manageProfilePic($id) {
+        $profile = Profile::find($id);
+        return view('manage_profile_pic',compact('profile'));
+    }
+
+    public function updateProfilePic(Request $request, $id) {
+        $profile = Profile::find($id);
+
+        $profile_pic_path = $profile->profile_pic_path;
+
+        $returnMap = $this->storeAndGetProfilePicPath($request, $profile_pic_path, $id);
+        $profile_pic_path = $returnMap["successpics"];
+        $imageStoreResultMessage = "";
+        if (sizeof($returnMap["failedpics"]) != 0) {
+            $imageStoreResultMessage = "Images: " . implode(',', $returnMap["failedpics"]) . " are not stored successfully. Please modify them and try again or use different image.";
+        }
+        
+        if ($imageStoreResultMessage != "") {
+            return back()->with('failure',$imageStoreResultMessage);    
+        }
+
+        $profile->profile_pic_path = $profile_pic_path;
+        $profile->save();
+
+        $homeController = new HomeController();
+        $featuredProfiles = $homeController->getFeaturedProfiles();
+        $allStates = $homeController->getAllStates();
+        $allHobbies = $homeController->getAllHobbies();
+
+        if ($imageStoreResultMessage == "") {
+            $successmsg = "Your profile pics are added or updated successfully.";
+            $failuremsg = "";
+        } else {
+            $successmsg = "";
+            $failuremsg = $imageStoreResultMessage;
+        }
+        $isReceived = false;
+        $isSent = false;
+        $isGuest = false;
+        $isSelf = true;
+        $noProfile = false;
+        $loginprofile = null;
+        
+        // return view('index',compact('featuredProfiles','allStates','allHobbies'));
+        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
     }
 }

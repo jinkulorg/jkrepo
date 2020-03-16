@@ -18,7 +18,16 @@
 
                 <div class="basic_1">
                     <div class="col-md-12 basic_1_left">
-                        
+                        @if($isSelf  && $profile->status != "MARRIED" && $profile->status != "ACTIVE")
+                        <div class="alert alert-warning">
+                            <ul>
+                                <li>
+                                    <b><i class='fa fa-warning' aria-hidden='true'></i> Your profile is INACTIVE. Please <a href="/activate" class="vertical">activate</a> so other can search you and send interest to you.</b> 
+		    	            	</li>
+                            </ul>
+                        </div>
+                        @endif
+
                         @if($failuremsg != "")
                         <div class="alert alert-danger">
                             <ul>
@@ -72,6 +81,7 @@
                                             <?php
                                                 if (($isSelf  && $profile->status != "MARRIED") || (Auth()->user() != null && Auth()->user()->isAdmin())) {
                                             ?>
+                                                    <a href="{{action('ProfilesController@manageProfilePic',$profile->id)}}" class="vertical">Add / Change Photo</a>
                                                     <a href="{{action('ProfilesController@edit',$profile->id)}}" class="vertical">Edit Profile</a>
                                             <?php
                                                 }

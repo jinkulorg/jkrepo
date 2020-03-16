@@ -51,6 +51,12 @@ Route::resource('/featuredprofile','FeaturedProfileController');
 Route::resource('/account','AccountController');
 
 /**
+ * Route for Profile pic
+ */
+Route::get('/profile/{profile}/manageProfilePic', 'ProfilesController@manageProfilePic')->name('profile.manageProfilePic');
+Route::PATCH('profile/{profile}/updateProfilePic','ProfilesController@updateProfilePic')->name('profile.updateProfilePic');
+ 
+/**
  * Routes for Admin access
  */
 
