@@ -2,7 +2,7 @@
 <!-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> -->
 
 <head>
-	<title>{{ config('app.name', 'Panchal Connect') }} - The platform to connect panchal community</title>
+	<title>{{ config('app.name', 'Panchal Connect') }} - The matrimonial platform to connect panchal community</title>
 	<link rel="icon" href="/images/pclogoicon.png" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
