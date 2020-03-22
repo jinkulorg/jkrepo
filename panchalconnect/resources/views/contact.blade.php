@@ -29,13 +29,13 @@
         <dl class="grid_4">
             <dt>Contact:</dt>
             <dd>
-               +91 9426155564 (M)
+               +91-9426155564 (M)
             </dd>
         </dl>
         <dl class="grid_4" style="width: auto">
             <dt>E-mail:</dt>
             <dd>
-              jinkal@panchalconnect.com
+              info@panchalconnect.com
             </dd>
         </dl>
       </address>

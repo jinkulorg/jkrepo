@@ -240,7 +240,7 @@
 					<b>
 						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
 						<br>Free to use panchal connect for six months
-						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}} for first 50 profiles
 					</b>
 					@else
 					<b>

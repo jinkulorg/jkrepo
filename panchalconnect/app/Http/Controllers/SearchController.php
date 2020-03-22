@@ -66,6 +66,7 @@ class SearchController extends Controller
             ->where('profile_id','!=',Auth()->User()->Profile->id);
         })
         ->where('status','=','ACTIVE')
+        ->orderBy('updated_at','desc')
         ->paginate(10);
 
         return view('search_result',compact('filteredProfiles'));
@@ -101,6 +102,7 @@ class SearchController extends Controller
         ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
         ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
         ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
+        ->orderBy('updated_at','desc')
         ->paginate(10);
 
         return view('search_result', compact('filteredProfiles'));
@@ -160,6 +162,7 @@ class SearchController extends Controller
             ->whereDate( 'birth_date', '<=', Carbon::today()->subYears($ageGreaterThan))
             ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
             ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
+            ->orderBy('updated_at','desc')
             ->paginate(10);
         } else {
             if ($sign == "Range") {
@@ -178,6 +181,7 @@ class SearchController extends Controller
                 ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
                 ->whereBetween('annual_income', [$amountfrom, $amountto])
                 ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
+                ->orderBy('updated_at','desc')
                 ->paginate(10);
         
             } else {
@@ -196,6 +200,7 @@ class SearchController extends Controller
                 ->whereDate('birth_date', '>=', Carbon::today()->subYears($ageLessThan+1))
                 ->where('annual_income',$sign,$amountfrom)
                 ->where('id','!=',(Auth()->user() != null && Auth()->user()->Profile != null) ? Auth()->User()->Profile->id : "")
+                ->orderBy('updated_at','desc')
                 ->paginate(10);
             }
         }

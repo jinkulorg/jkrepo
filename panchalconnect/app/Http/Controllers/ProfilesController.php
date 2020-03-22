@@ -31,6 +31,8 @@ class ProfilesController extends Controller
     {
         if (Auth()->user() != null && strtoupper(Auth()->user()->lastname) != "PANCHAL" && strtoupper(Auth()->user()->lastname) != "LUHAR" && strtoupper(Auth()->user()->lastname) != "SUTHAR" && strtoupper(Auth()->user()->lastname) != "MISTRY" && strtoupper(Auth()->user()->lastname) != "GAJJAR" && strtoupper(Auth()->user()->lastname) != "VISHWAKARMA") {
             return view('restrict_create_profile');
+        } else if(Auth()->user() != null && Auth()->user()->email_verified_at == null) {
+            return view('verify_email_warning');
         } else {
             $homeController = new HomeController();
             $allHobbies = $homeController->getAllHobbies();

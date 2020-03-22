@@ -38,7 +38,7 @@ Route::get('/feedback',function(){
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/profile','ProfilesController')->middleware('verified');
+Route::resource('/profile','ProfilesController');
 Route::resource('/requestsent','RequestSentController');
 Route::resource('/requestreceived','RequestReceivedController');
 Route::get('/id/{id}/profileid/{profileid}','RequestReceivedController@insertRequestReceived');
