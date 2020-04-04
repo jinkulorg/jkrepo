@@ -29,16 +29,10 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        if (Auth()->user() != null && strtoupper(Auth()->user()->lastname) != "PANCHAL" 
-        && strtoupper(Auth()->user()->lastname) != "LUHAR" 
-        && strtoupper(Auth()->user()->lastname) != "LOHAR" 
-        && strtoupper(Auth()->user()->lastname) != "SUTHAR" 
-        && strtoupper(Auth()->user()->lastname) != "MISTRY" 
-        && strtoupper(Auth()->user()->lastname) != "GAJJAR" 
-        && strtoupper(Auth()->user()->lastname) != "VISHWAKARMA") {
+        if (Auth()->user() != null && (stripos(VALID_CASTES, trim(Auth()->user()->lastname)) == false && stripos(VALID_CASTES, trim(Auth()->user()->name)) == false)) {
             return view('restrict_create_profile');
-        } else if(Auth()->user() != null && Auth()->user()->email_verified_at == null) {
-            return view('verify_email_warning');
+        // } else if(Auth()->user() != null && Auth()->user()->email_verified_at == null) {
+        //     return view('verify_email_warning');
         } else {
             $homeController = new HomeController();
             $allHobbies = $homeController->getAllHobbies();
@@ -64,22 +58,23 @@ class ProfilesController extends Controller
         //  }
         $this->saveProfileData($profile, $request, "INACTIVE", Auth()->user()->id, null);
         
-        $homeController = new HomeController();
-        $featuredProfiles = $homeController->getFeaturedProfiles();
-        $allStates = $homeController->getAllStates();
-        $allHobbies = $homeController->getAllHobbies();
+        // $homeController = new HomeController();
+        // $featuredProfiles = $homeController->getFeaturedProfiles();
+        // $allStates = $homeController->getAllStates();
+        // $allHobbies = $homeController->getAllHobbies();
 
-        $successmsg = "Profile created successfully.";
-        $isReceived = false;
-        $isSent = false;
-        $isGuest = false;
-        $isSelf = true;
-        $noProfile = false;
-        $loginprofile = null;
-        $failuremsg = "";
+        // $successmsg = "Profile created successfully.";
+        // $isReceived = false;
+        // $isSent = false;
+        // $isGuest = false;
+        // $isSelf = true;
+        // $noProfile = false;
+        // $loginprofile = null;
+        // $failuremsg = "";
 
         // return view('index',compact('featuredProfiles','allStates','allHobbies'));
-        return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
+        // return view('view_profile', compact('profile','isSent','isGuest','isSelf','noProfile','isReceived','allHobbies','successmsg','failuremsg'));
+        return  redirect()->route('payment.activate')->with('success','Profile created successfully. Please activate your profile.');
     }
 
     /**

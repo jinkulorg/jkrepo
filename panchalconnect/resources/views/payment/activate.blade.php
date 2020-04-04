@@ -19,6 +19,11 @@ header("Expires: 0");
 				<li class="current-page">Activate Profile</li>
 			</ul>
 		</div>
+		@if(Session::has('success'))
+        <div class="alert alert-success">
+            <p><i class='fa fa-check' aria-hidden='true'></i> {{Session::get('success')}}</p>
+        </div>
+        @endif
 		@if(Auth::User()->profile == null)
 			<div class="alert alert-info">
 				<h3><b><i class='fa fa-info-circle' aria-hidden='true'></i> 
@@ -38,22 +43,14 @@ header("Expires: 0");
 					@if($paymentDetails != null)
 					 <div class="alert alert-success">
 						<h3><b><i class='fa fa-check' aria-hidden='true'></i> Thank you for registering with us!</b> <br><br>
-							Your profile is active and all the below listed benefits are granted.</h3><br><br>
+							Your profile is active and all the below listed benefits are granted. <a href="{{action('ProfilesController@show',Auth::User()->Profile->id)}}">View your profile</a></h3><br><br>
 						<div class="row">
-							<div class="col-sm-2" style="line-height: 2em">
-								<b>Status:</b><br>
-								<b>Payment Id</b><br>
-								<b>Amount Paid</b><br>
-								<b>Validity:</b><br>
-								<b>Next Renewal Date:</b><br>
-								
-							</div>
-							<div class="col-sm-4" style="line-height: 2em">
-								ACTIVE<br>
-								{{$paymentDetails->ORDERID}}<br>
-								Rs. {{$paymentDetails->TXNAMOUNT}}/-<br>
-								From {{date('d-M-Y', strtotime($paymentDetails->START_DATE))}} to {{date('d-M-Y', strtotime($paymentDetails->END_DATE))}}<br>
-								{{ date('d-M-Y', strtotime("+1 days", strtotime($paymentDetails->END_DATE) )) }}<br>
+							<div class="col-sm-12" style="line-height: 2em">
+								<b>Status:</b> ACTIVE<br>
+								<b>Payment Id:</b> {{$paymentDetails->ORDERID}}<br>
+								<b>Amount Paid:</b> Rs. {{$paymentDetails->TXNAMOUNT}}/-<br>
+								<b>Validity: </b> From {{date('d-M-Y', strtotime($paymentDetails->START_DATE))}} to {{date('d-M-Y', strtotime($paymentDetails->END_DATE))}}<br>
+								<b>Next Renewal Date:</b> {{ date('d-M-Y', strtotime("+1 days", strtotime($paymentDetails->END_DATE) )) }}<br>
 							</div>
 						</div>
 					</div>
@@ -70,62 +67,11 @@ header("Expires: 0");
 				<?php
 			} else {
 		?>
-		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT != null) ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
-			<div style="font-size: 25px; ">
-				<h3 style="text-align: center">
-					<b style="text-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;">
-						<i class="fa fa-star" aria-hidden="true"></i> Short Term Offer <i class="fa fa-star" aria-hidden="true"></i>
-					</b>
-				</h3>
-				<hr>
-				<h3 style="text-align: center; line-height: 2em">
-					@if(OFFER_FREE == "FREE")
-					<b>
-						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
-						<br>Free to use panchal connect for six months 
-						<br>Hurry!! Offer valid till {{OFFER_END_DATE}} for first 50 profiles
-					</b>
-					@else
-					<b>
-						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
-						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
-					</b>
-					@endif
-				</h3>
-			</div>
-		</div>
+		
 		<?php
 			}
 		?>
-		<div class="basic_1">
-			<div class="list-heading"><strong>Benefits on Activate Profile</strong></div>
-			<br>
-			<ul>
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> Your profile will be visible to others.</li>
-				</div>
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> You will be able to send or unsend interest/request to any profiles. There will not be any limit to send request.</li>
-				</div>
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> Once your request sent is accepted, you will be able to see the communication details of that profile like contact number, address, etc.</li>
-				</div>
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> You can respond as interested or not interested to someone's request sent to you. If you respond as intersted then your contact details will be visible to the sender.</li>
-				</div>
-				@if(PROMOTE_ENABLED)
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> You can promote profile to get your profile on the first page which is highlighted under featured profiles based on the promotion plan subscribed.</li>
-				</div>
-				@endif
-				<div class="listitem">
-					<li><i class="fa fa-check" aria-hidden="true"></i> You can search for such profiles whose references are in common with yours.</li>
-				</div>
-			</ul>
-		</div>
-		<hr>
 		
-
 		<?php
 		if (Auth::User() != null && Auth::User()->profile != null && !Auth::User()->profile->isActive()) {
 			?>
@@ -207,6 +153,34 @@ header("Expires: 0");
 		<?php
 		}
 		?>
+		<hr>
+		<div class="basic_1">
+			<div class="list-heading"><strong>Benefits on Activate Profile</strong></div>
+			<br>
+			<ul>
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> Your profile will be visible to others.</li>
+				</div>
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> You will be able to send or unsend interest/request to any profiles. There will not be any limit to send request.</li>
+				</div>
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> Once your request sent is accepted, you will be able to see the communication details of that profile like contact number, address, etc.</li>
+				</div>
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> You can respond as interested or not interested to someone's request sent to you. If you respond as intersted then your contact details will be visible to the sender.</li>
+				</div>
+				@if(PROMOTE_ENABLED)
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> You can promote profile to get your profile on the first page which is highlighted under featured profiles based on the promotion plan subscribed.</li>
+				</div>
+				@endif
+				<div class="listitem">
+					<li><i class="fa fa-check" aria-hidden="true"></i> You can search for such profiles whose references are in common with yours.</li>
+				</div>
+			</ul>
+		</div>
+		<hr>
 	</div>
 </div>
 <script type="text/javascript">

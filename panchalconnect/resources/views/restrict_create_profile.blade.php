@@ -15,7 +15,7 @@
         <h4>
             We are extremely sorry that you can not create profile in panchal connect.<br><br>
             This website is dedicated to Panchal community.<br><br>
-            Allowed castes are: <code>Panchal, Luhar, Suthar, Mistry, Gajjar and Vishwakarma</code><br><br>
+            Allowed castes are: <code>{{VALID_CASTES}}</code><br><br>
             <b>Please feel free to contact us if you want such a website for your community.</b>
         </h4>
     </div>

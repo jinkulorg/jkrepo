@@ -35,7 +35,7 @@ Route::get('/feedback',function(){
     return view('feedback');
 });
 
-Auth::routes(['verify'=>true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/profile','ProfilesController');
@@ -136,7 +136,7 @@ Route::get('/reference_search','SearchController@referenceSearch');
 
 Route::get('/activate',function(){
     return view('payment.activate');
-});
+})->name('payment.activate');
 
 Route::post('/pgRedirect',function(){
     return view('payment.pgRedirect');
@@ -161,4 +161,4 @@ Route::Patch('/profile/promoteProfileForFree/{id}','ProfilesController@promotePr
 /**
  * Affiliate Program
  */
-Route::get('/affiliate','AffiliateController@index')->middleware('verified');
+Route::get('/affiliate','AffiliateController@index');

@@ -3,6 +3,7 @@
 define('PROMOTE_ENABLED',true);
 define('PROMOTE_PAYMENT_ENABLED',false);
 define('AFFILIATE_ENABLED',false);
+define('VALID_CASTES'," Panchal,Luhar,Lohar,Suthar,Mistry,Gajjar,Vishwakarma"); // Space before Panchal is must. So do not remove space.
 
 define('CALLBACK_URL_P',"http://localhost:8000/paymentresponse");
 // define('CALLBACK_URL_P',"https://panchalconnect.com/paymentresponse");

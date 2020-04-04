@@ -117,12 +117,15 @@
                                             <input type="text" class="optional valid" name="removeFilesList" id="removeFilesList" value="" hidden>
                                             <tr>
                                                 <td colspan="4">
-                                                    <input class="btn_1" style="width: 100%" type="submit" value="Save All">
+                                                    <div id="processing" style="display: none; text-align: center;">
+                                                        <h4><i class="fa fa-spinner fa-pulse fa-1x fa-fw" aria-hidden="true"></i> Please Wait. Saving Images.</h4>
+                                                    </div>
+                                                    <input class="btn_1" id="saveAll" style="width: 100%" type="submit" value="Save All" onclick="saveAllClicked()" style="display: inline-block">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="4">
-                                                    <a class="btn_1" style="width: 100%" href="{{action('ProfilesController@show',$profile->id)}}">Back to your profile</a>
+                                                    <a class="btn_1" id="backbtn" style="width: 100%" href="{{action('ProfilesController@show',$profile->id)}}" style="display: inline-block">Back to your profile</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -137,7 +140,7 @@
                 <label style="color: #a3384f; margin: 10px; text-align: left;">
                     <b style="color: #c0032c"><i class='fa fa-check' aria-hidden='true'></i> Image should not be greater than 2 MB.</b>
                     <br><br><i class='fa fa-check' aria-hidden='true'></i> Upload square images for best view (e.g, 2611 X 2611).
-                    <br><br><i class='fa fa-check' aria-hidden='true'></i> Use <a href="https://croppola.com/">croppola</a> to crop images.
+                    <br><br><i class='fa fa-check' aria-hidden='true'></i> Use <a href="https://play.google.com/store/apps/details?id=com.lyrebirdstudio.instasquare">Instasquare</a> App to make square images or <a href="https://croppola.com/">croppola</a> to crop square images.
                     <br><br><i class='fa fa-check' aria-hidden='true'></i> In case, if the big image is not loaded and small image is loaded, then click on the small image.
                     <br><br><i class='fa fa-check' aria-hidden='true'></i> Your first image will be seen in search result, requests and in featured profile (if subscribed).
                 </label>
@@ -145,6 +148,12 @@
         </div>
     </div>
     <script>
+        function saveAllClicked() {
+            document.getElementById('saveAll').style.display = "none";
+            document.getElementById('backbtn').style.display = "none";
+            document.getElementById('processing').style.display = "block";
+        }
+
         function showImages(identity) {
             var fileInput = document.getElementById('profile_pic' + identity);
             makeAllFileInputValid();

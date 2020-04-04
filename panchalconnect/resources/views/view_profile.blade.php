@@ -28,6 +28,16 @@
                         </div>
                         @endif
 
+                        @if($isSelf  && ($profile->profile_pic_path == null || $profile->profile_pic_path == ""))
+                        <div class="alert alert-warning">
+                            <ul>
+                                <li>
+                                    <b><i class='fa fa-warning' aria-hidden='true'></i> You do not have any profile pic. Please <a href="{{action('ProfilesController@manageProfilePic',$profile->id)}}">upload</a> ateast one.</b> 
+		    	            	</li>
+                            </ul>
+                        </div>
+                        @endif
+
                         @if($failuremsg != "")
                         <div class="alert alert-danger">
                             <ul>
