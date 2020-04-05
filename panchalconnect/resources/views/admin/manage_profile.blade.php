@@ -10,7 +10,7 @@
             <li class="current-page">Manage Profile</li>
         </ul>
     </div>
-
+    <b>Total Profiles: {{sizeof($profiles)}}</b>
     <br>
     @if(\Session::has('success'))
     <div class="alert alert-success">
@@ -25,13 +25,14 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
-                <th>Sr. No.</th>
                 <th>Profile Id</th>
                 <th>User Id</th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>email</th>
+                <th>Contact</th>
                 <th>Status</th>
+                <th>Req. Sent</th>
+                <th>Req. Rece</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Created at</th>
@@ -42,20 +43,35 @@
                 <th>Edit</th>
                 <th>Delete</th> -->
             </tr>
-            <?php $i = 1; ?>
             @foreach($profiles as $profile)
             <?php
                 $paymentController = new App\Http\Controllers\PaymentController();
                 $payment = $paymentController->getPaymentDetailsForActivateProfileFor($profile->id);
             ?>
             <tr>
-                <td>{{$i}}</td>
-                <td>{{$profile->id}}</td>
-                <td>{{$profile->user_id}}</td>
-                <td>{{$profile->user->name}}</td>
+               
+                <td>
+                    <a href="{{action('ProfilesController@show',$profile->id)}}">{{$profile->id}}</a>
+                </td>
+                <td><a href="/admin/getuser?userid={{$profile->user_id}}">U{{$profile->user_id}}</a></td>
+                <td>
+                    <?php
+                    if (sizeof($profile->FeaturedProfile) != 0) {
+                        ?>
+                        <a href="/admin/getFeaturedProfile?profileid={{$profile->id}}">{{$profile->user->name}}</a>
+                        <?php
+                    } else {
+                        ?>
+                        {{$profile->user->name}}
+                        <?php
+                    }
+                    ?>
+                </td>
                 <td>{{$profile->user->lastname}}</td>
-                <td>{{$profile->user->email}}</td>
+                <td>{{$profile->contact_no}}</td>
                 <td>{{$profile->status}}</td>
+                <td>{{$profile->Request_sent->count()}}</td>
+                <td>{{$profile->Request_received->count()}}</td>
                 <td><?php echo ($payment != null)? $payment->START_DATE : "NOT FOUND"; ?></td>
                 <td><?php echo ($payment != null)? $payment->END_DATE : "NOT FOUND"; ?></td>
                 <td>{{$profile->created_at}}</td>
@@ -66,7 +82,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td colspan="7">
+                <td colspan="8">
                 <div class="oneline">
                     <form action="{{action('ProfilesController@activateProfileForFree',$profile->id)}}" class="activate_form" method="post">
                         @csrf
@@ -119,9 +135,8 @@
                 </td>
             </tr>
             <tr>
-            <td colspan="11" style="background-color: lightgray"></td>
+            <td colspan="12" style="background-color: lightgray"></td>
             </tr>
-            <?php $i = $i + 1; ?>
             @endforeach
         </table>
     </div>

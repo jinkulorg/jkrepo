@@ -257,9 +257,11 @@
 			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs-admin">
 				<ul class="nav navbar-nav nav_1">
 					<li><a href="/admin">Dashboard</a></li>
+					<li><a href="/adminsearch">Search</a></li>
 					<li><a href="/manageuser">Manage User</a></li>
 					<li><a href="/manageprofile">Manage Profile</a> </li>
-					<li class="last"><a href="/managefeaturedprofile">Manage Featured Profile</a> </li>
+					<li><a href="/managefeaturedprofile">Manage Featured Profile</a> </li>
+					<li class="last"><a href="/getAllNewRequestReceived">New Request Received</a> </li>
 				</ul>
 			</div>
 		</nav>

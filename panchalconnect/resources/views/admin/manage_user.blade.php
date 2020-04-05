@@ -10,7 +10,8 @@
             <li class="current-page">Manage Users</li>
         </ul>
     </div>
-
+    
+    <b>Total Users: {{sizeof($users)}}</b>
 
     <br>
     @if(\Session::has('success'))
@@ -18,34 +19,39 @@
         <p>{{\Session::get('success')}}</p>
     </div>
     @endif
+    
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
-                <th>Sr. No.</th>
                 <th>User Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Email verified at</th>
-                <th>Type</th>
-                <th>Remember token</th>
                 <th>Referred By</th>
                 <th>Created at</th>
                 <th>Updated at</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
-            <?php $i = 1; ?>
             @foreach($users as $user)
             <tr>
-                <td>{{$i}}</td>
                 <td>{{$user->id}}</td>
+                <?php 
+                $profile = App\User::find($user->id)->Profile;
+                if ($profile != null) {
+                    ?>
+                <td><a href="/admin/getprofile?profileid={{$profile['id']}}">{{$user->name}}</a></td>
+                    <?php
+                } else {
+                    ?>
                 <td>{{$user->name}}</td>
+                    <?php
+                }
+                ?>
                 <td>{{$user->lastname}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->email_verified_at}}</td>
-                <td>{{$user->type}}</td>
-                <td>{{$user->remember_token}}</td>
                 <td>{{$user->referred_by}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->updated_at}}</td>
@@ -59,7 +65,6 @@
                     </form>
                 </td>
             </tr>
-            <?php $i = $i + 1; ?>
             @endforeach
         </table>
     </div>

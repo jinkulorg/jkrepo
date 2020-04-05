@@ -8,7 +8,7 @@ use App\Profile;
 use App\Reference;
 use App\FeaturedProfile;
 use App\Married;
-
+use App\Request_received;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -27,13 +27,20 @@ class AdminController extends Controller
         $totalAmountReceived = DB::table('payments')->where('STATUS','=','TXN_SUCCESS')->sum('TXNAMOUNT');
         $totalAmountReceivedForActivation = DB::table('payments')->where('STATUS','=','TXN_SUCCESS')->where('SOURCE','=','P')->sum('TXNAMOUNT');
         $totalAmountReceivedForPromotion = DB::table('payments')->where('STATUS','=','TXN_SUCCESS')->where('SOURCE','=','FP')->sum('TXNAMOUNT');
-        
-        return view('admin.dashboard',compact('totalUsers','totalInactiveProfiles','totalProfiles','totalActiveProfiles','totalMarried','totalAmountReceived','totalAmountReceivedForActivation','totalAmountReceivedForPromotion'));
+        $totalActiveMaleProfiles = Profile::where('STATUS','=','ACTIVE')->where('gender','=','M')->get()->count();
+        $totalActiveFemaleProfiles = Profile::where('STATUS','=','ACTIVE')->where('gender','=','F')->get()->count();
+        $totalRenewProfiles = Profile::where('STATUS','=','RENEW')->get()->count();
+
+        return view('admin.dashboard',compact('totalUsers','totalInactiveProfiles','totalProfiles','totalActiveProfiles','totalMarried','totalAmountReceived','totalAmountReceivedForActivation','totalAmountReceivedForPromotion','totalActiveMaleProfiles','totalActiveFemaleProfiles','totalRenewProfiles'));
     }
 
     public function manageUser() {
         $users = User::paginate(20);
         return view('admin.manage_user', compact('users'));
+    }
+
+    public function adminsearch() {
+        return view('admin.search');
     }
 
     public function manageProfile() {
@@ -56,6 +63,7 @@ class AdminController extends Controller
         $user->name = $request->get('name');
         $user->lastname = $request->get('lastname');
         $user->email = $request->get('email');
+        $user->email_verified_at = $request->get('email_verified_at');
         $user->type = $request->get('type');
         $user->save();
         return redirect()->route('manageuser')->with('success','User ' . $id . ' updated successfully.');
@@ -189,6 +197,36 @@ class AdminController extends Controller
         return view('admin.manage_user', compact('users'));
     }
 
+    public function getuserFromEmail(Request $request) {
+        $emailid = $request->get('emailid');
+        if ($emailid == "") {
+            return back()->with('failure', 'Enter User ID');
+        }
+        $users = DB::table('Users')->where('email','like','%'.$emailid.'%')->paginate(15);
+        if ($users == null) {
+            return back()->with('failure', 'User not found');
+        }
+        if (sizeof($users) == 0) {
+            return back()->with('failure', 'User not found');
+        }
+        return view('admin.manage_user', compact('users'));
+    }
+
+    public function getuserFromName(Request $request) {
+        $name = $request->get('name');
+        if ($name == "") {
+            return back()->with('failure', 'Enter User ID');
+        }
+        $users = DB::table('Users')->where('name','like','%'.$name.'%')->orwhere('lastname','like','%'.$name.'%')->paginate(15);
+        if ($users == null) {
+            return back()->with('failure', 'User not found');
+        }
+        if (sizeof($users) == 0) {
+            return back()->with('failure', 'User not found');
+        }
+        return view('admin.manage_user', compact('users'));
+    }
+
     public function getProfile(Request $request) {
         $profileid = $request->get('profileid');
         if ($profileid == "") {
@@ -201,5 +239,56 @@ class AdminController extends Controller
         }
         $profiles[0] = $profile;
         return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getActiveProfiles() {
+        $profiles = Profile::where('STATUS','=','ACTIVE')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getInActiveProfiles() {
+        $profiles = Profile::where('STATUS','=','INACTIVE')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getMarriedProfiles() {
+        $profiles = Profile::where('STATUS','=','MARRIED')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getMaleProfiles() {
+        $profiles = Profile::where('gender','=','M')->where('STATUS','=','ACTIVE')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getFemaleProfiles() {
+        $profiles = Profile::where('gender','=','F')->where('STATUS','=','ACTIVE')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getRenewProfiles() {
+        $profiles = Profile::where('STATUS','=','RENEW')->paginate(20);
+        return view('admin.manage_profile', compact('profiles'));
+    }
+
+    public function getFeaturedProfile(Request $request) {
+        $featuredprofiles = FeaturedProfile::where('profile_id','=',$request->get('profileid'))->paginate(20);
+        return view('admin.manage_featured_profile', compact('featuredprofiles'));
+    }
+
+    public function getAllNewRequestReceived() {
+        $newRequestReceiveds = Request_received::where('status','=','NEW')->get();
+        // return $newRequestReceiveds;
+        $profiles = [];
+        foreach($newRequestReceiveds as $newRequestReceived) {
+            if (array_key_exists($newRequestReceived->profile_id,$profiles)) {
+                $oldValue = $profiles[$newRequestReceived->profile_id];
+                $profiles[$newRequestReceived->profile_id] = $oldValue . "," . $newRequestReceived->Request_sent->profile->user->name . " " . $newRequestReceived->Request_sent->profile->user->lastname;
+            } else {
+                $profiles[$newRequestReceived->profile_id] = $newRequestReceived->Request_sent->profile->user->name . " " . $newRequestReceived->Request_sent->profile->user->lastname;
+            }
+        }
+
+        return view('admin.new_request_received', compact('profiles'));
     }
 }

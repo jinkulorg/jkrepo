@@ -64,6 +64,10 @@ Route::get('/admin', 'AdminController@admin')
 ->middleware('is_admin')    
 ->name('admin');
 
+Route::get('/adminsearch', 'AdminController@adminsearch')    
+->middleware('is_admin')    
+->name('adminsearch');
+
 Route::get('/manageuser','AdminController@manageUser')
 ->middleware('is_admin')
 ->name('manageuser');
@@ -71,6 +75,10 @@ Route::get('/manageuser','AdminController@manageUser')
 Route::get('/manageprofile','AdminController@manageProfile')
 ->middleware('is_admin')
 ->name('manageprofile');
+
+Route::get('/getAllNewRequestReceived','AdminController@getAllNewRequestReceived')
+->middleware('is_admin')
+->name('getAllNewRequestReceived');
 
 Route::get('/managefeaturedprofile','AdminController@manageFeaturedProfile')
 ->middleware('is_admin')
@@ -117,9 +125,45 @@ Route::get('/admin/getuser','AdminController@getUser')
 ->middleware('is_admin')
 ->name('admin.getuser');
 
+Route::get('/admin/getuserFromEmail','AdminController@getuserFromEmail')
+->middleware('is_admin')
+->name('admin.getuserFromEmail');
+
+Route::get('/admin/getuserFromName','AdminController@getuserFromName')
+->middleware('is_admin')
+->name('admin.getuserFromName');
+
 Route::get('/admin/getprofile','AdminController@getProfile')
 ->middleware('is_admin')
 ->name('admin.getprofile');
+
+Route::get('/admin/getActiveProfiles','AdminController@getActiveProfiles')
+->middleware('is_admin')
+->name('admin.getActiveProfiles');
+
+Route::get('/admin/getInActiveProfiles','AdminController@getInActiveProfiles')
+->middleware('is_admin')
+->name('admin.getInActiveProfiles');
+
+Route::get('/admin/getMarriedProfiles','AdminController@getMarriedProfiles')
+->middleware('is_admin')
+->name('admin.getMarriedProfiles');
+
+Route::get('/admin/getMaleProfiles','AdminController@getMaleProfiles')
+->middleware('is_admin')
+->name('admin.getMaleProfiles');
+
+Route::get('/admin/getFemaleProfiles','AdminController@getFemaleProfiles')
+->middleware('is_admin')
+->name('admin.getFemaleProfiles');
+
+Route::get('/admin/getRenewProfiles','AdminController@getRenewProfiles')
+->middleware('is_admin')
+->name('admin.getRenewProfiles');
+
+Route::get('/admin/getFeaturedProfile','AdminController@getFeaturedProfile')
+->middleware('is_admin')
+->name('admin.getFeaturedProfile');
 
 /**
  * Routes for Search
