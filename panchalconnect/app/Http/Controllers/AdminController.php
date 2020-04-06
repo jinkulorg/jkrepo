@@ -65,6 +65,7 @@ class AdminController extends Controller
         $user->name = $request->get('name');
         $user->lastname = $request->get('lastname');
         $user->email = $request->get('email');
+        $user->contact = $request->get('contact');
         $user->email_verified_at = $request->get('email_verified_at');
         $user->type = $request->get('type');
         $user->save();

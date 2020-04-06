@@ -32,6 +32,9 @@
             <input type="text" name="email" value="{{$user->email}}" placeholder="Enter Email" />
         </div>
         <div class="form-group">
+            <input type="text" name="contact" value="{{$user->contact}}" placeholder="Enter Contact" />
+        </div>
+        <div class="form-group">
             <input type="text" name="email_verified_at" value="{{$user->email_verified_at}}" placeholder="Enter Email Verified at" />
         </div>
         <div class="form-group">

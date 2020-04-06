@@ -58,6 +58,20 @@
                                 
                             </div>
 
+                            <div class="form-group">
+                                <label for="contact">{{ __(' Contact No') }}<span class="form-required" title="This field is required.">*</span></label>
+
+                               
+                                    <input id="contact" type="text" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" required autocomplete="contact" autofocus>
+
+                                    @error('contact')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                
+                            </div>
+
                             <div class="form-group ">
                                 <label for="password">{{ __('Password') }}<span class="form-required" title="This field is required.">*</span></label>
 

@@ -108,6 +108,7 @@ class AccountController extends Controller
         $user->name = $request->get('firstname');
         $user->lastname = $request->get('lastname');
         $user->email = $request->get('email');
+        $user->contact = $request->get('contact');
         $user->save();
 
         return redirect()->route('account.index')->with('success','Your account details are updated successfully.');

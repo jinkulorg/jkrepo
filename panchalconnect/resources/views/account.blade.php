@@ -58,6 +58,14 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <input type="text" id="contact" name="contact" class="form-control @error('contact') is-invalid @enderror" value="{{$user->contact}}" placeholder="Enter your contact number" readonly required />
+                        @error('contact')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div id="buttonDiv" class="form-group" style="display: none">
                         <input class="btn_1" id="saveButton" onclick="submitForm()" type="button" value="Save" disabled />
                     </div>
@@ -76,6 +84,7 @@
             document.getElementById('firstname').removeAttribute('readonly');
             document.getElementById('lastname').removeAttribute('readonly');
             document.getElementById('email').removeAttribute('readonly');
+            document.getElementById('contact').removeAttribute('readonly');
             document.getElementById('saveButton').removeAttribute('disabled');
             document.getElementById('buttonDiv').style.display = "block";
         }

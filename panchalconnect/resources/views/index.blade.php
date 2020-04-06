@@ -3,6 +3,23 @@
 @section('content')
 <div class="banner">
 	<div class="container">
+		@guest
+		@else
+			@if (Auth::user()->email_verified_at == null)
+			<div class="alert alert-info">
+				<b><i class='fa fa-info-circle' aria-hidden='true'></i>
+					Please verify your email, If you did not receive the email, <a href="/email/resend">click here to request another.</a>
+			</div>
+			@endif
+			@if((Auth()->User()!=null && Auth()->User()->Profile!= null))
+				@if (Auth()->User()->Profile->Request_received->where('status','=','NEW')->count() != 0)
+					<div class="alert alert-info">
+						<b><i class='fa fa-info-circle' aria-hidden='true'></i>
+						You have received {{Auth()->User()->Profile->Request_received->where('status','=','NEW')->count()}} request. <a href="/requests">click here to check request received.</a>
+					</div>
+				@endif
+			@endif
+		@endguest
 		<div class="banner_info">
 			<h3>
 				@guest

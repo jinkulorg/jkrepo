@@ -27,6 +27,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Contact</th>
                 <th>Email verified at</th>
                 <th>Referred By</th>
                 <th>Created at</th>
@@ -51,6 +52,7 @@
                 ?>
                 <td>{{$user->lastname}}</td>
                 <td>{{$user->email}}</td>
+                <td>{{$user->contact}}</td>
                 <td>{{$user->email_verified_at}}</td>
                 <td>{{$user->referred_by}}</td>
                 <td>{{$user->created_at}}</td>
