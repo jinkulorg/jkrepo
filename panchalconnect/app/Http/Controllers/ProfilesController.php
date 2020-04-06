@@ -29,7 +29,7 @@ class ProfilesController extends Controller
      */
     public function create()
     {
-        if (Auth()->user() != null && (stripos(VALID_CASTES, trim(Auth()->user()->lastname)) == false && stripos(VALID_CASTES, trim(Auth()->user()->name)) == false)) {
+        if ($this->isValidCaste() == false) {
             return view('restrict_create_profile');
         // } else if(Auth()->user() != null && Auth()->user()->email_verified_at == null) {
         //     return view('verify_email_warning');
@@ -38,6 +38,23 @@ class ProfilesController extends Controller
             $allHobbies = $homeController->getAllHobbies();
             return view('create_profile', compact('allHobbies'));
         }
+    }
+
+    public function isValidCaste() {
+        $valid = false;
+        if (Auth()->user() == null) {
+            return $valid;
+        }
+        $firstname = " " . trim(Auth()->user()->name);
+        $lastname = " " . trim(Auth()->user()->lastname);
+        $castes = explode(",",VALID_CASTES);
+        foreach($castes as $caste) {
+            if (stripos($firstname, trim($caste)) || stripos($lastname, trim($caste))) {
+                $valid = true;
+                break;
+            }
+        }
+        return $valid;
     }
 
     /**

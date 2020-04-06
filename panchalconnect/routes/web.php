@@ -137,6 +137,14 @@ Route::get('/admin/getprofile','AdminController@getProfile')
 ->middleware('is_admin')
 ->name('admin.getprofile');
 
+Route::get('/admin/getTotalUsersWithProfile','AdminController@getTotalUsersWithProfile')
+->middleware('is_admin')
+->name('admin.getTotalUsersWithProfile');
+
+Route::get('/admin/getTotalUsersWithNoProfile','AdminController@getTotalUsersWithNoProfile')
+->middleware('is_admin')
+->name('admin.getTotalUsersWithNoProfile');
+
 Route::get('/admin/getActiveProfiles','AdminController@getActiveProfiles')
 ->middleware('is_admin')
 ->name('admin.getActiveProfiles');

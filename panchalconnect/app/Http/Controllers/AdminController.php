@@ -30,8 +30,10 @@ class AdminController extends Controller
         $totalActiveMaleProfiles = Profile::where('STATUS','=','ACTIVE')->where('gender','=','M')->get()->count();
         $totalActiveFemaleProfiles = Profile::where('STATUS','=','ACTIVE')->where('gender','=','F')->get()->count();
         $totalRenewProfiles = Profile::where('STATUS','=','RENEW')->get()->count();
+        $totalUsersWithNoProfile = User::doesnthave('Profile')->get()->count();
+        $totalUsersWithProfile = User::has('Profile')->get()->count();
 
-        return view('admin.dashboard',compact('totalUsers','totalInactiveProfiles','totalProfiles','totalActiveProfiles','totalMarried','totalAmountReceived','totalAmountReceivedForActivation','totalAmountReceivedForPromotion','totalActiveMaleProfiles','totalActiveFemaleProfiles','totalRenewProfiles'));
+        return view('admin.dashboard',compact('totalUsers','totalInactiveProfiles','totalProfiles','totalActiveProfiles','totalMarried','totalAmountReceived','totalAmountReceivedForActivation','totalAmountReceivedForPromotion','totalActiveMaleProfiles','totalActiveFemaleProfiles','totalRenewProfiles','totalUsersWithNoProfile','totalUsersWithProfile'));
     }
 
     public function manageUser() {
@@ -274,6 +276,16 @@ class AdminController extends Controller
     public function getFeaturedProfile(Request $request) {
         $featuredprofiles = FeaturedProfile::where('profile_id','=',$request->get('profileid'))->paginate(20);
         return view('admin.manage_featured_profile', compact('featuredprofiles'));
+    }
+
+    public function getTotalUsersWithNoProfile() {
+        $users = User::doesnthave('Profile')->paginate(20);
+        return view('admin.manage_user', compact('users'));
+    }
+    
+    public function getTotalUsersWithProfile() {
+        $users = User::has('Profile')->paginate(20);
+        return view('admin.manage_user', compact('users'));
     }
 
     public function getAllNewRequestReceived() {

@@ -104,7 +104,7 @@
 												@guest
 												<b>Guest</b>
 												@else
-												<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} </b>
+												<b>{{ Auth::user()->name }}</b>
 												@endguest
 											</label>
 										</a>
@@ -152,7 +152,7 @@
 									@guest
 									<b>Guest</b>
 									@else
-									<b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} </b>
+									<b>{{ Auth::user()->name }}</b>
 									@endguest
 								</h3>
 							</div>

@@ -30,9 +30,17 @@
                 <td>{{$profileid}}</td>
                 <td>{{App\Profile::find($profileid)->contact_no}}</td>
                 <td>
+                    <?php
+                        $fromListArray = explode(",",$fromList);
+                        $totalRequest = sizeof($fromListArray);
+                    ?>
                     Hi {{App\Profile::find($profileid)->user->name}} {{App\Profile::find($profileid)->user->lastname}},
                     <br><br>
-                    You have received new request from {{$fromList}}. You have not checked yet. So, please Login into Panchal Connect and check your requests received.
+                    You have received {{$totalRequest}} new request from {{$fromList}}. 
+                    <br>So, please Login into Panchal Connect and go to "Requests" menu and check all request received.
+                    <br><br>For each request,
+                    <br>If you like profile and want to share contact details: click "Interested"
+                    <br>If you do not like profile and do not want to share contact: click "Not Interested"
                     <br><br>
                     You are receiving this message because you are registered in Panchal Connect.<br><br>
                     Thanks,<br>

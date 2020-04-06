@@ -61,6 +61,22 @@
           </td>
         </tr>
         <tr>
+          <td>Total Users with Profile</td>
+          <td style="text-align: right"><a href="/admin/getTotalUsersWithProfile">{{$totalUsersWithProfile}}</a></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total Users with no Profile</td>
+          <td style="text-align: right"><a href="/admin/getTotalUsersWithNoProfile">{{$totalUsersWithNoProfile}}</a></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
           <td><b>Total User Accounts</b></td>
           <td style="text-align: right"><b><a href="/manageuser">{{$totalUsers}}</a></b></td>
         </tr>
