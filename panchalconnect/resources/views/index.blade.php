@@ -256,21 +256,56 @@
 			<div style="font-size: 25px; ">
 				<h3 style="text-align: center">
 					<b style="text-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;">
-						<i class="fa fa-star" aria-hidden="true"></i> Short Term Offer <i class="fa fa-star" aria-hidden="true"></i>
+						<i class="fa fa-star" aria-hidden="true"></i> Offer for Girls <i class="fa fa-star" aria-hidden="true"></i>
 					</b>
 				</h3>
 				<hr>
 				<h3 style="text-align: center; line-height: 2em">
-					@if(OFFER_FREE == "FREE")
+				<?php
+					$totalFemaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','F')->get()->count();
+				?>
+					@if(OFFER_FREE == "FREE" && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS)
 					<b>
 						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
 						<br>Free to use panchal connect for six months
-						<br>Hurry!! Offer valid till {{OFFER_END_DATE}} for first 50 profiles
+						<br>Hurry!! Offer valid for first 50 profiles only
 					</b>
 					@else
 					<b>
 						Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> 
 						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
+					</b>
+					@endif
+				</h3>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grid_1">
+	<div class="container">
+		<hr>
+		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT != null) ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
+			<div style="font-size: 25px; ">
+				<h3 style="text-align: center">
+					<b style="text-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;">
+						<i class="fa fa-star" aria-hidden="true"></i> Offer for Boys <i class="fa fa-star" aria-hidden="true"></i>
+					</b>
+				</h3>
+				<hr>
+				<h3 style="text-align: center; line-height: 2em">
+				<?php
+					$totalMaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','M')->get()->count();
+				?>
+					@if(OFFER_FREE == "FREE" && $totalMaleProfiles < MAX_FREE_PROFILE_FOR_BOYS)
+					<b>
+						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
+						<br>Free to use panchal connect for six months
+						<br>Hurry!! Offer valid for first 50 profiles
+					</b>
+					@else
+					<b>
+						[ 70% off ] 
+						<br>Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s>
 					</b>
 					@endif
 				</h3>
