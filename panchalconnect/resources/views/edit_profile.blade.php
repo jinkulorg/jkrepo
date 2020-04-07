@@ -119,10 +119,10 @@
                                                     ?>
                                                             <div class="inputText_block1">
                                                             <div class="oneline">
-                                                                <input oninput="this.className = ''" type="text" name="heightfeet" id="heightfeet" value="<?php echo ($profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0" ?>" onblur="validateNumber('heightfeet')"> feet
+                                                                <input oninput="this.className = ''" type="text" name="heightfeet" id="heightfeet" value="<?php echo ($profile->height != null && sizeof($heights) >= 1) ? $heights[0] : "0" ?>" onblur="validateHeight('heightfeet')"> feet
                                                             </div>
                                                             <div class="oneline">
-                                                                <input oninput="this.className = ''" type="text" name="heightinches" id="heightinches" value="<?php echo ($profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" ?>" onblur="validateNumber('heightinches')"> inches
+                                                                <input oninput="this.className = ''" type="text" name="heightinches" id="heightinches" value="<?php echo ($profile->height != null && sizeof($heights) == 2) ? $heights[1] : "0" ?>" onblur="validateHeight('heightinches')"> inches
                                                             </div>
                                                             </div>
                                                         </td>
@@ -131,7 +131,7 @@
                                                 <td class="day_label">Weight:</td>
                                                 <td class="day_value">
                                                 <div class = "inputText_block1" style="width: 120px">    
-                                                    <input type="text" name="weight" id="weight" value="{{$profile->weight}}" oninput="this.className = ''" onblur="validateNumber('weight')"> Kgs
+                                                    <input type="text" name="weight" id="weight" value="{{$profile->weight}}" oninput="this.className = ''" onblur="validateWeight('weight')"> Kgs
                                                 </div>
                                                 </td>
                                             </tr>
@@ -1247,6 +1247,45 @@ function sameAddressAction() {
             document.getElementById('permanent_pincode').readOnly  = false;
         }
     }
+
+    function validateWeight(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            document.getElementById(input).value = "";
+            setTimeout(function() {
+                document.getElementById(input).focus();
+            }, 10);
+        } else {
+            if (inputValue.includes(".")) {
+                alert("Invalid value: " + inputValue + ", Please enter weight as integer. For e.g, 45");
+                document.getElementById(input).value = "";
+                setTimeout(function() {
+                    document.getElementById(input).focus();
+                }, 10);
+            }
+        }
+    }
+
+    function validateHeight(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            document.getElementById(input).value = "";
+            setTimeout(function() {
+                document.getElementById(input).focus();
+            }, 10);
+        } else {
+            if (inputValue.includes(".")) {
+                alert("Invalid value: " + inputValue + ", Please enter height as Feet: 5 and Inches: 6");
+                document.getElementById(input).value = "";
+                setTimeout(function() {
+                    document.getElementById(input).focus();
+                }, 10);
+            }
+        }
+    }
+
     function validateNumber(input) {
         var inputValue = document.getElementById(input).value;
         if (isNaN(inputValue)) {

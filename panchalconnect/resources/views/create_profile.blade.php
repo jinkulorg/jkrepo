@@ -118,10 +118,10 @@
                                                 <td class="day_value">
                                                     <div class="inputText_block1">
                                                         <div class="oneline">
-                                                            <input type="text" name="heightfeet" id="heightfeet" oninput="this.className = ''" onblur="validateNumber('heightfeet')"> feet
+                                                            <input type="text" name="heightfeet" id="heightfeet" oninput="this.className = ''" onblur="validateHeight('heightfeet')"> feet
                                                         </div>
                                                         <div class="oneline">
-                                                            <input type="text" name="heightinches" id="heightinches" oninput="this.className = ''" onblur="validateNumber('heightinches')"> Inches
+                                                            <input type="text" name="heightinches" id="heightinches" oninput="this.className = ''" onblur="validateHeight('heightinches')"> Inches
                                                         </div>
                                                     </div>
                                                 </td>
@@ -130,7 +130,7 @@
                                                 <td class="day_label">Weight:</td>
                                                 <td class="day_value">
                                                     <div class="inputText_block1" style="width: 120px">
-                                                        <input type="text" name="weight" id="weight" oninput="this.className = ''" onblur="validateNumber('weight')"> Kgs
+                                                        <input type="text" name="weight" id="weight" oninput="this.className = ''" onblur="validateWeight('weight')"> Kgs
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1251,6 +1251,44 @@
         span.className = "";
         span = document.getElementById(spanid3);
         span.className = "";
+    }
+
+    function validateWeight(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            document.getElementById(input).value = "";
+            setTimeout(function() {
+                document.getElementById(input).focus();
+            }, 10);
+        } else {
+            if (inputValue.includes(".")) {
+                alert("Invalid value: " + inputValue + ", Please enter weight as integer. For e.g, 45");
+                document.getElementById(input).value = "";
+                setTimeout(function() {
+                    document.getElementById(input).focus();
+                }, 10);
+            }
+        }
+    }
+
+    function validateHeight(input) {
+        var inputValue = document.getElementById(input).value;
+        if (isNaN(inputValue)) {
+            alert("Invalid value: " + inputValue + ", Please enter numeric value.");
+            document.getElementById(input).value = "";
+            setTimeout(function() {
+                document.getElementById(input).focus();
+            }, 10);
+        } else {
+            if (inputValue.includes(".")) {
+                alert("Invalid value: " + inputValue + ", Please enter height as Feet: 5 and Inches: 6");
+                document.getElementById(input).value = "";
+                setTimeout(function() {
+                    document.getElementById(input).focus();
+                }, 10);
+            }
+        }
     }
 
     function validateNumber(input) {
