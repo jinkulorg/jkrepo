@@ -232,6 +232,26 @@
 <div class="grid_1">
 	<div class="container">
 		<hr>
+		<h1>Total Profiles</h1>
+		<div class="heart-divider">
+			<span class="grey-line"></span>
+			<i class="fa fa-heart pink-heart"></i>
+			<i class="fa fa-heart grey-heart"></i>
+			<span class="grey-line"></span>
+		</div>
+		<div style=" ">
+			<?php
+				$totalProfiles = App\Profile::where('STATUS','!=','INACTIVE')->get()->count();
+			?>
+			<h3 style="text-align: center; line-height: 2em; color: #c32143; font-size: 45px;">
+				{{$totalProfiles}}
+			</h3>
+		</div>
+	</div>
+</div>
+<div class="grid_1">
+	<div class="container">
+		<hr>
 		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT != null) ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
 			<div style="font-size: 25px; ">
 				<h3 style="text-align: center">

@@ -74,12 +74,15 @@ header("Expires: 0");
 		
 		<?php
 		if (Auth::User() != null && Auth::User()->profile != null && !Auth::User()->profile->isActive()) {
+			$totalMaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','M')->get()->count();
+			$totalFemaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','F')->get()->count();
+			$currentProfile = Auth::User()->profile;
 			?>
 			<h3>
-				@if(OFFER_FREE == "FREE")
-				<b>
-					<i class="fa fa-arrow-right" aria-hidden="true"></i> Its FREE for now to activate your profile and get these benefits for six months
-				</b>
+				@if(OFFER_FREE == "FREE" && ($currentProfile->gender == 'M' && $totalMaleProfiles < MAX_FREE_PROFILE_FOR_BOYS) || ($currentProfile->gender == 'F' && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS))
+					<b>
+						<i class="fa fa-arrow-right" aria-hidden="true"></i> Its FREE for now to activate your profile and get these benefits for six months
+					</b>
 				@else
 				<b>
 					<i class="fa fa-arrow-right" aria-hidden="true"></i> Pay only <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "/-</s> Rs. " . OFFER_AMOUNT . "/-" : "Rs. " . AMOUNT . "/-" ?> to activate your profile and get these benefits for one year
@@ -104,7 +107,7 @@ header("Expires: 0");
 						</tr>
 						<tr>
 							<!-- <td><label>Payment ID: </label></td> -->
-							<td><input id="ORDER_ID" tabindex="1" maxlength="20" size="20" name="ORDER_ID" autocomplete="off" value="<?php echo  "PAY" . rand(10000, 99999999) ?>" hidden>
+							<td><input id="ORDER_ID" tabindex="1" maxlength="20" size="20" name="ORDER_ID" autocomplete="off" value="<?php echo  "P" . $currentProfile->id . "PAY" . rand(10000, 99999999) ?>" hidden>
 							</td>
 						</tr>
 						<tr>
@@ -140,7 +143,7 @@ header("Expires: 0");
             </form>
 
 			<div class="buttons">
-			@if(OFFER_FREE == "FREE")
+			@if(OFFER_FREE == "FREE" && ($currentProfile->gender == 'M' && $totalMaleProfiles < MAX_FREE_PROFILE_FOR_BOYS) || ($currentProfile->gender == 'F' && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS))
 				<div class="my-buttons">
 					<a href="#" class="my-buttons" style="text-align: center" onclick="activateFreeClicked()">Proceed to activate your profile</a>
 				</div>

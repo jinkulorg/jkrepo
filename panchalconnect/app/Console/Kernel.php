@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\ProfilesController;
 use App\Profile;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -27,14 +28,21 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
 
+            $totalFemaleProfiles = Profile::where('STATUS','!=','INACTIVE')->where('gender','=','F')->get()->count() - 1;
+            
             $allProfiles = Profile::all();
             foreach($allProfiles as $profile) {
                 $activePayments = $profile->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','P')->where('STATUS','=','TXN_SUCCESS');
                 $inActivePayments = $profile->Payment->where('SOURCE','=','P')->where('STATUS','=','TXN_SUCCESS');
 
                 if (sizeof($activePayments) == 0 && sizeof($inActivePayments) != 0) {
-                    $profile->status = "RENEW";
-                    $profile->save();
+                    if(OFFER_FREE == "FREE" && $profile->gender == 'F' && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS) {
+                        $profileController = new ProfilesController();
+                        $profileController->activateProfileForFree($profile->id);
+                    } else {
+                        $profile->status = "RENEW";
+                        $profile->save();
+                    }
 
                     $activePromotedPayments = $profile->Payment->where('START_DATE','<=',date('Y-m-d'))->where('END_DATE','>=',date('Y-m-d'))->where('SOURCE','=','FP')->where('STATUS','=','TXN_SUCCESS');
 
