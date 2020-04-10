@@ -36,6 +36,12 @@ class RequestSentController extends Controller
      */
     public function store(Request $request)
     {
+        $canSendAgain = $this->canRequestSentAgainTo($request->get('profileid'));
+
+        if ($canSendAgain == false) {
+            return back();
+        }
+
         $request_sent = new Request_sent([
             'profile_id' => Auth()->User()->Profile->id
         ]);
@@ -118,6 +124,22 @@ class RequestSentController extends Controller
             }
         }
         return false;
+    }
+
+    public function canRequestSentAgainTo($toProfileId) {
+        $requestsents = Auth()->User()->Profile->Request_sent;
+        $count = 0;     
+        foreach($requestsents as $requestsent) {
+            $profileidreceived = $requestsent->Request_received->profile_id;
+            if ($profileidreceived == $toProfileId) {
+                $count++;
+            }
+        }
+        if ($count < MAX_REQUEST_SENT) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function isRequestSentApproved($toProfileId) {

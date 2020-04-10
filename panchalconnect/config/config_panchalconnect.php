@@ -1,7 +1,7 @@
 <?php
 
 define('PROMOTE_ENABLED',true);
-define('PROMOTE_PAYMENT_ENABLED',false);
+define('PROMOTE_PAYMENT_ENABLED',true);
 define('AFFILIATE_ENABLED',false);
 define('VALID_CASTES'," Panchal,Luhar,Lohar,Suthar,Mistry,Gajjar,Vishwakarma"); // Space before Panchal is must. So do not remove space.
 
@@ -25,6 +25,8 @@ define('PLAN1_AMOUNT',500);
 define('PLAN2_AMOUNT',1000);
 define('PLAN3_AMOUNT',1500);
 
+define('MAX_REQUEST_SENT',1);
+
 /**
  * Boys
  */
@@ -35,5 +37,7 @@ define('MAX_FREE_PROFILE_FOR_BOYS',50);
  * Girls
  */
 define('MAX_FREE_PROFILE_FOR_GIRLS',50);
+
+
 
 ?>

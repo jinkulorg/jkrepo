@@ -232,20 +232,58 @@
 <div class="grid_1">
 	<div class="container">
 		<hr>
-		<h1>Total Profiles</h1>
-		<div class="heart-divider">
-			<span class="grey-line"></span>
-			<i class="fa fa-heart pink-heart"></i>
-			<i class="fa fa-heart grey-heart"></i>
-			<span class="grey-line"></span>
-		</div>
-		<div style=" ">
-			<?php
-				$totalProfiles = App\Profile::where('STATUS','!=','INACTIVE')->get()->count();
-			?>
-			<h3 style="text-align: center; line-height: 2em; color: #c32143; font-size: 45px;">
-				{{$totalProfiles}}
-			</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<h1>Total Profiles</h1>
+				<div class="heart-divider">
+					<span class="grey-line"></span>
+					<i class="fa fa-heart pink-heart"></i>
+					<i class="fa fa-heart grey-heart"></i>
+					<span class="grey-line"></span>
+				</div>
+				<div style=" ">
+					<?php
+						$totalProfiles = App\Profile::where('STATUS','!=','INACTIVE')->get()->count();
+					?>
+					<h3 style="text-align: center; line-height: 2em; color: #c32143; font-size: 45px;">
+						{{$totalProfiles}}
+					</h3>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h1>Total Males</h1>
+				<div class="heart-divider">
+					<span class="grey-line"></span>
+					<i class="fa fa-heart pink-heart"></i>
+					<i class="fa fa-heart grey-heart"></i>
+					<span class="grey-line"></span>
+				</div>
+				<div style=" ">
+					<?php
+						$totalMaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','M')->get()->count();
+					?>
+					<h3 style="text-align: center; line-height: 2em; color: #c32143; font-size: 45px;">
+						{{$totalMaleProfiles}}
+					</h3>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h1>Total Females</h1>
+				<div class="heart-divider">
+					<span class="grey-line"></span>
+					<i class="fa fa-heart pink-heart"></i>
+					<i class="fa fa-heart grey-heart"></i>
+					<span class="grey-line"></span>
+				</div>
+				<div style=" ">
+					<?php
+						$totalFemaleProfiles = App\Profile::where('STATUS','!=','INACTIVE')->where('gender','=','F')->get()->count();
+					?>
+					<h3 style="text-align: center; line-height: 2em; color: #c32143; font-size: 45px;">
+						{{$totalFemaleProfiles}}
+					</h3>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -266,9 +304,8 @@
 				?>
 					@if(OFFER_FREE == "FREE" && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS)
 					<b>
-						Activate your profile for FREE instead of <s>Rs. {{AMOUNT}}/-</s>
-						<br>Free to use panchal connect for six months
-						<br>Hurry!! Offer valid for first 50 profiles only
+						[ 100% FREE ]
+						<br>Free to activate your profile for one year
 					</b>
 					@else
 					<b>
@@ -305,7 +342,7 @@
 					@else
 					<b>
 						[ 70% off ] 
-						<br>Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s>
+						<br>Activate your profile for just Rs. {{OFFER_AMOUNT}}/- instead of <s>Rs. {{AMOUNT}}/-</s> for one year.
 					</b>
 					@endif
 				</h3>

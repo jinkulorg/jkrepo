@@ -125,12 +125,12 @@ class PaymentController extends Controller
                     $payment->TXNAMOUNT = 0;
                 }
             } else {
-                if ($params['ORDERID'] == "Not Available") {
-                    // checking for free
-                    $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
-                } else {
+                // if ($params['ORDERID'] == "Not Available") {
+                //     // checking for free
+                //     $payment->END_DATE = date('Y/m/d', strtotime("+6 months", strtotime(date("Y/m/d"))));
+                // } else {
                     $payment->END_DATE = date('Y/m/d', strtotime("+12 months", strtotime(date("Y/m/d"))));
-                }
+                // }
             }
         } else {
             $payment->START_DATE = date("Y/m/d");
@@ -140,6 +140,11 @@ class PaymentController extends Controller
         $payment->save();
         
         return true;
+    }
+    public function storePaymentDetailsWithoutProfile($params) {
+        $orderid = (array_key_exists('ORDERID', $params)) ? $params['ORDERID'] : null;
+        $profileid = substr($orderid,1,strripos($orderid,"PAY")-1);
+        $this->storePaymentDetails($params, $profileid);
     }
 
     public function isPaymentReceived($id) {

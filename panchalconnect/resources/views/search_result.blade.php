@@ -161,9 +161,22 @@
                                     <a href="/requests" class="vertical">View Request Received</a>
                                 <?php
                                 } else if (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id))) {
+                                    $canSendAgain = $requestSentController->canRequestSentAgainTo($profile->id);
+                                    if ($canSendAgain) {
                                     ?>
                                     <a href="#" onclick="sendInterestClicked({{$profile->id}})" class="vertical">Send Interest</a>
                                 <?php
+                                    } else {
+                                    ?>
+                                                <ul class="login_details1">
+                                                <li>
+                                                    <label style="color: #c32143; margin: 10px">
+                                                        You cannot send request again.
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                    <?php
+                                            }
                                 } else {
                                     ?>
                                     @if($profile->status == "MARRIED")

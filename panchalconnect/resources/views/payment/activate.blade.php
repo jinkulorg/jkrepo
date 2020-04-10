@@ -81,7 +81,7 @@ header("Expires: 0");
 			<h3>
 				@if(OFFER_FREE == "FREE" && ($currentProfile->gender == 'M' && $totalMaleProfiles < MAX_FREE_PROFILE_FOR_BOYS) || ($currentProfile->gender == 'F' && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS))
 					<b>
-						<i class="fa fa-arrow-right" aria-hidden="true"></i> Its FREE for now to activate your profile and get these benefits for six months
+						<i class="fa fa-arrow-right" aria-hidden="true"></i> 100% FREE for GIRLS to activate your profile and get these benefits for one year
 					</b>
 				@else
 				<b>
@@ -148,9 +148,47 @@ header("Expires: 0");
 					<a href="#" class="my-buttons" style="text-align: center" onclick="activateFreeClicked()">Proceed to activate your profile</a>
 				</div>
 			@else
-				<div class="my-buttons">
-					<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay <?php echo (OFFER_AMOUNT != null) ? "<s>Rs. " . AMOUNT . "</s> Rs. " . OFFER_AMOUNT : "Rs. ". AMOUNT ?></a>
-				</div>
+			<div class="table-responsive">
+			<table border="1" style="margin-left:auto; margin-right:auto;">
+				<tr>
+					<th colspan="2">
+						<div style="margin: 30px 30px 30px 30px; text-align: center;">
+							<h3><b>Payment Options</b></h3>
+						</div>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b style="color: blue;">Pay</b><b style="color: lightskyblue;">tm</b> / <b style="color: grey;"><i>UPI</i></b>
+						</div>
+					</td>
+					<td>
+						<div class="my-buttons" style="margin: 30px 30px 30px 30px">
+							<a href="#" class="my-buttons" style="text-align: center" onclick="paymentClicked()">Proceed to pay <?php echo (OFFER_AMOUNT != null) ? "Rs. " . OFFER_AMOUNT : "Rs. ". AMOUNT ?></a>
+							<br>Automatic Activation after payment
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b style="color: #c32143;">Bank Deposit</b>
+						</div>
+					</td>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b>Bank Name:</b> SBI
+							<br><b>Account Name:</b> Jinkal Panchal
+							<br><b>Account No:</b> 37523768384
+							<br><b>IFSC Code:</b> SBIN0019050
+							<br>After payment, send us your transaction id, profile id and amount paid on whatsapp (9426155564) or email (info@panchalconnect.com).
+							<br>We will activate your profile within 24hours.
+						</div>
+					</td>
+				</tr>
+			</table>
+			</div>
 			@endif
 			</div>
 		<?php

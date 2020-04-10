@@ -135,6 +135,8 @@
                                                 // Checking if logged in user is not married and searched user is also not married. 
                                                 // If any one of them is married, Send request button will not be displayed.
                                                 if ($noProfile == false && (!($marriedController->isMarried(Auth()->user()->Profile->id)) and !($marriedController->isMarried($profile->id)))) {
+                                                    $canSendAgain = $requestSentController->canRequestSentAgainTo($profile->id);
+                                                    if ($canSendAgain) {
                                                 ?>
                                                     <a href="#" onclick="sendInterestClicked()" class="vertical">Send Interest</a>
                                                     <form id="sendInterestForm" method="post" action="{{url('requestsent')}}">
@@ -143,7 +145,18 @@
                                                         <!-- <input type="submit" value="Send Request" /> -->
                                                     </form>
                                                 
+                                            <?php   
+                                                    } else {
+                                            ?>
+                                                        <ul class="login_details1">
+                                                        <li>
+                                                            <label style="color: #c32143; margin: 10px">
+                                                                You cannot send request again.
+                                                            </label>
+                                                        </li>
+                                                    </ul>
                                             <?php
+                                                    }
                                                 }
                                             }
                                             ?>

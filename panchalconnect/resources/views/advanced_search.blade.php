@@ -45,7 +45,7 @@
           </div>
           <div class="clearfix"> </div>
         </div>
-        <div class="form_but1">
+        <div class="form_but1" style="display: none">
           <label class="col-sm-5 control-lable1">Located In : </label>
           <div class="col-sm-7">
             <div class="select-block1">
@@ -88,13 +88,25 @@
             <div class="select-block1">
               <select name="hobby">
                 <option value="">--Select Interest--</option>
-                <?php
-                foreach ($allHobbies as $allhobby) {
-                  ?>
-                  <option value="{{$allhobby->hobby}}">{{$allhobby->hobby}}</option>
-                <?php
-                }
-                ?>
+                  <option>Music</option>
+                  <option>Cooking</option>
+                  <option>Sports</option>
+                  <option>Programming</option>
+                  <option>Dancing</option>
+                  <option>Singing</option>
+                  <option>Reading</option>
+                  <option>Writing</option>
+                  <option>Photography</option>
+                  <option>Painting</option>
+                  <option>Sewing</option>
+                  <option>Gardening</option>
+                  <option>Exercise</option>
+                  <option>Hiking</option>
+                  <option>Crochet</option>
+                  <option>Stamp Collecting</option>
+                  <option>Playing Games</option>
+                  <option>Shopping</option>
+                  <option>Others</option>
               </select>
             </div>
           </div>
@@ -109,7 +121,7 @@
           </div>
           <div class="clearfix"> </div>
         </div>
-        <div class="form_but1">
+        <div class="form_but1" style="display: none">
           <label class="col-sm-5 control-lable1">Education : </label>
           <div class="col-sm-7">
             <div class="select-block1">
@@ -147,7 +159,7 @@
           <div class="clearfix"> </div>
         </div>
 
-        <div class="form_but1">
+        <div class="form_but1" style="display: none">
           <label class="col-sm-5 control-lable1">Designation : </label>
           <div class="col-sm-7">
             <div class="select-block1">

@@ -52,7 +52,11 @@ header("Expires: 0");
                     $txnid = $params['TXNID'];
                     $samepayments = App\Payment::all()->where('TXNID','=',$txnid);
                     if ($samepayments == null || sizeof($samepayments) == 0) {
-                        $paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+                        if (Auth()->User() != null) {
+                            $paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+                        } else {
+                            $paymentController->storePaymentDetailsWithoutProfile($params);
+                        }
                     }
                 }
             }
@@ -82,7 +86,13 @@ header("Expires: 0");
                 }
                 $isSuccess = "true";
                 if ($samepayments == null || sizeof($samepayments) == 0) {
-                    $isSuccess = $featuredProfileController->storeFeaturedProfile($plan, Auth()->User()->Profile->id);
+                    if (Auth()->User() != null) {
+                        $isSuccess = $featuredProfileController->storeFeaturedProfile($plan, Auth()->User()->Profile->id);
+                    } else {
+                        $orderid = (array_key_exists('ORDERID', $params)) ? $params['ORDERID'] : null;
+                        $profileidFromOrderid = substr($orderid,1,strripos($orderid,"PAY")-1);
+                        $isSuccess = $featuredProfileController->storeFeaturedProfile($plan, $profileidFromOrderid);
+                    }
                 }
 
                 if ($isSuccess) {

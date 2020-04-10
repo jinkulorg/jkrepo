@@ -33,7 +33,6 @@
 						<li role="presentation" class="active"><a href="#all" id="all-tab" role="tab" data-toggle="tab" aria-controls="all" aria-expanded="true">All</a></li>
 						<li role="presentation"><a href="#request-sent" role="tab" id="request-sent-tab" data-toggle="tab" aria-controls="request-sent">Request Sent</a></li>
 						<li role="presentation"><a href="#request-received" role="tab" id="request-received-tab" data-toggle="tab" aria-controls="request-received">Request Received</a></li>
-						<li role="presentation"><a href="#married" role="tab" id="married-tab" data-toggle="tab" aria-controls="married">Married</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 
@@ -111,7 +110,7 @@
 															</div>
 															<div class="col-sm-6">
 																<ul style="color: #c32143; text-align: right">
-																	<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
+																	<li>Sent on {{date('d-M-Y', strtotime($request->created_at))}}</li>
 																</ul>
 															</div>
 														</div>
@@ -225,7 +224,7 @@
 															</div>
 															<div class="col-sm-6">
 																<ul style="color: #c32143; text-align: right">
-																	<li>{{date('d-M-Y', strtotime($request->created_at))}} {{date('h:i:s A', strtotime($request->created_at))}}</li>
+																	<li>Received on {{date('d-M-Y', strtotime($request->created_at))}}</li>
 																</ul>
 															</div>
 														</div>
@@ -369,7 +368,7 @@
 														</div>
 														<div class="col-sm-6">
 															<ul style="color: #c32143; text-align: right">
-																<li>{{date('d-M-Y', strtotime($requestsent->created_at))}} {{date('h:i:s A', strtotime($requestsent->created_at))}}</li>
+																<li>Sent on {{date('d-M-Y', strtotime($requestsent->created_at))}}</li>
 															</ul>
 														</div>
 													</div>
@@ -519,7 +518,7 @@
 														</div>
 														<div class="col-sm-6">
 															<ul style="color: #c32143; text-align: right">
-																<li>{{date('d-M-Y', strtotime($requestReceived->created_at))}} {{date('h:i:s A', strtotime($requestReceived->created_at))}}</li>
+																<li>Received on {{date('d-M-Y', strtotime($requestReceived->created_at))}}</li>
 															</ul>
 														</div>
 													</div>
@@ -595,36 +594,7 @@
 							</div>
 						</div>
 						<!--------------------Married------------------------------->
-						<div class="tab-pane fade" id="married" role="tabpanel" aria-labelledby="married">
-							<div class="basic_1">
-								<?php
-								if ($isLoggedIn == false) {
-									echo "<div class='alert alert-info'>";
-									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href='/login'>Login/Register</a></b>";
-									echo "</div>";
-								} else if ($isProfileCreated == false) {
-									echo "<div class='alert alert-info'>";
-									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> ";
-									echo "Please <a href=" . route('profile.create') . "> create</a> your profile</b>";
-									echo "</div>";
-								} else if (Auth::user()->Profile->isActive() == false && Auth::user()->Profile->status != "MARRIED") {
-									echo "<div class='alert alert-info'>";
-									echo "<b><i class='fa fa-info-circle' aria-hidden='true'></i> Kindly activate your profile first to use request feature.</b>";
-									echo "</div>";
-								} else {
-									$marriedController = new App\Http\Controllers\MarriedController();
-									?>
-									<div class="alert alert-info">
-										<b>
-											<?php echo $marriedController->getMarriageStatus(); ?>
-										</b>
-									</div>
-								<?php
-								}
-								?>
-							</div>
-						</div>
+						
 						<!-- </div> -->
 					</div>
 					@if ($isLoggedIn && $isProfileCreated && Auth::user()->Profile->isActive())

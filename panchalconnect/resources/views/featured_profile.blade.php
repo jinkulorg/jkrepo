@@ -33,6 +33,7 @@
 			</div>
         @else
         <?php
+        $currentProfile = Auth::User()->profile;
         $featuredProfileCount = Auth::User()->profile->FeaturedProfile->whereIn('status', ['APPROVED', 'REQUESTED'])->count();
         ?>
         @if($featuredProfileCount != 0)
@@ -167,7 +168,7 @@
                     </div>
                     <div class="form-group">
                         <!-- <label>Payment ID: </label> -->
-                        <input id="ORDER_ID" tabindex="1" maxlength="20" size="20" name="ORDER_ID" autocomplete="off" value="<?php echo  "FP" . rand(10000, 99999999) ?>" hidden>
+                        <input id="ORDER_ID" tabindex="1" maxlength="20" size="20" name="ORDER_ID" autocomplete="off" value="<?php echo  "P" . $currentProfile->id . "PAYFP" . rand(10000, 99999999) ?>" hidden>
                     </div>
                     <div class="form-group">
                         <!-- <label>Profile Id: </label> -->
@@ -185,12 +186,50 @@
                 </form>
             </div>
         </div>
-        
-        <div id="submitButtonDiv" class="buttons" style="display: none">
-			<div class="my-buttons" style="text-align: center;">
-				<a href="#" id="submitButton" class="my-buttons" style="text-align: center" onclick="paymentClicked()" >Proceed to pay</a>
+        <div id="submitButtonDiv" class="table-responsive" style="display: none">
+			<table border="1" style="margin-left:auto; margin-right:auto;">
+				<tr>
+					<th colspan="2">
+						<div style="margin: 30px 30px 30px 30px; text-align: center;">
+							<h3><b>Payment Options</b></h3>
+						</div>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b style="color: blue;">Pay</b><b style="color: lightskyblue;">tm</b> / <b style="color: grey;"><i>UPI</i></b>
+						</div>
+					</td>
+					<td>
+                        <div class="buttons">
+		                	<div class="my-buttons" style="text-align: center;">
+                                <a href="#" id="submitButton" class="my-buttons" style="text-align: center" onclick="paymentClicked()" >Proceed to pay</a>
+                                <br>Automatic promotion after payment
+		                	</div>
+                        </div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b style="color: #c32143;">Bank Deposit</b>
+						</div>
+					</td>
+					<td>
+						<div style="margin: 30px 30px 30px 30px">
+							<b>Bank Name:</b> SBI
+							<br><b>Account Name:</b> Jinkal Panchal
+							<br><b>Account No:</b> 37523768384
+                            <br><b>IFSC Code:</b> SBIN0019050
+                            <br>After payment, send us your transaction id, profile id and amount paid on whatsapp (9426155564) or email (info@panchalconnect.com).
+							<br>We will promote your profile within 24hours.
+						</div>
+					</td>
+				</tr>
+			</table>
 			</div>
-        </div>
+        
 
         @else
             <div class="alert alert-warning">

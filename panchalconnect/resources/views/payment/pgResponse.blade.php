@@ -53,7 +53,11 @@ header("Expires: 0");
 					$txnid = $params['TXNID'];
 					$samepayments = App\Payment::all()->where('TXNID','=',$txnid);
 					if ($samepayments == null || sizeof($samepayments) == 0) {
-						$paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+						if (Auth()->User() != null) {
+							$paymentController->storePaymentDetails($params, Auth()->User()->Profile->id);
+						} else {
+							$paymentController->storePaymentDetailsWithoutProfile($params);
+						}
 					}
 				}
 			}
