@@ -350,6 +350,14 @@
 		</div>
 	</div>
 </div>
+<div class="grid_1">
+	<div class="container"  style="text-align: center">
+	<a href="https://www.bluehost.com/track/cooldeep/panchalconnect" target="_blank">
+                        <img border="0" src="https://bluehost-cdn.com/media/partner/images/cooldeep/728x90/728x90BW.png">
+                        </a>
+                    
+	</div>
+</div>
 <script type="text/javascript" src="js/jquery.flexisel.js"></script>
 <script type="text/javascript">
 	$(window).load(function() {

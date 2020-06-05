@@ -612,8 +612,31 @@
 			</div>
 			<div class="clearfix"> </div>
 		</div>
+
+		<!-- Right Side Bar -->
+        <div class="col-md-3 match_right">
+			<div class="profile_search1">
+                <form method="post" id="profile_search_form" onsubmit="setAction()">
+                    @CSRF
+                    <input type="hidden" name="_method" value="GET" />
+                    Search By Id: <input type="text" class="m_1" name="profilesearchid" size="30" placeholder="Enter Profile ID" required>
+                    <input type="submit" value="Go">
+                </form>
+            </div>
+            <section class="slider">
+
+            </section>
+            <a href="https://www.bluehost.com/track/cooldeep/panchalconnect" target="_blank">
+                        <img border="0" src="https://bluehost-cdn.com/media/partner/images/cooldeep/300x250/300x250BW.png">
+                        </a>
+		</div>
 	</div>
 	<script>
 		document.getElementById('notificationCount').innerText = <?php echo ($newRequestReceiveds != null) ? $newRequestReceiveds->count() : 0; ?>;
+
+		function setAction() {
+        var your_form = document.getElementById('profile_search_form');
+        your_form.action = "/profile/" + document.getElementsByName("profilesearchid")[0].value;
+    }
 	</script>
 	@endsection

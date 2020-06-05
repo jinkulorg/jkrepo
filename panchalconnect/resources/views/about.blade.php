@@ -44,6 +44,9 @@ To create something like this for our community was our dream and we would try o
 that is required in using this. And we assure you that we will constantly monitoring this application and maintain it well. 
 Our primary values are to help people in various ways, so we are starting with this matrimonial application but we will also be 
 looking forward to other ways where we can help in our community other than this matrimonial application in future.
+<br><br>
+panchalconnect.com is also participant in Bluehost Affiliate Team, an affiliate advertising program designed to provide a means for 
+sites to earn advertising fees by advertising and linking to bluehost.com
 <br><br><br>
 Developed and designed by,
 <br><br>

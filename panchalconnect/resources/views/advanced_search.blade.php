@@ -236,6 +236,9 @@
       <section class="slider">
 
       </section>
+      <a href="https://www.bluehost.com/track/cooldeep/panchalconnect" target="_blank">
+                        <img border="0" src="https://bluehost-cdn.com/media/partner/images/cooldeep/300x250/300x250BW.png">
+                        </a>
       <div class="view_profile view_profile2">
         <h3>Recently Viewed Profiles</h3>
         <?php
