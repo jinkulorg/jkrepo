@@ -34,6 +34,9 @@ Route::get('/terms',function(){
 Route::get('/feedback',function(){
     return view('feedback');
 });
+Route::get('/disclaimer',function(){
+    return view('disclaimer');
+});
 
 Auth::routes(['verify'=>true]);
 

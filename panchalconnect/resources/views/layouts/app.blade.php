@@ -251,7 +251,8 @@
 			<div class="col-md-4 col_2">
 				<h4>About Us</h4>
 				<p>"<b>Panchal Connect</b> is the platform made for the people especially for Panchal community, who are looking for their life partner.
-			It provides the unique facility of searching profiles having mutual references."</p>
+				panchalconnect.com is also participant in Bluehost Affiliate Team, an affiliate advertising program designed to provide a means for 
+sites to earn advertising fees by advertising and linking to bluehost.com"</p>
 			</div>
 			<div class="col-md-2 col_2">
 				<h4>Explore</h4>
@@ -274,7 +275,7 @@
 				<ul class="footer_links">
 					<li><a href="/privacy">Privacy Policy</a></li>
 					<li><a href="/terms">Terms and Conditions</a></li>
-
+					<li><a href="/disclaimer">Disclaimer</a></li>
 				</ul>
 			</div>
 			<div class="col-md-2 col_2">
