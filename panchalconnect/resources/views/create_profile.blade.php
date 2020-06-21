@@ -1070,6 +1070,8 @@
                                 </table>
                             </div>
                         </div>
+                        <hr>
+                        <p><i class='fa fa-check' aria-hidden='true'></i> I accept all terms and condition on submitting this profile.</p>
                     </div>
                     <!--------------------Review & Submit---------------------------------------->
 

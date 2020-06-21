@@ -160,6 +160,12 @@
 <div class="grid_1">
 	<div class="container">
 		<h1>Featured Profiles</h1>
+		@guest
+		@else
+		<div style="text-align: center">
+			<a href="/featuredprofile">Click here to promote your profile</a>
+		</div>
+		@endguest
 		<div class="heart-divider">
 			<span class="grey-line"></span>
 			<i class="fa fa-heart pink-heart"></i>
