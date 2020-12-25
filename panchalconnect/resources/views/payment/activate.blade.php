@@ -81,7 +81,7 @@ header("Expires: 0");
 			<h3>
 				@if(OFFER_FREE == "FREE" && ($currentProfile->gender == 'M' && $totalMaleProfiles < MAX_FREE_PROFILE_FOR_BOYS) || ($currentProfile->gender == 'F' && $totalFemaleProfiles < MAX_FREE_PROFILE_FOR_GIRLS))
 					<b>
-						<i class="fa fa-arrow-right" aria-hidden="true"></i> 100% FREE for GIRLS to activate your profile and get these benefits for one year
+						<i class="fa fa-arrow-right" aria-hidden="true"></i> 100% FREE to activate your profile and get these benefits for one year
 					</b>
 				@else
 				<b>

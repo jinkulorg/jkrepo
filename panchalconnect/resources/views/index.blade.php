@@ -296,6 +296,28 @@
 <div class="grid_1">
 	<div class="container">
 		<hr>
+		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT == null && OFFER_FREE == "FREE") ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
+			<div style="font-size: 25px; ">
+				<h3 style="text-align: center">
+					<b style="text-shadow: 4px 4px 8px white, 8px 8px 8px #da8698;">
+						<i class="fa fa-star" aria-hidden="true"></i> New Offer <i class="fa fa-star" aria-hidden="true"></i>
+					</b>
+				</h3>
+				<hr>
+				<h3 style="text-align: center; line-height: 2em">
+					<b>
+						[ 100% FREE ]
+						<br>Free to activate your profile for one year
+						<br>Hurry!! Offer valid till {{OFFER_END_DATE}}
+					</b>
+				</h3>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grid_1">
+	<div class="container">
+		<hr>
 		<div class="basic_1 alert alert-info" style="display: <?php echo (OFFER_AMOUNT != null) ? "block" : "none"?>; border: 2px solid gray; border-radius: 35px">
 			<div style="font-size: 25px; ">
 				<h3 style="text-align: center">
